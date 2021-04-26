@@ -1,0 +1,10 @@
+#mainHeaderHolder {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #db9d30;
+}
+
+#mybrew {
+    margin: 5px 0 5px 0;
+}

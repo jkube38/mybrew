@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Fredoka+One&family=Pacifico&display=swap');
+
+body {
+    background-color: black;
+}
+
+#proPic {
+    width: 200px;
+}
+
+#userInitials {
+    font-family: 'Fredoka One', cursive;
+    font-size: 60px;
+    text-transform: uppercase;
+}
+
+#breweryHolder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 0;
+}
+
+.singleBrewery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #db9d30;
+    margin: 15px 0 15px 0;
+    width: 300px;
+    font-family: 'Fredoka One', cursive;
+    font-weight: lighter;
+}
+
+.bStreet {
+    margin: 0 0 2px 0;
+}
+
+.bCityState {
+    margin: 2px 0 10px 0;
+}
+
+.bUrl {
+    margin: 18px 0 18px 0;
+}
+
+#userDetails {
+    display: flex;
+    justify-content: space-around;
+    background-color: #76bf60;
+    position: sticky; top: 0;
+    z-index: 1;
+}
+
+#nameLocationHolder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#profilePicHolder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#proPic {
+    border-radius: 100px;
+    margin: 10px 0 10px 0;
+}
+
+#faveBeerHolder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
