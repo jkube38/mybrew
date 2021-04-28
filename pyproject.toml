@@ -9,7 +9,6 @@ python = "^3.9"
 Django = "^3.2"
 flake8 = "^3.9.1"
 requests = "^2.25.1"
-django-localflavor = "^3.0.1"
 [tool.poetry.dev-dependencies]
 
 [build-system]

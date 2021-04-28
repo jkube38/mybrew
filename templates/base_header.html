@@ -2,12 +2,24 @@
 <link rel='stylesheet' href="{% static 'base_header.css' %}">
 
 <div id='mainHeaderHolder'>
-    <h1 id='mybrew'>MY BREW</h1>
-        <div id='loginLogout'>
+    <div id='logoHolder'>
+        <a href='/'><img src='/media/images/my_brew_logo.png' alt='my brew logo' id='headerLogo' /></a>
+    </div>
+    <div id='statesearchformHolder'>
+        <form  action='' method="post" id='state_form'>
+            {% csrf_token %}
+            {{ state_form }}
+            <input type="submit" value="search">
+        </form>
+    </div>
+    <div id='loginLogout'>
         {% if request.user.is_authenticated %}
-            <a href='/logout/' id='logout'>Logout</a>
+            <a href='/logout/' id='logout'><h3 id='logout'>Logout </h3></a>
+            <h3 id='logout'> | </h3>
+            <h3 id='username'> {{ request.user.username }}</h3>
         {% else %}
             <a href="/login/" id='login'>Login</a>
+            <a href="/signup/" id='signup'>Signup</a>
         {% endif %}
     </div>
 

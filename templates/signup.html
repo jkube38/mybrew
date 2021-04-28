@@ -1,3 +1,6 @@
+{% extends 'base_header.html' %}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,13 +12,14 @@
     <title>My Brew | Signup</title>
 </head>
 <body>
-    
-</body>
-</html>
+
+
 <div id='formHolder'>
     <div id='friendsDrinking'>
         <h2 id='join'>Join Our Community</h2>
-        <h2 id='mybrewtext'>MY BREW</h2>
+        <div id='logoholderSignup'>
+            <img src='/media/images/my_brew_logo.png' alt='my brew logo' id='mybrewlogo' />
+        </div>
     </div>
     <div id='formNText'>
         <form  action='' method="post" id='form'>
@@ -24,5 +28,8 @@
             <input type="submit" value="Signup">
             <h6 id='required'>* Required</h6>
         </form>
+    </div>
 </div>
-</div>
+{% endblock %}
+</body>
+</html>

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Fredoka+One&family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 
 body {
     background-color: black;
@@ -70,19 +71,31 @@ body {
 }
 
 #join {
-    font-family: 'Dancing Script', cursive;
-    color: white;
+    font-family: 'Raleway', sans-serif;
+    color: black;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.466);
+    background-color: rgba(255, 255, 255, 0.329);
     margin: 0 0 5px 0;
     padding: 0 0 5px 0;    
 }
 
 #mybrewtext {
-    font-family: 'Fredoka One', cursive;
     color: white;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.466);
     margin: 0 0 0 0;
     padding: 0 0 0 0; 
+}
+
+#logoholderSignup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.329);
+}
+
+#mybrewlogo {
+    width: 80%;
+    margin: 10px 0 10px 0;
+    
 }

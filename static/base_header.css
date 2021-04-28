@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
 #mainHeaderHolder {
     display: flex;
     justify-content: space-around;
@@ -7,4 +9,56 @@
 
 #mybrew {
     margin: 5px 0 5px 0;
+}
+
+#headerLogo {
+    width: 60%;
+    margin: 10px 0 5px 0;
+
+}
+
+#loginLogout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+}
+
+#logoHolder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+}
+
+#login {
+    font-family: 'Raleway', sans-serif;
+    text-decoration: none;
+    color: black;
+    font-size: 25px;
+    margin: 0 20px 0 0;
+}
+
+#signup {
+    font-family: 'Raleway', sans-serif;
+    text-decoration: none;
+    color: black;
+    font-size: 25px;
+    margin: 0 0 0 20px;
+}
+
+#logout {
+    font-family: 'Raleway', sans-serif;
+    text-decoration: none;
+    color: black;
+    font-size: 25px;
+    margin: 0 0 0 20px;
+}
+
+#username {
+    font-family: 'Raleway', sans-serif;
+    text-decoration: none;
+    color: black;
+    font-size: 25px;
+    margin: 0 0 0 20px;
 }

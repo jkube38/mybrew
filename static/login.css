@@ -1,0 +1,42 @@
+body {
+    background-color: black;
+}
+
+#formNText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-image: url('/media/images/hops-flowers.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 225px;
+    margin: 50px 0 0 0;
+}
+
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    background-color: #db9d30;
+    width: 20%;
+    border: 2px solid black;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px 0 0 0;
+}
+
+#required {
+    margin: 5px 0 15px 0;
+}
+
+#id_username {
+    margin-bottom: 5px;
+}
+
+#id_password {
+    margin-bottom: 5px;
+}
