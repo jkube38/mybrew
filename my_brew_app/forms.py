@@ -73,14 +73,14 @@ class SignUpForm(forms.Form):
 
     state = forms.ChoiceField(
         label='',
-        required=False,
+        required=True,
         choices=STATE_CHOICES
     )
 
     city = forms.CharField(
         max_length=60,
         label='',
-        required=False,
+        required=True,
         widget=forms.TextInput(attrs={
             'placeholder': 'City'
         })

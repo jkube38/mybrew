@@ -57,11 +57,11 @@
                 <div class='ratingHolder'>
                     <h4 id='ratingTitle'>Rate Us</h4>
                     <div class='glasses'>
-                        <a href='rate/1/{{brewery.id}}/'><div class='beerGlass' id='rate1'>1</div></a>
-                        <a href='rate/2/{{brewery.id}}/'><div class='beerGlass' id='rate2'>2</div></a>
-                        <a href='rate/3/{{brewery.id}}/'><div class='beerGlass' id='rate3'>3</div></a>
-                        <a href='rate/4/{{brewery.id}}/'><div class='beerGlass' id='rate4'>4</div></a>
-                        <a href='rate/5/{{brewery.id}}/'><div class='beerGlass' id='rate5'>5</div></a>
+                        <a href='/rate/1/{{brewery.id}}/'><div class='beerGlass' id='rate1' onmouseover="ratingIcons1()" onmouseout="ratingIcons11()"></div></a>
+                        <a href='/rate/2/{{brewery.id}}/'><div class='beerGlass' id='rate2' onmouseover="ratingIcons2()" onmouseout="ratingIcons21()"></div></a>
+                        <a href='/rate/3/{{brewery.id}}/'><div class='beerGlass' id='rate3' onmouseover="ratingIcons3()" onmouseout="ratingIcons31()"></div></a>
+                        <a href='/rate/4/{{brewery.id}}/'><div class='beerGlass' id='rate4' onmouseover="ratingIcons4()" onmouseout="ratingIcons41()"></div></a>
+                        <a href='/rate/5/{{brewery.id}}/'><div class='beerGlass' id='rate5' onmouseover="ratingIcons5()" onmouseout="ratingIcons51()"></div></a>
                     </div>
                     <h4 id='rating'>Rated</h4>
                     {% if brewery.rating > 0 %}
@@ -76,6 +76,8 @@
     </div>
 </div>
     {% endif %}
+    {% load static %}
+    <script src="{% static 'rating_icons.js'%}"></script>
     {% endblock%}
 </body>
 </html>
