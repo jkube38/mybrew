@@ -23,6 +23,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('', views.home_view, name='home'),
+    path('stateresults/<str:state>/', views.state_view, name='state'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('signup/', views.signup_view, name='signup'),
@@ -30,6 +31,11 @@ urlpatterns = [
         'favorite/<int:brew_id>/',
         views.favorite_brewery_view,
         name='favorite'
+    ),
+    path(
+        'rate/<int:rated>/<int:brewery_id>/',
+        views.rating_view,
+        name='rating'
     ),
     path('admin/', admin.site.urls),
 ]

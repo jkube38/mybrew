@@ -15,6 +15,9 @@ class Breweries(models.Model):
     latitude = models.CharField(max_length=180, null=True)
     phone = models.CharField(max_length=11, null=True)
     website_url = models.URLField(max_length=350, null=True)
+    rating_total = models.IntegerField(default=0)
+    num_votes = models.IntegerField(default=0)
+    rating = models.FloatField(max_length=12, default=0)
 
     def __str__(self):
         return self.name

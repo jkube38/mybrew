@@ -121,3 +121,14 @@ class LoginForm(forms.Form):
             'placeholder': '*Password'
         })
     )
+
+
+class StateSearchForm(forms.Form):
+    state_search = forms.CharField(
+        max_length=180,
+        label='',
+        required=True,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Search By State'
+        })
+    )
