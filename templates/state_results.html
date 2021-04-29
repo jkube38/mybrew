@@ -56,16 +56,16 @@
                 {% if brewery.id in fave_list_ids %}
                 <div class='ratingHolder'>
                     <h4 id='ratingTitle'>Rate Us</h4>
-                    <div class='glasses'>
-                        <a href='/rate/1/{{brewery.id}}/'><div class='beerGlass' id='rate1' onmouseover="ratingIcons1()" onmouseout="ratingIcons11()"></div></a>
-                        <a href='/rate/2/{{brewery.id}}/'><div class='beerGlass' id='rate2' onmouseover="ratingIcons2()" onmouseout="ratingIcons21()"></div></a>
-                        <a href='/rate/3/{{brewery.id}}/'><div class='beerGlass' id='rate3' onmouseover="ratingIcons3()" onmouseout="ratingIcons31()"></div></a>
-                        <a href='/rate/4/{{brewery.id}}/'><div class='beerGlass' id='rate4' onmouseover="ratingIcons4()" onmouseout="ratingIcons41()"></div></a>
-                        <a href='/rate/5/{{brewery.id}}/'><div class='beerGlass' id='rate5' onmouseover="ratingIcons5()" onmouseout="ratingIcons51()"></div></a>
+                    <div class='hops'>
+                        <a href='/rate/1/{{brewery.id}}/'><div class='beerGlass' id='rate1{{ forloop.counter}}' onmouseover="hop1{{ forloop.counter }}Hover()" onmouseout="hop1{{ forloop.counter }}Exit()"></div></a>
+                        <a href='/rate/2/{{brewery.id}}/'><div class='beerGlass' id='rate2{{ forloop.counter}}' onmouseover="hop2{{ forloop.counter }}Hover()" onmouseout="hop2{{ forloop.counter }}Exit()"></div></a>
+                        <a href='/rate/3/{{brewery.id}}/'><div class='beerGlass' id='rate3{{ forloop.counter}}' onmouseover="hop3{{ forloop.counter }}Hover()" onmouseout="hop3{{ forloop.counter }}Exit()"></div></a>
+                        <a href='/rate/4/{{brewery.id}}/'><div class='beerGlass' id='rate4{{ forloop.counter}}' onmouseover="hop4{{ forloop.counter }}Hover()" onmouseout="hop4{{ forloop.counter }}Exit()"></div></a>
+                        <a href='/rate/5/{{brewery.id}}/'><div class='beerGlass' id='rate5{{ forloop.counter}}' onmouseover="hop5{{ forloop.counter }}Hover()" onmouseout="hop5{{ forloop.counter }}Exit()"></div></a>
                     </div>
                     <h4 id='rating'>Rated</h4>
                     {% if brewery.rating > 0 %}
-                        <h5 class='brewRating'>{{brewery.rating}} Brews out of 5</h5>
+                        <h5 class='brewRating'>{{brewery.rating}} Hops out of 5</h5>
                     {% else %}
                         <h5 class='brewRating'>This Brewery Has Not Been Rated Yet</h5>
                     {% endif %}

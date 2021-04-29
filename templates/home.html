@@ -31,6 +31,7 @@
         <div id='faveBeerHolder'>
             <h2 id='favoriteBeerTitle'>My Go To Beer</h2>
             <h2 id='favoriteBeer'>{{ request.user.favorite_beer}}</h2>
+            <a href='/updateuser/{{request.user.id}}/'><h4 id='updateUser'>Update Profile</h4></a>
         </div>
     </div>
     <div id='breweryHolder'>

@@ -37,6 +37,11 @@ urlpatterns = [
         views.rating_view,
         name='rating'
     ),
+    path(
+        'updateuser/<int:user_id>/',
+        views.update_user_view,
+        name='update_user'
+    ),
     path('admin/', admin.site.urls),
 ]
 
