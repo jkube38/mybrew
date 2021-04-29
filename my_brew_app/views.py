@@ -3,6 +3,7 @@ from django.contrib.auth import login, logout, authenticate
 from itertools import chain
 from my_brew_app.models import MyBrewUser, Breweries
 from my_brew_app.forms import SignUpForm, LoginForm, StateSearchForm
+from my_brew_app.forms import UserUpdateForm
 from my_brew_app.api_helpers import state_search
 import requests
 
@@ -268,3 +269,24 @@ def state_view(request, state):
         'fave_list_ids': fave_list_ids
     })
     return render(request, 'state_results.html', context)
+
+
+def update_user_view(request, user_id):
+    if request.method == 'POST':
+        profile_form = UserUpdateForm(
+            request.POST, request.FILES, instance=request.user
+        )
+        if profile_form.is_valid():
+            profile_form.cleaned_data
+            profile_form.save()
+            return redirect(reverse('home'))
+    else:
+        profile_form = UserUpdateForm(initial={
+            'username': request.user.username,
+            'email': request.user.email,
+            'state': request.user.state,
+            'city': request.user.city,
+            'favorite_beer': request.user.favorite_beer,
+            'profile_pic': request.user.profile_pic
+        })
+    return render(request, 'update_user.html', {'profile_form': profile_form})
