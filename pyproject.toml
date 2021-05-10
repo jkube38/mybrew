@@ -9,6 +9,7 @@ python = "^3.9"
 Django = "^3.2"
 flake8 = "^3.9.1"
 requests = "^2.25.1"
+python-decouple = "^3.4"
 [tool.poetry.dev-dependencies]
 
 [build-system]

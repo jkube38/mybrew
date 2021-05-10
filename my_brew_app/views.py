@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import login, logout, authenticate
 from itertools import chain
+from decouple import config
 from my_brew_app.models import MyBrewUser, Breweries
 from my_brew_app.forms import SignUpForm, LoginForm, StateSearchForm
 from my_brew_app.forms import UserUpdateForm
@@ -106,7 +107,7 @@ def home_view(request):
             url = "https://brianiswu-open-brewery-db-v1.p.rapidapi.com/breweries"
             querystring = {"by_state": request.user.state}
             headers = {
-                'x-rapidapi-key': "1ddf0a8da3msh877010e622bf74dp10873cjsnd762a292965a",
+                'x-rapidapi-key': config('MY_BREW_API_KEY'),
                 'x-rapidapi-host': "brianiswu-open-brewery-db-v1.p.rapidapi.com"
             }
             response = requests.request(
@@ -216,19 +217,17 @@ def rating_view(request, rated, brewery_id):
         return redirect(reverse('home'))
     else:
         return redirect(f'/stateresults/{ update_brewery.state }/')
-    # return redirect(reverse('home'))
 
 
 def state_view(request, state):
     context = {}
     state_search_results = request.session.get('state_search_results')
+    db_breweries = Breweries.objects.all()
 
     fave_list_ids = []
-
     brew_user = request.user
     if brew_user.is_anonymous is False:
         favorite_list = list((brew_user.favorites.all()))
-        db_breweries = Breweries.objects.all()
         for brewery in favorite_list:
             fave_list_ids.append(brewery.id)
 
@@ -238,26 +237,16 @@ def state_view(request, state):
         #     if request.user.city == brew['city']:
         #         state_brews.append(brew)
 
-        for brewery in db_breweries:
-            for state in state_search_results:
-                if brewery.id == state['id']:
-                    state['rating'] = brewery.rating
-
+    # runs search bar in header
     state_breweries = state_search(request)
     if state_breweries:
         request.session['state_search_results'] = state_breweries
-        state_search_results = request.session.get('state_search_results')
-        state_form = StateSearchForm()
-        state = state_search_results[0]["state"]
-        print(state)
-        context.update({
-            'state_form': state_form,
-            'search_results': state_search_results,
-            'state': state,
-            # 'state_brews': state_brews,
-            'fave_list_ids': fave_list_ids
-        })
-        return render(request, 'state_results.html', context)
+        return redirect(f'/stateresults/{state_breweries[0]["state"]}/')
+
+    for brewery in db_breweries:
+        for state in state_search_results:
+            if brewery.id == state['id']:
+                state['rating'] = brewery.rating
 
     state_form = StateSearchForm()
     state = state_search_results[0]['state']
@@ -272,6 +261,15 @@ def state_view(request, state):
 
 
 def update_user_view(request, user_id):
+
+    context = {}
+
+    # runs the header search bar
+    state_breweries = state_search(request)
+    if state_breweries:
+        request.session['state_search_results'] = state_breweries
+        return redirect(f'/stateresults/{state_breweries[0]["state"]}/')
+
     if request.method == 'POST':
         profile_form = UserUpdateForm(
             request.POST, request.FILES, instance=request.user
@@ -289,4 +287,14 @@ def update_user_view(request, user_id):
             'favorite_beer': request.user.favorite_beer,
             'profile_pic': request.user.profile_pic
         })
-    return render(request, 'update_user.html', {'profile_form': profile_form})
+
+    state_form = StateSearchForm()
+    context.update({
+        'profile_form': profile_form,
+        'state_form': state_form
+    })
+    return render(request, 'update_user.html', context)
+
+
+# Link to google maps https://maps.google.com/?q=<lat>,<lng>
+# Try it in a modal
