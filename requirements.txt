@@ -1,0 +1,15 @@
+asgiref @ file:///Users/kube/Library/Caches/pypoetry/artifacts/fe/db/83/0ae447caa7129971ac3189887098d047d0257c23b979d0f76c93496c95/asgiref-3.3.4-py3-none-any.whl
+certifi @ file:///Users/kube/Library/Caches/pypoetry/artifacts/d8/df/24/ed696681f34f8916b0aef99138db9a94e37d54684b9829af34a7fd4e39/certifi-2020.12.5-py2.py3-none-any.whl
+chardet @ file:///Users/kube/Library/Caches/pypoetry/artifacts/11/63/f9/797eda27963177a6b75a340f62aa194d462ea69e6b0dbb77a651fa2b62/chardet-4.0.0-py2.py3-none-any.whl
+Django @ file:///Users/kube/Library/Caches/pypoetry/artifacts/0f/66/af/c29df6d4be04cd385195a3d9e063da66066284df0e046700bd386042cd/Django-3.2-py3-none-any.whl
+flake8 @ file:///Users/kube/Library/Caches/pypoetry/artifacts/13/5d/70/2fd2b1c5dd33d07b6deecb5a76e111fd12cd1a23d53309cbbb5b0a0c5a/flake8-3.9.1-py2.py3-none-any.whl
+gunicorn==20.1.0
+idna @ file:///Users/kube/Library/Caches/pypoetry/artifacts/ef/7f/a9/19cc0b8760bdf6f696290c06532496f8bb29fbdaad044f852fed00ec82/idna-2.10-py2.py3-none-any.whl
+mccabe @ file:///Users/kube/Library/Caches/pypoetry/artifacts/96/5e/5f/21ae5296697ca7f94de4da6e21d4936d74029c352a35202e4c339a4253/mccabe-0.6.1-py2.py3-none-any.whl
+pycodestyle @ file:///Users/kube/Library/Caches/pypoetry/artifacts/4c/30/97/026c283ef67eb248e5b7e6fad1f8ffb99dae50c11fd93eb939fd7c1f46/pycodestyle-2.7.0-py2.py3-none-any.whl
+pyflakes @ file:///Users/kube/Library/Caches/pypoetry/artifacts/eb/c4/2c/47fcc1b3f387b1f7033e85b3ac6ee7772338461a8de8ac3977c6a7dcc1/pyflakes-2.3.1-py2.py3-none-any.whl
+python-decouple @ file:///Users/kube/Library/Caches/pypoetry/artifacts/d2/0b/b5/ae15ff5121558626e78951022bcfa47d4c5a945621354ac4d376395d30/python_decouple-3.4-py3-none-any.whl
+pytz @ file:///Users/kube/Library/Caches/pypoetry/artifacts/b0/a7/8d/54de3ab4d1ff29abbbca1e9ccbaefdc2a1b290138311b84f73bee16de1/pytz-2021.1-py2.py3-none-any.whl
+requests @ file:///Users/kube/Library/Caches/pypoetry/artifacts/22/0a/9d/0df883fbffbb406d0cddbb35e881e4ac6bfb8f0dee8733056b6a054bf7/requests-2.25.1-py2.py3-none-any.whl
+sqlparse @ file:///Users/kube/Library/Caches/pypoetry/artifacts/bc/af/02/8aa71b17fd39b26b858293918c5c6412f83768a0bfd0a4626f660aa5f8/sqlparse-0.4.1-py3-none-any.whl
+urllib3 @ file:///Users/kube/Library/Caches/pypoetry/artifacts/fa/fd/9d/56169af5b3d1505ce8a40dc152136e8733b2df5060a6f86f013a1a9b3d/urllib3-1.26.4-py2.py3-none-any.whl
