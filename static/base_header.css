@@ -1,10 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 
 #mainHeaderHolder {
+    height: 135px;
+    background-image: url('/media/images/wood-grain.png');
+    background-size: cover;
+    
+}
+
+#orange {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: #db9d30;
+    height: 100%;
+    width: 100%;
+    background-color: #db9c307e;
 }
 
 #mybrew {
@@ -61,4 +70,14 @@
     color: black;
     font-size: 25px;
     margin: 0 0 0 20px;
+}
+
+#state_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#id_state_search {
+    margin: 0 0 8px 0;
 }

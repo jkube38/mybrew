@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Fredoka+One&family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 
 body {
@@ -52,6 +52,8 @@ body {
 #proPic {
     width: 60%;
     border: 2px solid white;
+    border-radius: 100px;
+    margin: 10px 0 10px 0;
 }
 
 #userInitials {
@@ -68,13 +70,14 @@ body {
 
 .singleBrewery {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: space-around;
     text-align: center;
     background-color: white;
     background-image: url('/media//images/hops_banner.png');
     background-repeat: no-repeat;
     background-position: bottom left;
+    background-size: 70%;
     margin: 15px 0 15px 0;
     width: 85%;
     font-family: 'Fredoka One', cursive;
@@ -108,11 +111,6 @@ body {
     width: 50%;
 }
 
-#proPic {
-    border-radius: 100px;
-    margin: 10px 0 10px 0;
-}
-
 #faveBeerHolder {
     display: flex;
     flex-direction: column;
@@ -120,8 +118,9 @@ body {
     justify-content: center;
 }
 
-#ratingHolder {
+.ratingHolder {
     display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 
@@ -147,10 +146,75 @@ a:link {
 }
 
 #rating {
-    margin: 15px 0 5px 0;
+    margin: 5px 0 5px 0;
 }
 
 .brewRating {
     margin: 5px 0 15px 0;
 }
 
+.nameAddress {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 50%;
+}
+
+.ratings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+}
+
+#inFavorites {
+    margin: 25px 0 5px 0;
+    width: 65%;
+    text-align: center;
+}
+
+#ratingTitle {
+    margin: 5px 0 10px 0;
+}
+
+.bUrl {
+    color: black;
+}
+
+.voteWhenAdded {
+    width: 45%;
+    text-align: center;
+    margin: 0 0 22px 0;
+}
+
+#updateUser {
+    color: rgb(78, 67, 48);
+    font-size: .75vw;
+    margin: 0 0 14 0;
+}
+
+#favorite {
+    color: black;
+}
+
+#welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 50px 0 0 0;
+}
+
+#welcomeImg {
+    width: 35%;
+}
+
+#welcomeText {
+    font-family: 'Raleway', sans-serif;
+    color: white;
+    width: 40%;
+    text-align: center;
+
+}
