@@ -74,7 +74,7 @@ body {
     justify-content: space-around;
     text-align: center;
     background-color: white;
-    background-image: url('/media//images/hops_banner.png');
+    background-image: url('/static/images/hops_banner.png');
     background-repeat: no-repeat;
     background-position: bottom left;
     background-size: 70%;

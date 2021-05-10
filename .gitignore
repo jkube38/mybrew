@@ -132,4 +132,4 @@ dmypy.json
 .vscode
 
 # Media (user profile pics)
-# /media
+/media

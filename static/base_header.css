@@ -2,7 +2,7 @@
 
 #mainHeaderHolder {
     height: 135px;
-    background-image: url('/media/images/wood-grain.png');
+    background-image: url('/static/images/wood-grain.png');
     background-size: cover;
     
 }
