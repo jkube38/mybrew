@@ -30,7 +30,7 @@ DEBUG = False
 if DEBUG:
     ALLOWED_HOSTS = ['*']
 else:
-    ALLOWED_HOSTS = ['104.131.185.166', '.mybrew.us']
+    ALLOWED_HOSTS = ['104.131.185.166', '.mybrew.us', 'www.mybrew.us']
 
 
 # Application definition
@@ -79,12 +79,14 @@ WSGI_APPLICATION = 'my_brew.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+# else:
 
 
 # Password validation
