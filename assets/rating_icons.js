@@ -12,14 +12,14 @@ function ratingIcons1() {
                     this[`hop${hop}${brewery}Hover`] = () => {
 
                         let oneHop = document.getElementById(`rate${hop}${brewery}`)
-                        oneHop.style.backgroundImage = "url('/static/images/green_hop.png')"
+                        oneHop.style.backgroundImage = "url('/assets/images/green_hop.png')"
                         
                     },
 
                     this[`hop${hop}${brewery}Exit`] = () => {
                 
                         let oneHop = document.getElementById(`rate${hop}${brewery}`)
-                        oneHop.style.backgroundImage = "url('/static/images/white_hop.png')"
+                        oneHop.style.backgroundImage = "url('/assets/images/white_hop.png')"
                         
                     }
                 )
@@ -30,8 +30,8 @@ function ratingIcons1() {
 
                         let oneHop = document.getElementById(`rate${hop - 1}${brewery}`)
                         let twoHop = document.getElementById(`rate${hop}${brewery}`)
-                        oneHop.style.backgroundImage = "url('/static/images/green_hop.png')"
-                        twoHop.style.backgroundImage = "url('/static/images/green_hop.png')"
+                        oneHop.style.backgroundImage = "url('/assets/images/green_hop.png')"
+                        twoHop.style.backgroundImage = "url('/assets/images/green_hop.png')"
                         
                     },
 
@@ -39,8 +39,8 @@ function ratingIcons1() {
                 
                         let oneHop = document.getElementById(`rate${hop - 1}${brewery}`)
                         let twoHop = document.getElementById(`rate${hop}${brewery}`)
-                        oneHop.style.backgroundImage = "url('/static/images/white_hop.png')"
-                        twoHop.style.backgroundImage = "url('/static/images/white_hop.png')"
+                        oneHop.style.backgroundImage = "url('/assets/images/white_hop.png')"
+                        twoHop.style.backgroundImage = "url('/assets/images/white_hop.png')"
                         
                     }
 
@@ -52,9 +52,9 @@ function ratingIcons1() {
                         let oneHop = document.getElementById(`rate${hop - 2}${brewery}`)
                         let twoHop = document.getElementById(`rate${hop - 1}${brewery}`)
                         let threeHop = document.getElementById(`rate${hop}${brewery}`)
-                        oneHop.style.backgroundImage = "url('/static/images/green_hop.png')"
-                        twoHop.style.backgroundImage = "url('/static/images/green_hop.png')"
-                        threeHop.style.backgroundImage = "url('/static/images/green_hop.png')"
+                        oneHop.style.backgroundImage = "url('/assets/images/green_hop.png')"
+                        twoHop.style.backgroundImage = "url('/assets/images/green_hop.png')"
+                        threeHop.style.backgroundImage = "url('/assets/images/green_hop.png')"
                         
                     },
 
@@ -63,9 +63,9 @@ function ratingIcons1() {
                         let oneHop = document.getElementById(`rate${hop - 2}${brewery}`)
                         let twoHop = document.getElementById(`rate${hop - 1}${brewery}`)
                         let threeHop = document.getElementById(`rate${hop}${brewery}`)
-                        oneHop.style.backgroundImage = "url('/static/images/white_hop.png')"
-                        twoHop.style.backgroundImage = "url('/static/images/white_hop.png')"
-                        threeHop.style.backgroundImage = "url('/static/images/white_hop.png')"
+                        oneHop.style.backgroundImage = "url('/assets/images/white_hop.png')"
+                        twoHop.style.backgroundImage = "url('/assets/images/white_hop.png')"
+                        threeHop.style.backgroundImage = "url('/assets/images/white_hop.png')"
                         
                     }
 
@@ -78,10 +78,10 @@ function ratingIcons1() {
                         let twoHop = document.getElementById(`rate${hop - 2}${brewery}`)
                         let threeHop = document.getElementById(`rate${hop -1}${brewery}`)
                         let fourHop = document.getElementById(`rate${hop}${brewery}`)
-                        oneHop.style.backgroundImage = "url('/static/images/green_hop.png')"
-                        twoHop.style.backgroundImage = "url('/static/images/green_hop.png')"
-                        threeHop.style.backgroundImage = "url('/static/images/green_hop.png')"
-                        fourHop.style.backgroundImage = "url('/static/images/green_hop.png')"
+                        oneHop.style.backgroundImage = "url('/assets/images/green_hop.png')"
+                        twoHop.style.backgroundImage = "url('/assets/images/green_hop.png')"
+                        threeHop.style.backgroundImage = "url('/assets/images/green_hop.png')"
+                        fourHop.style.backgroundImage = "url('/assets/images/green_hop.png')"
                         
                     },
 
@@ -91,10 +91,10 @@ function ratingIcons1() {
                         let twoHop = document.getElementById(`rate${hop - 2}${brewery}`)
                         let threeHop = document.getElementById(`rate${hop - 1}${brewery}`)
                         let fourHop = document.getElementById(`rate${hop}${brewery}`)
-                        oneHop.style.backgroundImage = "url('/static/images/white_hop.png')"
-                        twoHop.style.backgroundImage = "url('/static/images/white_hop.png')"
-                        threeHop.style.backgroundImage = "url('/static/images/white_hop.png')"
-                        fourHop.style.backgroundImage = "url('/static/images/white_hop.png')"
+                        oneHop.style.backgroundImage = "url('/assets/images/white_hop.png')"
+                        twoHop.style.backgroundImage = "url('/assets/images/white_hop.png')"
+                        threeHop.style.backgroundImage = "url('/assets/images/white_hop.png')"
+                        fourHop.style.backgroundImage = "url('/assets/images/white_hop.png')"
                         
                     }
                 )
@@ -107,11 +107,11 @@ function ratingIcons1() {
                         let threeHop = document.getElementById(`rate${hop -2}${brewery}`)
                         let fourHop = document.getElementById(`rate${hop - 1}${brewery}`)
                         let fiveHop = document.getElementById(`rate${hop}${brewery}`)
-                        oneHop.style.backgroundImage = "url('/static/images/green_hop.png')"
-                        twoHop.style.backgroundImage = "url('/static/images/green_hop.png')"
-                        threeHop.style.backgroundImage = "url('/static/images/green_hop.png')"
-                        fourHop.style.backgroundImage = "url('/static/images/green_hop.png')"
-                        fiveHop.style.backgroundImage = "url('/static/images/green_hop.png')"
+                        oneHop.style.backgroundImage = "url('/assets/images/green_hop.png')"
+                        twoHop.style.backgroundImage = "url('/assets/images/green_hop.png')"
+                        threeHop.style.backgroundImage = "url('/assets/images/green_hop.png')"
+                        fourHop.style.backgroundImage = "url('/assets/images/green_hop.png')"
+                        fiveHop.style.backgroundImage = "url('/assets/images/green_hop.png')"
                         
                     },
 
@@ -122,11 +122,11 @@ function ratingIcons1() {
                         let threeHop = document.getElementById(`rate${hop - 2}${brewery}`)
                         let fourHop = document.getElementById(`rate${hop - 1}${brewery}`)
                         let fiveHop = document.getElementById(`rate${hop}${brewery}`)
-                        oneHop.style.backgroundImage = "url('/static/images/white_hop.png')"
-                        twoHop.style.backgroundImage = "url('/static/images/white_hop.png')"
-                        threeHop.style.backgroundImage = "url('/static/images/white_hop.png')"
-                        fourHop.style.backgroundImage = "url('/static/images/white_hop.png')"
-                        fiveHop.style.backgroundImage = "url('/static/images/white_hop.png')"
+                        oneHop.style.backgroundImage = "url('/assets/images/white_hop.png')"
+                        twoHop.style.backgroundImage = "url('/assets/images/white_hop.png')"
+                        threeHop.style.backgroundImage = "url('/assets/images/white_hop.png')"
+                        fourHop.style.backgroundImage = "url('/assets/images/white_hop.png')"
+                        fiveHop.style.backgroundImage = "url('/assets/images/white_hop.png')"
                         
                     }
                 )
