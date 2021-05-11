@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
-    <link rel='stylesheet' href="{% assets 'home.css' %}">
+    <link rel='stylesheet' href="{% static 'home.css' %}">
     <title>My Brew | Home</title>
 </head>
 <body>
@@ -86,7 +86,7 @@
     {% else %}
     <div id='nonuserHomePage'>
         <div id='welcome'>
-            <img src='/assets/images/my-brew-welcome.png' alt="my brew welcome and logo" id='welcomeImg' />
+            <img src='/static/images/my-brew-welcome.png' alt="my brew welcome and logo" id='welcomeImg' />
             <h2 id='welcomeText'>My Brew is a brewery locator for all the craft beer lovers
                 out there, just like you. Breweries are a fun and comfortable place to sample
                 new tasty brews and unwind with friends and family. Now you can find all the 
@@ -101,7 +101,7 @@
     {% endif %}
 
     {% load static %}
-    <script src="{% assets 'rating_icons.js'%}"></script>
+    <script src="{% static 'rating_icons.js'%}"></script>
     {% endblock%}
 </body>
 </html>

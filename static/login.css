@@ -7,7 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    background-image: url('/assets/images/hops-flowers.jpg');
+    background-image: url('/static/images/hops-flowers.jpg');
     background-repeat: no-repeat;
     background-position: center;
     height: 225px;
