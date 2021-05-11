@@ -30,7 +30,7 @@ DEBUG = False
 if DEBUG:
     ALLOWED_HOSTS = ['*']
 else:
-    ALLOWED_HOSTS = ['104.131.185.166', '.mybrew.us', 'www.mybrew.us']
+    ALLOWED_HOSTS = ['167.99.124.30', '.mybrew.us', 'www.mybrew.us']
 
 
 # Application definition
@@ -86,8 +86,17 @@ if DEBUG:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-# else:
-
+else:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'mybrewdb',
+        'USER': 'kube',
+        'PASSWORD': 'quiksilver',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
