@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
-    <link rel='stylesheet' href="{% assets 'state_results.css' %}">
+    <link rel='stylesheet' href="{% static 'state_results.css' %}">
     <title>My Brew | {{ state }} Breweries</title>
 </head>
 <body>
@@ -113,7 +113,7 @@
 </div>
 {% endif %}
 {% load static %}
-<script src="{% assets 'rating_icons.js'%}"></script>
+<script src="{% static 'rating_icons.js'%}"></script>
 {% endblock %}
 </body>
 </html>

@@ -133,7 +133,7 @@ body {
     height: 50px;
     display: inline-block;
     margin: 0 3px 0 3px ;
-    background-image: url('/assets/images/white_hop.png');
+    background-image: url('/static/images/white_hop.png');
     background-repeat: no-repeat;
     background-size: contain;
     color: black;
@@ -211,7 +211,7 @@ a:link {
     justify-content: space-around;
     text-align: center;
     background-color: white;
-    background-image: url('/media//images/hops_banner.png');
+    background-image: url('/media/images/hops_banner.png');
     background-repeat: no-repeat;
     background-position: bottom left;
     background-size: 70%;
