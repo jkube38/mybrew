@@ -92,7 +92,7 @@ else:
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'mybrewdb',
         'USER': 'kube',
-        'PASSWORD': 'quiksilver38',
+        'PASSWORD': 'Quiksilver',
         'HOST': 'localhost',
         'PORT': '',
     }
