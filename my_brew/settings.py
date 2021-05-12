@@ -30,7 +30,7 @@ DEBUG = False
 if DEBUG:
     ALLOWED_HOSTS = ['*']
 else:
-    ALLOWED_HOSTS = ['167.99.124.30', '.mybrew.us', 'www.mybrew.us']
+    ALLOWED_HOSTS = ['167.99.124.30', '.mybrew.us']
 
 
 # Application definition
@@ -143,7 +143,7 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/images')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = 'my_brew_app.MyBrewUser'
 
