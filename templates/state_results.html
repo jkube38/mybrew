@@ -99,6 +99,7 @@
                     {% if brewery.website_url %}
                         <a href="{{brewery.website_url}}" target="_blank"><h5 class='bUrl2'>Visit Site</h5></a>
                     {% endif %}
+                    <a href='https://maps.google.com/?q={{brewery.street}},{{brewery.city}},{{brewery.state}}' target="_blank"><h4 class='directions'>Get Directions</h4></a>
                 </div>
                 <div class="ratedNonUser">
                     <h4 id='rating'>Rated</h4>
