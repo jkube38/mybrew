@@ -300,8 +300,20 @@ def update_user_view(request, user_id):
 # Try it in a modal
 
 def error_404(request, exception):
+    # runs the header search bar
+    state_breweries = state_search(request)
+    if state_breweries:
+        request.session['state_search_results'] = state_breweries
+        return redirect(f'/stateresults/{state_breweries[0]["state"]}/')
+
     return render(request, "404.html")
 
 
 def error_500(request):
+    # runs the header search bar
+    state_breweries = state_search(request)
+    if state_breweries:
+        request.session['state_search_results'] = state_breweries
+        return redirect(f'/stateresults/{state_breweries[0]["state"]}/')
+
     return render(request, "500.html")
