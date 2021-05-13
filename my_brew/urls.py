@@ -45,5 +45,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
+# added handler varables for views.py
+handler404 = 'my_brew_app.views.error_404'
+handler500 = 'my_brew_app.views.error_500'
+
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

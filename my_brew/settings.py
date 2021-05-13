@@ -138,6 +138,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
+# before pushing for deployed upgrade uncomment static root and
+# change static files_dirs to staticfiles
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "staticfiles"),
 ]

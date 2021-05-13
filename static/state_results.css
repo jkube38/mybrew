@@ -50,10 +50,7 @@ body {
 }
 
 #proPic {
-    object-fit: contain;
-    width: 60%;
-    border: 2px solid white;
-    border-radius: 100px;
+    width: 100%;
     margin: 10px 0 10px 0;
 }
 
@@ -109,6 +106,7 @@ body {
     align-items: center;
     justify-content: center;
     width: 50%;
+    overflow: hidden;
 }
 
 #faveBeerHolder {
@@ -142,6 +140,11 @@ body {
 
 a:link {
     text-decoration: none;
+    color: black;
+}
+
+a:visited {
+    color: rgb(87, 86, 86);
 }
 
 #rating {
