@@ -298,3 +298,10 @@ def update_user_view(request, user_id):
 
 # Link to google maps https://maps.google.com/?q=<lat>,<lng>
 # Try it in a modal
+
+def error_404(request, exception):
+    return render(request, "404.html")
+
+
+def error_500(request):
+    return render(request, "500.html")
