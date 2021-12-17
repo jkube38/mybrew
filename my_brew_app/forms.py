@@ -1,60 +1,11 @@
 from django import forms
+from django.contrib.auth import authenticate
 from my_brew_app.models import MyBrewUser
+from my_brew_app.state_choice import STATE_CHOICES
 
 
 class SignUpForm(forms.Form):
-    STATE_CHOICES = (
-        ('Alabama', 'Alabama'),
-        ('Alaska', 'Alaska'),
-        ('Arizona', 'Arizona'),
-        ('Arkansas', 'Arkansas'),
-        ('California', 'California'),
-        ('Colorado', 'Colorado'),
-        ('Connecticut', 'Connecticut'),
-        ('Delaware', 'Connecticut'),
-        ('Florida', 'Florida'),
-        ('Georgia', 'Georgia'),
-        ('Hawaii', 'Hawaii'),
-        ('Idaho', 'Idaho'),
-        ('Illinois', 'Illinois'),
-        ('Indiana', 'Illinois'),
-        ('Iowa', 'Iowa'),
-        ('Kansas', 'Kansas'),
-        ('Kentucky', 'Kentucky'),
-        ('Louisiana', 'Louisiana'),
-        ('Maine', 'Maine'),
-        ('Maryland', 'Maryland'),
-        ('Massachusetts', 'Massachusetts'),
-        ('Michigan', 'Michigan'),
-        ('Minnesota', 'Minnesota'),
-        ('Mississippi', 'Mississippi'),
-        ('Missouri', 'Missouri'),
-        ('Montana', 'Montana'),
-        ('Nebraska', 'Nebraska'),
-        ('Nevada', 'Nevada'),
-        ('New Hampshire', 'New Hampshire'),
-        ('New Jersey', 'New Jersey'),
-        ('New Mexico', 'New Mexico'),
-        ('New York', 'New York'),
-        ('North Carolina', 'North Carolina'),
-        ('North Dakota', 'North Dakota'),
-        ('Ohio', 'Ohio'),
-        ('Oklahoma', 'Oklahoma'),
-        ('Oregon', 'Oregon'),
-        ('Pennsylvania', 'Pennsylvania'),
-        ('Rhode Island', 'Rhode Island'),
-        ('South Carolina', 'South Carolina'),
-        ('South Dakota', 'South Dakota'),
-        ('Tennessee', 'Tennessee'),
-        ('Texas', 'Texas'),
-        ('Utah', 'Utah'),
-        ('Vermont', 'Vermont'),
-        ('Virginia', 'Virginia'),
-        ('Washington', 'Washington'),
-        ('West Virginia', 'West Virginia'),
-        ('Wisconsin', 'Wisconsin'),
-        ('Wyoming', 'Wyoming')
-    )
+
     username = forms.CharField(
         max_length=180,
         label='',
@@ -110,7 +61,7 @@ class LoginForm(forms.Form):
         label='',
         required=True,
         widget=forms.TextInput(attrs={
-            'placeholder': '*Username'
+            'placeholder': 'Username'
         })
     )
 
@@ -119,9 +70,26 @@ class LoginForm(forms.Form):
         label='',
         required=True,
         widget=forms.PasswordInput(attrs={
-            'placeholder': '*Password'
+            'placeholder': 'Password'
         })
     )
+
+    def clean(self):
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+        brew_user = authenticate(username=username, password=password)
+        if not brew_user:
+            print('in clean')
+            raise forms.ValidationError(
+                '''Sorry, that login did not match our records,
+                Please try again.''')
+        return self.cleaned_data
+
+    def login(self, request):
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+        brew_user = authenticate(username=username, password=password)
+        return brew_user
 
 
 class StateSearchForm(forms.Form):
@@ -136,58 +104,6 @@ class StateSearchForm(forms.Form):
 
 
 class UserUpdateForm(forms.ModelForm):
-    STATE_CHOICES = (
-        ('Alabama', 'Alabama'),
-        ('Alaska', 'Alaska'),
-        ('Arizona', 'Arizona'),
-        ('Arkansas', 'Arkansas'),
-        ('California', 'California'),
-        ('Colorado', 'Colorado'),
-        ('Connecticut', 'Connecticut'),
-        ('Delaware', 'Connecticut'),
-        ('Florida', 'Florida'),
-        ('Georgia', 'Georgia'),
-        ('Hawaii', 'Hawaii'),
-        ('Idaho', 'Idaho'),
-        ('Illinois', 'Illinois'),
-        ('Indiana', 'Illinois'),
-        ('Iowa', 'Iowa'),
-        ('Kansas', 'Kansas'),
-        ('Kentucky', 'Kentucky'),
-        ('Louisiana', 'Louisiana'),
-        ('Maine', 'Maine'),
-        ('Maryland', 'Maryland'),
-        ('Massachusetts', 'Massachusetts'),
-        ('Michigan', 'Michigan'),
-        ('Minnesota', 'Minnesota'),
-        ('Mississippi', 'Mississippi'),
-        ('Missouri', 'Missouri'),
-        ('Montana', 'Montana'),
-        ('Nebraska', 'Nebraska'),
-        ('Nevada', 'Nevada'),
-        ('New Hampshire', 'New Hampshire'),
-        ('New Jersey', 'New Jersey'),
-        ('New Mexico', 'New Mexico'),
-        ('New York', 'New York'),
-        ('North Carolina', 'North Carolina'),
-        ('North Dakota', 'North Dakota'),
-        ('Ohio', 'Ohio'),
-        ('Oklahoma', 'Oklahoma'),
-        ('Oregon', 'Oregon'),
-        ('Pennsylvania', 'Pennsylvania'),
-        ('Rhode Island', 'Rhode Island'),
-        ('South Carolina', 'South Carolina'),
-        ('South Dakota', 'South Dakota'),
-        ('Tennessee', 'Tennessee'),
-        ('Texas', 'Texas'),
-        ('Utah', 'Utah'),
-        ('Vermont', 'Vermont'),
-        ('Virginia', 'Virginia'),
-        ('Washington', 'Washington'),
-        ('West Virginia', 'West Virginia'),
-        ('Wisconsin', 'Wisconsin'),
-        ('Wyoming', 'Wyoming')
-    )
 
     username = forms.CharField(
         max_length=18,

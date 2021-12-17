@@ -1,0 +1,23 @@
+{% extends 'base_header.html' %}
+
+{% block content %}
+<head>
+    {% load static %}
+    <link rel='stylesheet' href="{% static 'register_brewery.css' %}">
+    <title>My Brew | Register Brewery</title>
+</head>
+
+<div id='brewPage'>
+    <div id='brewRegistryCover'>
+        <img src='/static/images/brewRegistryCover.png' id='registryCover' alt='beer bottle opening with the text your brew' />
+    </div>
+    <div id='brewRegistry'>
+        <form  action='' method="post" id='brewRegistryForm'>
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Register">
+            <h6 id='required'>* Required</h6>
+        </form>
+    </div> 
+</div>
+{% endblock %}

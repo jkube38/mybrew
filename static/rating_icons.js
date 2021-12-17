@@ -1,5 +1,4 @@
 const get_div = document.getElementById('breweryHolder').children.length - 1
-console.log(get_div)
 
 function ratingIcons1() {
     hopFunctions = []

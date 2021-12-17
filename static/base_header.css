@@ -1,83 +1,109 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&family=Roboto:wght@300&display=swap');
 
 #mainHeaderHolder {
-    height: 135px;
-    background-image: url('/static/images/wood-grain.png');
-    background-size: cover;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-bottom: 2px solid rgb(125, 172, 66);
     
 }
 
-#orange {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    background-color: #db9c307e;
-}
-
-#mybrew {
-    margin: 5px 0 5px 0;
+#homeLinkHolder {
+    width: 15%;
 }
 
 #headerLogo {
-    width: 60%;
-    margin: 10px 0 5px 0;
-
-}
-
-#loginLogout {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 25%;
-}
-
-#logoHolder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 25%;
-}
-
-#login {
-    font-family: 'Raleway', sans-serif;
-    text-decoration: none;
-    color: black;
-    font-size: 25px;
-    margin: 0 20px 0 0;
-}
-
-#signup {
-    font-family: 'Raleway', sans-serif;
-    text-decoration: none;
-    color: black;
-    font-size: 25px;
-    margin: 0 0 0 20px;
-}
-
-#logout {
-    font-family: 'Raleway', sans-serif;
-    text-decoration: none;
-    color: black;
-    font-size: 25px;
-    margin: 0 0 0 20px;
-}
-
-#username {
-    font-family: 'Raleway', sans-serif;
-    text-decoration: none;
-    color: black;
-    font-size: 25px;
-    margin: 0 0 0 20px;
+    margin: 5px 0 5px 5px;
 }
 
 #state_form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0 0 0 0;
 }
 
 #id_state_search {
-    margin: 0 0 8px 0;
+    border-width: 0;
+    background-color: black;
+    border-bottom: 1px solid white;
+    font-family: 'Poiret One', cursive;
+    color: white;
+    font-size: x-large;
+    margin: 0 0 5px 0;
+    text-align: center;
+}
+
+#stateSearchButton {
+    background-color: black;
+    color: white;
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    border: none;
+}
+
+#stateSearchButton:hover {
+    color: rgb(125, 172, 66);
+}
+
+#loginLogout {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 15%;
+    margin: 10px 0 10px 10px;
+}
+
+.userNav {
+    color: white;
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    text-decoration: none;
+}
+
+.userNav:hover {
+    color: rgb(125, 172, 66);
+}
+
+#proPicHeader {
+    width: 20%;
+    border-radius: 50%;
+}
+
+#userInitialsHeader {
+    color: white;
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+}
+
+#footer {
+    display: flex;
+    justify-content: flex-end;
+    background-color: rgba(94, 93, 93, 0.438);
+    width: 100%;
+}
+
+#logoHolderFooter {
+    width: 15%;
+    margin: 0 2% 0 5%;
+}
+
+#footerLogo {
+    width: 100%;
+    margin: 25px 0 25px 0;
+}
+
+#siteInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.siteInfo {
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    margin: 5px 0 0 0;
 }

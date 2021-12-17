@@ -1,29 +1,19 @@
 {% extends 'base_header.html' %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load static %}
-    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
     {% load static %}
     <link rel='stylesheet' href="{% static 'login.css' %}">
     <title>My Brew | Login</title>
 </head>
-<body>
-    <div id='formNText'>
-        <div id='loginForm'>
-            <form  action='' method="post" id='form'>
-                {% csrf_token %}
-                {{ form }}
-                <input type="submit" value="Login">
-                <h6 id='required'>* Required</h6>
-            </form>
-        </div>
+<div id='formNText'>
+    <div id='loginForm'>
+        <form  action='' method="post" id='form'>
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Login">
+            <h6 id='required'>* Required</h6>
+        </form>
     </div>
-    {% endblock %}
-</body>
-</html>
+</div>
+{% endblock %}

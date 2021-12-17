@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from my_brew_app.models import MyBrewUser, Breweries
-
+from my_brew_app.models import MyBrewUser
 
 # Register your models here.
 UserAdmin.fieldsets += (
@@ -13,8 +12,7 @@ UserAdmin.fieldsets += (
             'profile_pic',
             'favorites'
         )
-    }
+    },
 ),
 
 admin.site.register(MyBrewUser, UserAdmin)
-admin.site.register(Breweries)

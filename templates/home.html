@@ -1,6 +1,3 @@
-{% extends 'base_header.html' %}
-
-{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,14 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
     <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
-    {% load static %}
-    <link rel='stylesheet' href="{% static 'home.css' %}">
+    {% if request.user.is_authenticated %}
+        {% load static %}
+        <link rel='stylesheet' href="{% static 'user_home.css' %}">
+    {% else %}
+        {% load static %}
+        <link rel='stylesheet' href="{% static 'non_user_home.css' %}">
+    {% endif %}
     <title>My Brew | Home</title>
 </head>
 <body>
-    
-   
     {% if request.user.is_authenticated %}
+<div id='homeUserHeader'>
+    <div id='homeLinkHolder'>
+        <a href='/'><img src='{% static "images/hop_logo_white.png" %}' id='headerLogo' alt='My brew initial logo' /></a>
+    </div>
+    <div id='statesearchformHolder'>
+        <form  action='' method="post" id='state_form' style="display: flex; flex-direction: column; align-items: center;" >
+            {% csrf_token %}
+            {{ state_form }}
+            <input type="submit" value="search" id='stateSearchButton'>
+        </form>
+    </div>
+    <div id='loginLogout'>
+        {% if request.user.is_authenticated %}
+            {% if request.user.profile_pic %}
+                <img src='{{ request.user.profile_pic.url }}' alt='{{ request.user.username }}s picture' id='proPicHeader'/>
+            {% else %}
+                <h2 id='userInitialsHeader'>{{user_initials}}</h2>
+            {% endif %}
+            <h3 id='logout' class='userNav'> | </h3>
+            <a href='/logout/' id='logout'><h3 id='logout' class='userNav'>Logout </h3></a>
+        {% else %}
+            <a href="/login/" id='login' class='userNav'>Login</a>
+            <a href="/signup/" id='signup' class='userNav'>Signup</a>
+        {% endif %}
+    </div>
+</div>
 <div id='pageHolder'>
     <div id='userDetails'>
         <div id="nameLocationHolder">
@@ -25,7 +51,7 @@
         </div>
         <div id='profilePicHolder'>
             {% if request.user.profile_pic %}
-                <img src='{{ request.user.profile_pic.url }}' alt='{{ request.user.username }}' id='proPic'/>
+                <img src='{{ request.user.profile_pic.url }}' alt='{{ request.user.username }}s picture' id='proPic'/>
             {% else %}
                 <h2 id='userInitials'>{{user_initials}}</h2>
             {% endif %}
@@ -35,7 +61,15 @@
             <h2 id='favoriteBeer'>{{ request.user.favorite_beer}}</h2>
             <a href='/updateuser/{{request.user.id}}/'><h4 id='updateUser'>Update Profile</h4></a>
         </div>
+        <h2 id='favTitle'>My Favorites</h2>
+        <div id='favList'>
+            {% for favorite in favorite_list %}
+                <h3 class='fave'>{{ favorite }}</h3>
+                <h4 class='faveState'>{{ favorite.state }}</h4>
+            {% endfor %}
+        </div>
     </div>
+    
     <div id='breweryHolder'>
         <h2 id='breweriesTitle'>Registered Breweries in your city</h2>
         {% for brewery in local_brews %}
@@ -56,22 +90,22 @@
                 </div>
                 <div class="ratings">
                     {% if request.user.is_authenticated %}
-                    {% if brewery.id not in fave_list_ids %}
-                        <a href="/favorite/{{brewery.id}}/"><h5 id='favorite'>Add to Favorites</h5></a>
-                        <h5 class='voteWhenAdded'>Once a brewery is in your favorites you will be able to vote and comment on it.</h5>
-                    {% else %}
-                        <h5 id='inFavorites'>{{brewery.name}} is in your favorites</h5>
+                        {% if brewery.street not in fave_list_address %}
+                            <a href="/favorite/{{brewery.name}}/"><h5 id='favorite'>Add to Favorites</h5></a>
+                            <h5 class='voteWhenAdded'>Once a brewery is in your favorites you will be able to vote and comment on it.</h5>
+                        {% else %}
+                            <h5 id='inFavorites'>{{brewery.name}} is in your favorites</h5>
+                        {% endif %}
                     {% endif %}
-                    {% endif %}
-                    {% if brewery.id in fave_list_ids %}
+                    {% if brewery.street in fave_list_address %}
                     <div class='ratingHolder'>
                         <h4 id='ratingTitle'>Rate Us</h4>
                         <div class='hops'>
-                            <a href='/rate/1/{{brewery.id}}/'><div class='beerGlass' id='rate1{{ forloop.counter}}' onmouseover="hop1{{ forloop.counter }}Hover()" onmouseout="hop1{{ forloop.counter }}Exit()"></div></a>
-                            <a href='/rate/2/{{brewery.id}}/'><div class='beerGlass' id='rate2{{ forloop.counter}}' onmouseover="hop2{{ forloop.counter }}Hover()" onmouseout="hop2{{ forloop.counter }}Exit()"></div></a>
-                            <a href='/rate/3/{{brewery.id}}/'><div class='beerGlass' id='rate3{{ forloop.counter}}' onmouseover="hop3{{ forloop.counter }}Hover()" onmouseout="hop3{{ forloop.counter }}Exit()"></div></a>
-                            <a href='/rate/4/{{brewery.id}}/'><div class='beerGlass' id='rate4{{ forloop.counter}}' onmouseover="hop4{{ forloop.counter }}Hover()" onmouseout="hop4{{ forloop.counter }}Exit()"></div></a>
-                            <a href='/rate/5/{{brewery.id}}/'><div class='beerGlass' id='rate5{{ forloop.counter}}' onmouseover="hop5{{ forloop.counter }}Hover()" onmouseout="hop5{{ forloop.counter }}Exit()"></div></a>
+                            <a href='/rate/1/{{brewery.street}}/'><div class='beerGlass' id='rate1{{ forloop.counter}}' onmouseover="hop1{{ forloop.counter }}Hover()" onmouseout="hop1{{ forloop.counter }}Exit()"></div></a>
+                            <a href='/rate/2/{{brewery.street}}/'><div class='beerGlass' id='rate2{{ forloop.counter}}' onmouseover="hop2{{ forloop.counter }}Hover()" onmouseout="hop2{{ forloop.counter }}Exit()"></div></a>
+                            <a href='/rate/3/{{brewery.street}}/'><div class='beerGlass' id='rate3{{ forloop.counter}}' onmouseover="hop3{{ forloop.counter }}Hover()" onmouseout="hop3{{ forloop.counter }}Exit()"></div></a>
+                            <a href='/rate/4/{{brewery.street}}/'><div class='beerGlass' id='rate4{{ forloop.counter}}' onmouseover="hop4{{ forloop.counter }}Hover()" onmouseout="hop4{{ forloop.counter }}Exit()"></div></a>
+                            <a href='/rate/5/{{brewery.street}}/'><div class='beerGlass' id='rate5{{ forloop.counter}}' onmouseover="hop5{{ forloop.counter }}Hover()" onmouseout="hop5{{ forloop.counter }}Exit()"></div></a>
                         </div>
                         <h4 id='rating'>Rated</h4>
                         {% if brewery.rating > 0 %}
@@ -86,10 +120,24 @@
         {% endfor %}
     </div>
 </div>
+<div id='footer'>
+    <img src="{% static 'images/hops_banner.png' %}" id="hopsBanner" alt='picture of hops on a vine' />
+    <div id='siteInfo'>
+        <h5 class="siteInfo">mybrew81@gmail.com</h5>
+        <h5 class="siteInfo">&#169 MyBrew 2021</h5>
+    </div>
+    <div id='logoHolderFooter'>
+        <a href='/'><img src='/static/images/My-Brew-Logo-White.png' alt=' my brew logo' id='footerLogo' /></a>
+    </div>
+</div>
     {% else %}
+    <div id='heroHolder'>
+        <div id='leftBlock'></div>
+        <img src="{% static 'images/hero_taps.png' %}" id='hero'/>
+        <div id='rightBlock'></div>
+    </div>
     <div id='nonuserHomePage'>
         <div id='welcome'>
-            <img src='/static/images/my-brew-welcome.png' alt="my brew welcome and logo" id='welcomeImg' />
             <h2 id='welcomeText'>My Brew is a brewery locator for all the craft beer lovers
                 out there, just like you. Breweries are a fun and comfortable place to sample
                 new tasty brews and unwind with friends and family. Now you can find all the 
@@ -99,12 +147,48 @@
                 the basic search is availble to everyone with minimized features. Have fun
                 exploring and sampling.
             </h2>
+            <img src='{% static "images/hop_logo_black.png" %}' alt='my brew initials logo' id='initialLogo' />
+        </div>
+        <div id='nonUserNav'>
+            <div id='statesearchformHolder'>
+                <form  action='' method="post" id='state_form'>
+                    {% csrf_token %}
+                    {{ state_form }}
+                    <input type="submit" value="SEARCH" ID='searchButton'>
+                </form>
+            </div>
+            <div id='formNText'>
+                <div id='loginForm'>
+                    <form  action='' method="post" id='form'>
+                        {% csrf_token %}
+                        {{ login_form }}
+                        <input type="submit" value="LOGIN" id='loginButton'>
+                    </form>
+                    {% if login_form_errors %}
+                        <ul class='form-errors'>
+                            {% for error in login_form_errors %}
+                                <li id='loginError'>{{error}}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+            <a href="/signup/" id='signup'>SIGNUP</a>
+        </div>
+    </div>
+    <div id='footer'>
+        <img src="{% static 'images/hops_banner.png' %}" id="hopsBanner" alt='picture of hops on a vine' />
+        <div id='siteInfo'>
+            <h5 class="siteInfo">mybrew81@gmail.com</h5>
+            <h5 class="siteInfo">&#169 MyBrew 2021</h5>
+        </div>
+        <div id='logoHolderFooter'>
+            <a href='/'><img src='/static/images/My-Brew-Logo-White.png' alt=' my brew logo' id='footerLogo' /></a>
         </div>
     </div>
     {% endif %}
 
     {% load static %}
     <script src="{% static 'rating_icons.js'%}"></script>
-    {% endblock%}
 </body>
 </html>

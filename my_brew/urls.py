@@ -28,12 +28,12 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('signup/', views.signup_view, name='signup'),
     path(
-        'favorite/<int:brew_id>/',
+        'favorite/<str:brew_name>/',
         views.favorite_brewery_view,
         name='favorite'
     ),
     path(
-        'rate/<int:rated>/<int:brewery_id>/',
+        'rate/<int:rated>/<str:brewery_address>/',
         views.rating_view,
         name='rating'
     ),
@@ -42,6 +42,7 @@ urlpatterns = [
         views.update_user_view,
         name='update_user'
     ),
+    # path('registerbrewery/', views.register_brewery, name='register_brewery'),
     path('admin/', admin.site.urls),
 ]
 
