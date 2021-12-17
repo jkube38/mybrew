@@ -1,19 +1,11 @@
 {% extends 'base_header.html' %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load static %}
-    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
     {% load static %}
     <link rel='stylesheet' href="{% static 'state_results.css' %}">
     <title>My Brew | {{ state }} Breweries</title>
 </head>
-<body>
     {% if request.user.is_authenticated %}
 <div id='pageHolder'>
     <div id='userDetails'>
@@ -119,5 +111,3 @@
 {% load static %}
 <script src="{% static 'rating_icons.js'%}"></script>
 {% endblock %}
-</body>
-</html>

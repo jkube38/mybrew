@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&family=Roboto:wght@300&display=swap');
+
+body {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#heroHolder {
+    display: flex;
+    justify-content: space-around;
+}
+
+#rightBlock {
+    width: 12%;
+    background-image: url(/static/images/black_wood_grain.jpg);
+    transform: scaleX(-1);
+}
+
+#hero {
+    width: 70%;
+    margin: 0 0 0 0;
+}
+
+#leftBlock {
+    width: 12%;
+    background-image: url(/static/images/black_wood_grain.jpg);
+}
+
+#welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 50px 0 0 0;
+    width: 48%;
+    background-color: white;
+}
+
+#welcomeText {
+    font-family: 'Poiret One', cursive;
+    font-size: 24px;
+    color: black;
+    width: 90%;
+    text-align: center;
+
+}
+
+#nonuserHomePage {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 50px 0 0 0;
+}
+
+#nonUserNav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 50px 0 0 0;
+    width: 48%;
+    background-color: white;
+}
+
+#searchButton {
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    border: none;
+    background-color: white;
+}
+
+#searchButton:hover {
+    color: rgb(125, 172, 66);
+    cursor: pointer;
+}
+
+#state_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#id_state_search {
+    border-width: 0;
+    border-bottom: 2px solid black;
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+}
+
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px 0 0 0;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#id_username {
+    border-width: 0;
+    border-bottom: 2px solid black;
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+}
+
+#id_password {
+    border-width: 0;
+    border-bottom: 2px solid black;
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+}
+
+#loginButton {
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    border: none;
+    background-color: white;
+}
+
+#loginButton:hover {
+    color: rgb(125, 172, 66);
+    cursor: pointer;
+}
+
+#signup {
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin: 50px 0 0 0;
+    text-decoration: none;
+    color: black;
+    
+}
+
+#signup:hover {
+    color: rgb(125, 172, 66);
+    cursor: pointer;
+}
+
+#loginError {
+    color: red;
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+
+}
+
+#initialLogo {
+    width: 20%;
+    margin: 25px 0 25px 0;
+}
+
+#footer {
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px solid rgb(125, 172, 66);
+    border-bottom: 2px solid rgb(125, 172, 66);
+    width: 100%;
+    margin: 100px 0 0 0;
+}
+
+#hopsBanner {
+    width: 25%;
+    opacity: .5;
+}
+
+#logoHolderFooter {
+    width: 15%;
+    margin: 0 2% 0 5%;
+}
+
+#footerLogo {
+    width: 100%;
+    margin: 25px 0 25px 0;
+}
+
+#siteInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.siteInfo {
+    color: white;
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    margin: 5px 0 0 0;
+}

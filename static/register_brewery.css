@@ -1,0 +1,60 @@
+body {
+    background-color: black;
+}
+
+#brewPage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 50px 0 0 0;
+}
+
+#brewRegistry {
+    display: flex;
+    justify-content: center;
+    height: 350px;
+    width: 300px;
+    animation-name: formright;
+    animation-delay: 2s;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    z-index: 1;
+    background-color: #db9d30;
+}
+
+#brewRegistryForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    
+}
+
+#brewRegistryCover {
+    width: 300px;
+    height: 350px;
+    animation-name: coverleft;
+    animation-delay: 2s;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    z-index: 2;
+    background-color: #db9c30;
+}
+
+@keyframes formright {
+    from {position: relative; right: 150px;}
+    to {position: relative; right: 0;}
+}
+
+@keyframes coverleft {
+    from {position: relative; left: 150px;}
+    to {position: relative; left: 0;}
+}
+
+#registryCover {
+    max-height: 100%;
+}
+
+#required {
+    margin: 0 0 0 0;
+}

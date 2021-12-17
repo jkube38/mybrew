@@ -1,30 +1,53 @@
-{% load static %}
-<link rel='stylesheet' href="{% static 'base_header.css' %}">
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel='stylesheet' href="{% static 'base_header.css' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+</head>
+<body>
 <div id='mainHeaderHolder'>
-    <div id='orange'>
-    <div id='logoHolder'>
-        <a href='/'><img src='/static/images/my_brew_logo.png' alt='my brew logo' id='headerLogo' /></a>
+    <div id='homeLinkHolder'>
+        <a href='/'><img src='{% static "images/hop_logo_white.png" %}' id='headerLogo' alt='My brew initial logo' /></a>
     </div>
     <div id='statesearchformHolder'>
-        <form  action='' method="post" id='state_form'>
+        <form  action='' method="post" id='state_form' style="display: flex; flex-direction: column; align-items: center;" >
             {% csrf_token %}
             {{ state_form }}
-            <input type="submit" value="search">
+            <input type="submit" value="search" id='stateSearchButton'>
         </form>
     </div>
     <div id='loginLogout'>
         {% if request.user.is_authenticated %}
-            <a href='/logout/' id='logout'><h3 id='logout'>Logout </h3></a>
-            <h3 id='logout'> | </h3>
-            <h3 id='username'> {{ request.user.username }}</h3>
+            {% if request.user.profile_pic %}
+                <img src='{{ request.user.profile_pic.url }}' alt='{{ request.user.username }}s picture' id='proPicHeader'/>
+            {% else %}
+                <h2 id='userInitialsHeader'>{{user_initials}}</h2>
+            {% endif %}
+            <h3 id='logout' class='userNav'> | </h3>
+            <a href='/logout/' id='logout'><h3 id='logout' class='userNav'>Logout </h3></a>
         {% else %}
-            <a href="/login/" id='login'>Login</a>
-            <a href="/signup/" id='signup'>Signup</a>
+            <a href="/login/" id='login' class='userNav'>Login</a>
+            <h3 id='logout' class='userNav'> | </h3>
+            <a href="/signup/" id='signup' class='userNav'>Signup</a>
         {% endif %}
-    </div>
     </div>
 </div>
 
 {% block content %}
 {% endblock %}
+
+<div id='footer'>
+    <div id='siteInfo'>
+        <h5 class="siteInfo">mybrew81@gmail.com</h5>
+        <h5 class="siteInfo">&#169 MyBrew 2021</h5>
+    </div>
+    <div id='logoHolderFooter'>
+        <a href='/'><img src='/static/images/my_brew_logo.png' alt=' my brew logo' id='footerLogo' /></a>
+    </div>
+</div>
+</body>
+</html>

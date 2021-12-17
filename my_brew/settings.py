@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 if DEBUG:
     ALLOWED_HOSTS = ['*']
@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'my_brew_app',
+    'my_brew_brewery',
+    'django_mysql',
 ]
 
 MIDDLEWARE = [
@@ -89,15 +91,15 @@ if DEBUG:
     }
 else:
     DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mybrewdb',
-        'USER': 'kube',
-        'PASSWORD': 'quiksilver',
-        'HOST': 'localhost',
-        'PORT': '',
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'mybrewdb',
+            'USER': 'kube',
+            'PASSWORD': 'quiksilver',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
     }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -139,12 +141,12 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 # before pushing for deployed upgrade uncomment static root and
-# change static files_dirs to staticfiles
+# change STATICFILES_DIRS to staticfiles
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "staticfiles"),
+    os.path.join(BASE_DIR, "static"),
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = 'my_brew_app.MyBrewUser'

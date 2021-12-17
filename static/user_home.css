@@ -1,8 +1,86 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&family=Roboto:wght@300&display=swap');
 
 body {
     background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#homeUserHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-bottom: 2px solid rgb(125, 172, 66);
+}
+
+#homeLinkHolder {
+    width: 15%;
+}
+
+#headerLogo {
+    width: 25%;
+    margin: 5px 0 5px 5px;
+}
+
+#state_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 0 0 0;
+}
+
+#id_state_search {
+    border-width: 0;
+    background-color: black;
+    border-bottom: 1px solid white;
+    font-family: 'Poiret One', cursive;
+    color: white;
+    font-size: x-large;
+    margin: 0 0 5px 0;
+    text-align: center;
+}
+
+#stateSearchButton {
+    background-color: black;
+    color: white;
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    border: none;
+}
+
+#stateSearchButton:hover {
+    color: rgb(125, 172, 66);
+}
+
+#loginLogout {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 15%;
+    margin: 10px 0 10px 10px;
+}
+
+.userNav {
+    color: white;
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+}
+
+.userNav:hover {
+    color: rgb(125, 172, 66);
+}
+
+#proPicHeader {
+    width: 20%;
+    border-radius: 50%;
+}
+
+#userInitialsHeader {
+    color: white;
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
 }
 
 #pageHolder {
@@ -38,13 +116,33 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    height: 650px;
     width: 30%;
-    height: 450px;
     color: white;
     position: sticky; top: 0;
     z-index: 1;
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Poiret One', cursive;
     margin: 15px 0 0 0;
+}
+
+#favList {
+    width: 80%;
+    height: 150px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.fave {
+    text-align: center;
+    margin: 18.7px 0 0 0;
+}
+
+.faveState {
+    margin: 0 0 0 0;
+}
+
+#favList::-webkit-scrollbar-track {
+    background-color: black;
 }
 
 #proPic {
@@ -53,13 +151,13 @@ body {
 }
 
 #userInitials {
-    font-family: 'Fredoka One', cursive;
+    font-family: 'Poiret One', cursive;
     font-size: 60px;
     text-transform: uppercase;
 }
 
 #breweriesTitle {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Poiret One', cursive;
     color: white;
     margin: 20px 0 10px 0;
 }
@@ -76,7 +174,7 @@ body {
     background-size: 70%;
     margin: 15px 0 15px 0;
     width: 85%;
-    font-family: 'Fredoka One', cursive;
+    font-family: 'Poiret One', cursive;
     font-weight: lighter;
 }
 
@@ -201,22 +299,40 @@ a:visited {
     color: black;
 }
 
-#welcome {
+#footer {
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px solid rgb(125, 172, 66);
+    border-bottom: 2px solid rgb(125, 172, 66);
+    width: 100%;
+    margin: 100px 0 0 0;
+}
+
+#hopsBanner {
+    width: 25%;
+    opacity: .5;
+}
+
+#logoHolderFooter {
+    width: 15%;
+    margin: 0 2% 0 5%;
+}
+
+#footerLogo {
+    width: 100%;
+    margin: 25px 0 25px 0;
+}
+
+#siteInfo {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 50px 0 0 0;
 }
 
-#welcomeImg {
-    width: 35%;
-}
-
-#welcomeText {
-    font-family: 'Raleway', sans-serif;
+.siteInfo {
     color: white;
-    width: 40%;
-    text-align: center;
-
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    margin: 5px 0 0 0;
 }
