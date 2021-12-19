@@ -197,3 +197,18 @@ body {
     font-size: large;
     margin: 5px 0 0 0;
 }
+
+#forgot {
+    font-family: 'Poiret One', cursive;
+    font-size: medium;
+    margin: 5px 0 5px 0;
+}
+
+#forgot:hover {
+    color: rgb(125, 172, 66);
+}
+
+#forgotLink {
+    text-decoration: none;
+    color: black;
+}

@@ -1,0 +1,24 @@
+{% extends 'base_header.html' %}
+
+{% block content %}
+{% load static %}
+<link rel='stylesheet' href="{% static 'reset_request.css' %}">
+<title>MyBrew | Password Request</title>
+<div id='requestPage'>
+    {% if email and not non_existent %}
+    <h3 id='emailSent'> Thank You, your request has been sent to {{ email }} please check your email</h3>
+    {% else %}
+    <h3 id='instructions'>Enter your email address and we'll send you a link to reset your password.</h3>
+    <div id='formHolder'>
+        <form id='request' action='' method='post'>
+            {% csrf_token %}
+            {{form}}
+            <input type='submit' value='Request Link' id='requestButton'>
+        </form>
+        {% if non_existent %}
+            <h3 id='non_existent'>That email is not in our records please try again or visit our signup page to join.</h3>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

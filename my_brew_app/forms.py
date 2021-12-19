@@ -79,7 +79,6 @@ class LoginForm(forms.Form):
         password = self.cleaned_data.get('password')
         brew_user = authenticate(username=username, password=password)
         if not brew_user:
-            print('in clean')
             raise forms.ValidationError(
                 '''Sorry, that login did not match our records,
                 Please try again.''')
@@ -156,3 +155,31 @@ class UserUpdateForm(forms.ModelForm):
             'favorite_beer',
             'profile_pic'
         ]
+
+
+class ResetRequest(forms.Form):
+    email = forms.EmailField(
+        label='',
+        required=True,
+        widget=forms.EmailInput(attrs={
+            'placeholder': 'Email'
+        })
+    )
+
+
+class ResetPasswordForm(forms.Form):
+    password = forms.CharField(
+        label='',
+        required=True,
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'New Password'
+        })
+    )
+
+    password2 = forms.CharField(
+        label='',
+        required=True,
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Re-Type Password'
+        })
+    )
