@@ -36,6 +36,10 @@
     text-align: center;
 }
 
+#id_state_search:focus, input:focus {
+    outline: none;
+}
+
 #stateSearchButton {
     background-color: black;
     color: white;
@@ -54,6 +58,10 @@
     justify-content: space-around;
     width: 15%;
     margin: 10px 0 10px 10px;
+}
+
+#logout {
+    text-decoration: none;
 }
 
 .userNav {
@@ -80,9 +88,16 @@
 
 #footer {
     display: flex;
-    justify-content: flex-end;
-    background-color: rgba(94, 93, 93, 0.438);
+    justify-content: space-between;
+    border-top: 2px solid rgb(125, 172, 66);
+    border-bottom: 2px solid rgb(125, 172, 66);
     width: 100%;
+    margin: 100px 0 0 0;
+}
+
+#hopsBanner {
+    width: 25%;
+    opacity: .5;
 }
 
 #logoHolderFooter {
@@ -103,6 +118,7 @@
 }
 
 .siteInfo {
+    color: white;
     font-family: 'Poiret One', cursive;
     font-size: large;
     margin: 5px 0 0 0;

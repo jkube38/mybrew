@@ -164,6 +164,7 @@
                         {{ login_form }}
                         <input type="submit" value="LOGIN" id='loginButton'>
                     </form>
+                    <a href='/resetrequest/' id='forgotLink'><h5 id='forgot'>forgot password</h5></a>
                     {% if login_form_errors %}
                         <ul class='form-errors'>
                             {% for error in login_form_errors %}

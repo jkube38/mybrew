@@ -1,5 +1,7 @@
 import requests
 from decouple import config
+import string
+import random
 from my_brew_app.forms import StateSearchForm
 
 
@@ -24,3 +26,12 @@ def state_search(request):
             )
             state_brew_response = response.json()
             return state_brew_response
+
+
+def string_generator():
+    length = 16
+    letters = string.ascii_lowercase
+    numbers = string.digits
+    url_snippet = ''.join(
+        random.choice(letters + numbers) for i in range(length))
+    return url_snippet

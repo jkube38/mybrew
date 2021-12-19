@@ -155,3 +155,20 @@ AUTH_USER_MODEL = 'my_brew_app.MyBrewUser'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Development email
+# EMAIL_HOST = 'localhost'
+# EMAIL_PORT = 1025
+# EMAIL_HOST_USER = ''
+# EMAIL_HOST_PASSWORD = ''
+# EMAIL_USE_TLS = False
+
+
+# myaccount.google.com/lesssecureapps
+# accounts.google.com/DisplayUnlockCaptcha
+# Deployment email
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = config('MY_EMAIL')
+EMAIL_HOST_PASSWORD = config('MY_EMAIL_PASS')
+EMAIL_USE_TLS = True

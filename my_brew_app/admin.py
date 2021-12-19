@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from my_brew_app.models import MyBrewUser
+from my_brew_app.models import MyBrewUser, TemporaryUrl
 
 # Register your models here.
 UserAdmin.fieldsets += (
@@ -16,3 +16,4 @@ UserAdmin.fieldsets += (
 ),
 
 admin.site.register(MyBrewUser, UserAdmin)
+admin.site.register(TemporaryUrl)

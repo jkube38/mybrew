@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import login, logout, authenticate
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 from itertools import chain
 from decouple import config
-from my_brew_app.models import MyBrewUser
+from my_brew_app.models import MyBrewUser, TemporaryUrl
 from my_brew_brewery.models import MyBrewBrewery
 from my_brew_app.forms import SignUpForm, LoginForm, StateSearchForm
+from my_brew_app.forms import ResetRequest, ResetPasswordForm
 from my_brew_app.forms import UserUpdateForm
-from my_brew_app.api_helpers import state_search
+from my_brew_app.helpers import state_search, string_generator
 import requests
 
 
@@ -207,12 +210,15 @@ def favorite_brewery_view(request, brew_name):
     if add_to_favorites.brewery_city == request.user.city:
         return redirect(reverse('home'))
     else:
-        return redirect(f'/stateresults/{ add_to_favorites.state }/')
+        print(add_to_favorites)
+        return redirect(f'/stateresults/{ add_to_favorites.brewery_state }/')
 
 
 def rating_view(request, rated, brewery_address):
-    b_address = brewery_address.replace('-', ' ')
-    update_brewery = MyBrewBrewery.objects.get(brewery_address=b_address)
+
+    update_brewery = MyBrewBrewery.objects.get(brewery_address=brewery_address)
+
+# updates and calculates the new rating values in brewery object
     new_rating_total = update_brewery.brewery_rating_total + rated
     new_num_votes = update_brewery.brewery_num_votes + 1
     new_rating = new_rating_total / new_num_votes
@@ -233,29 +239,32 @@ def state_view(request, state):
     state_search_results = request.session.get('state_search_results')
     db_breweries = MyBrewBrewery.objects.all()
 
-    fave_list_ids = []
+    fave_list_streets = []
+# if the user is signed in creates a list of their favorites address
+# gotta figure out how to use id's with id's coming back with response
     brew_user = request.user
     if brew_user.is_anonymous is False:
         favorite_list = list((brew_user.favorites.all()))
         for brewery in favorite_list:
-            fave_list_ids.append(brewery.id)
+            fave_list_streets.append(brewery.brewery_address)
 
-        # saving this incase i put a city filter on the state search
+# saving this incase i put a city filter on the state search
         # state_brews = []
         # for brew in state_search_results:
         #     if request.user.city == brew['city']:
         #         state_brews.append(brew)
 
-    # runs search bar in header
+# runs search bar in header
     state_breweries = state_search(request)
     if state_breweries:
         request.session['state_search_results'] = state_breweries
         return redirect(f'/stateresults/{state_breweries[0]["state"]}/')
 
+# adds rating to the state search results json (dict)
     for brewery in db_breweries:
         for state in state_search_results:
-            if brewery.id == state['id']:
-                state['rating'] = brewery.rating
+            if brewery.brewery_address == state['street']:
+                state['brewery_rating'] = brewery.brewery_rating
 
     state_form = StateSearchForm()
     state = state_search_results[0]['state']
@@ -264,7 +273,7 @@ def state_view(request, state):
         'search_results': state_search_results,
         'state': state,
         # 'state_brews': state_brews,
-        'fave_list_ids': fave_list_ids
+        'fave_list_streets': fave_list_streets
     })
     return render(request, 'state_results.html', context)
 
@@ -273,7 +282,7 @@ def update_user_view(request, user_id):
 
     context = {}
 
-    # runs the header search bar
+# runs the header search bar
     state_breweries = state_search(request)
     if state_breweries:
         request.session['state_search_results'] = state_breweries
@@ -307,7 +316,7 @@ def update_user_view(request, user_id):
 
 def error_404(request, exception):
     context = {}
-    # runs the header search bar
+# runs the header search bar
     state_breweries = state_search(request)
     if state_breweries:
         request.session['state_search_results'] = state_breweries
@@ -321,7 +330,7 @@ def error_404(request, exception):
 
 def error_500(request):
     context = {}
-    # runs the header search bar
+# runs the header search bar
     state_breweries = state_search(request)
     if state_breweries:
         request.session['state_search_results'] = state_breweries
@@ -331,3 +340,109 @@ def error_500(request):
         'state_form': state_form
     })
     return render(request, "500.html", context)
+
+
+def reset_request_view(request):
+    context = {}
+
+# runs the header search bar
+    state_breweries = state_search(request)
+    if state_breweries:
+        request.session['state_search_results'] = state_breweries
+        return redirect(f'/stateresults/{state_breweries[0]["state"]}/')
+
+# starts sending email process
+    email = ''
+    non_existent = False
+    request_user = None
+    form = ResetRequest()
+    if request.method == 'POST':
+        form = ResetRequest(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            email = data['email']
+
+            try:
+                print('try: ', non_existent)
+                user = MyBrewUser.objects.get(email=email)
+            except MyBrewUser.DoesNotExist:
+                non_existent = True
+                print('except: ', non_existent)
+
+            if non_existent is False:
+                print('why am i in here', non_existent)
+                request_user = user.username
+                random_string = string_generator()
+
+                TemporaryUrl.objects.create(
+                    snippet=random_string,
+                    user=request_user
+                )
+
+                random_snippet = TemporaryUrl.objects.get(snippet=random_string)
+
+# Email Data
+                subject = 'MyBrew Password Reset'
+                from_email = None
+                to = email
+                text_content = 'Follow the link to reset your password'
+                html_content = render_to_string('email.html', {
+                    'request_user': request_user,
+                    'random_snippet': random_snippet.snippet
+                })
+
+# Email Config
+                msg = EmailMultiAlternatives(
+                    subject, text_content, from_email, [to])
+                msg.attach_alternative(html_content, 'text/html')
+                msg.send()
+
+    state_form = StateSearchForm()
+    context.update({
+        'form': form,
+        'email': email,
+        'request_user': request_user,
+        'state_form': state_form,
+        'non_existent': non_existent
+    })
+    return render(request, 'reset_request.html', context)
+
+
+def password_reset_view(request, username, snippet):
+
+    # runs the header search bar
+    state_breweries = state_search(request)
+    if state_breweries:
+        request.session['state_search_results'] = state_breweries
+        return redirect(f'/stateresults/{state_breweries[0]["state"]}/')
+
+    match_error = None
+
+    temporary = TemporaryUrl.objects.get(snippet=snippet)
+    if temporary:
+        context = {}
+        form = ResetPasswordForm()
+        if request.method == 'POST':
+            form = ResetPasswordForm(request.POST)
+            if form.is_valid():
+                data = form.cleaned_data
+                new_password = data['password']
+                retype = data['password2']
+
+                if new_password == retype:
+                    user = MyBrewUser.objects.get(username=username)
+                    user.set_password(new_password)
+                    user.save()
+                    temporary.delete()
+                    return redirect(reverse('login'))
+                else:
+                    match_error = 'Passwords did not match try again!'
+
+        state_form = StateSearchForm()
+        context.update({
+            'form': form,
+            'state_form': state_form,
+            'match_error': match_error
+        })
+
+        return render(request, 'password_reset.html', context)

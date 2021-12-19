@@ -42,6 +42,9 @@ urlpatterns = [
         views.update_user_view,
         name='update_user'
     ),
+    path('resetrequest/', views.reset_request_view, name='request_reset'),
+    path('passwordreset/<str:username>/<str:snippet>/',
+         views.password_reset_view, name='password_reset'),
     # path('registerbrewery/', views.register_brewery, name='register_brewery'),
     path('admin/', admin.site.urls),
 ]
