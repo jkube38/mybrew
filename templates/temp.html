@@ -1,0 +1,52 @@
+{% extends 'base_header.html' %}
+
+{% block content %}
+<style>
+    body {
+        background-color: black;
+    }
+
+    #userHolder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 1000px;
+    }
+
+    #following {
+        color: white;
+    }
+
+    #notfollowing {
+        color: white;
+    }
+</style>
+<title>MyBrew | All Users</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<div id='userHolder'>
+    {% for follow in following %}
+        <button class='follow' value="{{ follow.username }}"><h3 id='user'>follow {{follow.username}}</h3></button>
+    {% endfor %}
+</div>
+{{user.id}}RIGHT HERE
+
+<!-- ajax help from stack overflow and  code with Tomi youtube channel -->
+<script type="text/javascript">
+    
+    $('.follow').click(function () {
+        let username = $(this).val()
+        console.log('you clicked on: ', username)
+        $.ajax({
+            url:`/follow/${username}/`,
+            // data: {
+            //     'username': username
+            // },
+            // dataType: 'json',
+            success: function (success){
+                console.log(success)
+            }
+        })
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,238 @@
+input:focus {
+    outline: 1px solid rgb(125, 172, 66);
+}
+
+select:focus {
+    outline: 1px solid rgb(125, 172, 66);
+}
+
+#signupModalHolder {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 50px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+#signupModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    top: 10px;
+    background-color: #fefefe25;
+    backdrop-filter: blur(5px);
+    border-bottom: .5px solid rgb(125, 172, 66);
+    border-top: .5px solid rgb(125, 172, 66);
+    margin: auto;
+    width: 50%;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:10px; opacity:1}
+}
+
+#signupFormHolder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#signupForm {
+    width: 40%;
+    margin: 15px 0 15px 0;
+}
+
+#signupTitleHolder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: .5px solid rgb(125, 172, 66);
+}
+
+#modalLogo {
+    width: 30%;
+    margin: 15px 0 15px 0;
+}
+
+#id_first_name {
+    border-width: 0;
+    border-bottom: 1px solid rgb(125, 172, 66);
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    color: white;
+}
+
+#id_first_name::placeholder {
+    color: white;
+}
+
+#id_last_name {
+    border-width: 0;
+    border-bottom: 1px solid rgb(125, 172, 66);
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    color: white;
+}
+
+#id_last_name::placeholder {
+    color: white;
+}
+
+#id_usernameSU {
+    border-width: 0;
+    border-bottom: 1px solid rgb(125, 172, 66);
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    color: white;
+}
+
+#id_usernameSU::placeholder{
+    color: white;
+}
+
+#id_email {
+    border-width: 0;
+    border-bottom: 1px solid rgb(125, 172, 66);
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    color: white;
+}
+
+#id_email::placeholder{
+    color: white;
+}
+
+#id_state {
+    border-width: 0;
+    border-bottom: 1px solid rgb(125, 172, 66);
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    color: white;
+}
+
+#id_city {
+    border-width: 0;
+    border-bottom: 1px solid rgb(125, 172, 66);
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    color: white;
+
+}
+
+#id_city::placeholder{
+    color: white;
+}
+
+#id_favorite_beer {
+    border-width: 0;
+    border-bottom: 1px solid rgb(125, 172, 66);
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    color: white;
+}
+
+#id_favorite_beer::placeholder{
+    color: white;
+}
+
+#id_passwordSU {
+    border-width: 0;
+    border-bottom: 1px solid rgb(125, 172, 66);
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    color: rgb(125, 172, 66);
+}
+
+#id_passwordSU::placeholder{
+    color: white;
+}
+
+#signupSubmit {
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Poiret One', cursive;
+    font-size: xx-large;
+    color: white;
+    margin: 0 0 15px 0;
+}
+
+#signupSubmit:hover {
+    color: rgb(125, 172, 66);
+    cursor: pointer;
+}
+
+#signupModalFooter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#footerHops {
+    width: 3%;
+    transform: rotate(-15deg);
+    margin: 0 15px 10px 10px;
+}
+
+#cancelButton {
+    color: white;
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    margin: 0 0 0 0;
+}
+
+#cancelButton:hover {
+    color: rgb(125, 172, 66);
+    cursor: pointer;
+}
+
+#errorMessage {
+    text-align: center;
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    margin: 10px 0 10px 0;
+    color: rgb(125, 172, 66);
+
+}
+
+label {
+    display: none;
+    color: rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    font-size: small;
+    position: relative;
+    left: -80px;
+}

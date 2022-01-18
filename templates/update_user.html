@@ -10,8 +10,17 @@
     <form  action='' method="post" enctype='multipart/form-data' id='form'>
         {% csrf_token %}
         {{ profile_form }}
-        <input type="submit" value="Update">
-        <h6 id='required'>* Required</h6>
+        <div id='filenameHolder'>
+            <label for="id_profile_pic" id="chooseFile"><img src="/static/images/image_upload_icon.png" alt="image upload icon" id="uploadIcon"></label>
+            <h3 id='filename'></h3>
+        </div>
+        <input type="submit" value="Update" id='updateButton'>
     </form>
 </div>
+<script>
+    $('#id_profile_pic').change(function () {
+        let file = $('#id_profile_pic').val().split('\\')[2]
+        $('#filename').text(file)
+    })
+</script>
 {% endblock %}

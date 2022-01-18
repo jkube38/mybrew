@@ -1,0 +1,778 @@
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&family=Roboto:wght@300&display=swap');
+
+body {
+    background-color: black;
+}
+
+#pageHolder {
+    display: flex;
+    justify-content: space-between;
+}
+
+#userDetailsHolder {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 25px 0 0 0;
+}
+
+#userDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 110px;
+}
+
+#userPicHolder {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+#userInitialsHolder {
+    color: white;
+    font-family: 'Poiret One', cursive;
+    font-size: xxx-large;
+}
+
+.details {
+    font-family: 'Poiret One', cursive;
+    color: white;
+    margin: 0 0 5px 0;
+}
+
+#followingHolder {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 25px;
+}
+
+#followingHolderDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 100px;
+}
+
+#followingHolderTitle {
+    color: white;
+    font-family: 'Poiret One', cursive;
+    border-bottom: 1px solid white;
+    margin: 0 0 35px 0;
+}
+
+#followingBreweriesTitle {
+    color: white;
+    font-family: 'Poiret One', cursive;
+    border-bottom: 1px solid white;
+    margin-bottom: 35px;
+    
+}
+
+#connectionHolder {
+    background-color: rgb(125, 172, 66);
+    display: flex;
+    align-items: center;
+    padding-left: -40px;
+    border-radius: 25px 25px 25px 25px;
+    margin-bottom: 15px;
+    transform: rotate(30deg);
+}
+
+#connectionHolder:hover {
+    background-color: black;
+    border: 1px solid rgb(125, 172, 66);
+}
+
+.connectionLink {
+    text-decoration: none;
+}
+
+#connectPic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    color: white;
+    font-family: 'Poiret One', cursive;
+    border: 1px solid rgb(125, 172, 66);
+    transform: rotate(-30deg);
+}
+
+.connectionName {
+    color: white;
+    font-family: 'Poiret One', cursive;
+    margin: 0 0 0 0;
+    padding-right: 10px;
+}
+
+#breweryName {
+    color: white;
+    font-family: 'Poiret One', cursive;
+    margin: 0 0 0 0;
+    padding-right: 10px;
+}
+
+#postFeed {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#imgPostCheck {
+    color: rgb(125, 172, 66);
+    margin: 0 5px 0 15px;
+    font-family: 'Poiret One', cursive;
+    font-size: medium;
+}
+
+#postForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imgHolder {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin: 0 5px 0 15px;
+}
+
+.postUserInitials {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin: 0 5px 0 15px;
+    background-color: black;
+}
+
+.poster {
+    color: white;
+    font-family: 'Poiret One', cursive;
+}
+
+.postTextHolder {
+    width: 100%;
+    background-color: rgba(170, 170, 170, 0.2);
+    min-height: 100px;
+}
+.post {
+    color: white;
+    font-family: 'Poiret One', cursive;
+    padding: 25px 25px 25px 25px;
+    margin: 0;
+    word-wrap: break-word;
+}
+
+.createdAt {
+    text-align: right;
+    color: white;
+    font-family: 'Poiret One', cursive;
+    margin: 0 10px 0 0;
+    width: 33%;
+}
+
+.likes {
+    color: white;
+    font-family: 'Poiret One', cursive;
+    margin: 0px 0 2px 5px;
+}
+
+.likesDropdown {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    width: 100px;
+    background-color: rgba(0, 0, 0, 0.26);
+    backdrop-filter: blur(5px);
+}
+
+.likedBy {
+    color: rgb(125, 172, 66);
+    text-align: center;
+    background-color: black;
+    font-family: 'Poiret One', cursive;
+    margin: 0 0 0 0;
+}
+
+.likedBy:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.commentUserDetails {
+    display: flex;
+    align-items: center;
+    
+}
+
+.postHolder {
+    width: 80%;
+    border-top: 1px solid rgba(124, 172, 66, 0.5);
+    border-bottom: 1px solid rgba(125, 172, 66, 0.5);
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.116);
+}
+
+#allPostHolder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.postDetailsHolder {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgb(125, 172, 66);
+    
+}
+
+#unfollowButton {
+    background: none;
+    border-radius: 10px;
+    border-top: 1px solid rgb(125, 172, 66);
+    border-right: 1px solid rgb(125, 172, 66);
+    border-bottom: 2px solid rgb(125, 172, 66);
+    border-left: 2px solid rgb(125, 172, 66);
+    font: optional;
+    font-family: 'Poiret One', cursive;
+    color: white;
+}
+
+#followButton {
+    background: none;
+    border-radius: 10px;
+    border-top: 2px solid rgb(125, 172, 66);
+    border-right: 2px solid rgb(125, 172, 66);
+    border-bottom: 1px solid rgb(125, 172, 66);
+    border-left: 1px solid rgb(125, 172, 66);
+    font: optional;
+    font-family: 'Poiret One', cursive;
+    color: white;
+}
+
+.cheers {
+    width: 30px;
+    margin-bottom: 3px;
+}
+
+.cheersWithLink {
+    width: 30px;
+    margin-bottom: 3px;
+    cursor: pointer;
+}
+
+.likesHolder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0 0 0 0;
+    width: 33%;
+}
+
+.iconLikes {
+    display: flex;
+    align-items: center;
+    margin-top: 3px;
+    margin: 3px 0 0 15px;
+}
+
+.dropHolder {
+    position: relative;
+    left: -10px;
+}
+
+.likeLink {
+    text-decoration: none;
+}
+
+#updateUser {
+    text-decoration: none;
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    color: rgba(255, 255, 255, 0.459);
+    margin: 0 0 0 0;
+}
+
+#userPostHolder {
+    width: 100%;
+    margin: 25px 0 0 0;
+}
+
+#picAndTitle {
+    display: flex;
+    align-items: center;
+}
+
+#id_post {
+    resize: none;
+    width: 70%;
+    background-color: rgba(170, 170, 170, 0.2);
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    color: white;
+    border: 0;
+    border-top: 1px solid rgb(125, 172, 66);
+    border-bottom: 1px solid rgb(125, 172, 66);
+}
+
+#id_post:focus {
+    outline: none;
+    border: none;
+    border-top: 1px solid rgb(125, 172, 66);
+    border-bottom: 1px solid rgb(125, 172, 66);
+
+}
+
+#postButton {
+    background: none;
+    border: none;
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    color: white;
+    padding: 0 10px 5px 10px;
+    cursor: pointer;
+
+}
+
+.postImage {
+    width: 100%;
+}
+
+input[type='file'] {
+    display: none;
+    color: white;
+}
+
+#uploadIcon {
+    width: 35px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+#postUploadHolder {
+    display: flex;
+    width: 70.55%;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(170, 170, 170, 0.2);
+    padding-top: 5px;
+    position: relative;
+    /* top: -20px; */
+    border-bottom: 1px solid rgb(125, 172, 66);
+}
+
+.commentButtonHolder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 33%;
+}
+
+.commentButton {
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    color: white;
+    margin: 0 0 0 0;
+    cursor: pointer;
+}
+
+#commentModalHolder {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+#commentFormHolder {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 200px;
+    /* background-color: #fefefe25; */
+    backdrop-filter: blur(5px);
+    /* border-bottom: .5px solid rgb(125, 172, 66); */
+    margin: auto;
+    width: 50%;
+    height: 35%;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:200px; opacity:1}
+}
+
+#commentUploadIcon {
+    width: 35px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+#id_comment {
+    resize: none;
+    width: 100%;
+    background-color: rgba(170, 170, 170, 0.2);
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    color: white;
+    border: 0;
+    padding: 15px 0 0 15px;
+    border-top: 1px solid rgb(125, 172, 66);
+    border-bottom: 1px solid rgb(125, 172, 66);
+}
+
+#id_comment:focus {
+    outline: none;
+    border: none;
+    border-top: 1px solid rgb(125, 172, 66);
+    border-bottom: 1px solid rgb(125, 172, 66);
+
+}
+
+#id_comment::placeholder {
+    position: relative;
+    padding: 15px 0 0 15px;
+}
+
+#commentUploadHolder {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(170, 170, 170, 0.2);
+    padding: 0 0 0 15px;
+    position: relative;
+    border-bottom: 1px solid rgb(125, 172, 66);
+}
+
+#commentButton {
+    background: none;
+    border: none;
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    color: white;
+    padding: 0 10px 5px 10px;
+    cursor: pointer;
+}
+
+#commentModalHeader {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 0 15px;
+    border-top: 1px solid rgb(125, 172, 66);
+    background-color: rgba(170, 170, 170, 0.2);
+    margin-bottom: 4px;
+}
+
+#closeCommentModal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    border: 2px solid rgb(125, 172, 66);
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+#modalX {
+    color: rgba(255, 255, 255, 0);
+    margin-bottom: 0 0 4px 0;
+}
+
+#closeCommentModal:hover {
+    background-color: rgb(125, 172, 66);
+}
+
+#closeCommentModal:hover #modalX {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+#commentModalTitle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    color: white;
+    margin: 5px 0 5px 15px;
+}
+
+.allCommentHolder {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid rgb(125, 172, 66);
+    margin-bottom: 10px;
+}
+
+.downArrowHolder {
+    display: flex;
+}
+
+.allCommentTitle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 80%;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgb(125, 172, 66);
+    
+}
+
+.displayCommentText {
+    font-family: 'Poiret One', cursive;
+    color: rgb(125, 172, 66);
+    font-size: medium;
+    margin: 0 10px 0 0;
+}
+
+.downArrow {
+    font-family: 'Poiret One', cursive;
+    color: rgb(125, 172, 66);
+    font-size: large;
+    margin: 0;
+    cursor: pointer;
+    transform: rotate(180deg);
+}
+
+.commentHolder {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-bottom: 10px;
+    background-color: rgb(0, 0, 0);
+}
+
+.commentData {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    display: flex;
+    
+}
+
+.commentHeader {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.commentFooter {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin: 5px 0 5px 0;
+}
+
+.commentDetails {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: rgba(255, 255, 255, 0.342); */
+    border-radius: 20px;
+    border: 1px solid rgb(125, 172, 66);
+    
+}
+
+.commenterImage {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgb(125, 172, 66);
+    position: relative;
+    right: -10px;
+}
+
+.commenterName {
+    font-family: 'Poiret One', cursive;
+    font-size: medium;
+    color: rgb(128, 128, 128);
+    margin: 0 0 0 15px;
+}
+
+.commentTime {
+    font-family: 'Poiret One', cursive;
+    font-size: small;
+    color: rgb(128, 128, 128);
+    margin: 0 15px 0 0;
+}
+
+.commentUploadImage {
+    width: 80%;
+}
+
+.commentText {
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    color: white;
+    margin: 5px 0 5px 0;
+    text-align: left;
+}
+
+.commentTextImg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+}
+
+#imgCheck {
+    color: rgb(125, 172, 66);
+    margin: 0 5px 0 15px;
+    font-family: 'Poiret One', cursive;
+    font-size: medium;
+}
+
+#imageUpload {
+    display: flex;
+    align-items: center;
+}
+
+#removeImageHolderPost {
+    width: 13px;
+    height: 13px;
+    margin-top: 5px;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+#removeImagePost {
+    color: black;
+    margin: 0 0 0 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+#removeImageHolderComment {
+    width: 13px;
+    height: 13px;
+    margin-top: 5px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+}
+
+#removeImageComment {
+    color: black;
+    margin: 0 0 0 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+#vinesHolder {
+    width: 80%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 125px;
+    margin: 0 0 15px 0;
+}
+
+#vinesTitleHolder {
+    display: flex;
+    justify-content: center;
+}
+
+#vinesTitle {
+    font-family: 'Poiret One', cursive;
+    font-size: xx-large;
+    color: white;
+    margin: 20px 0 15px 0;
+}
+
+#vinesNavigation {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid rgb(125, 172, 66);
+}
+
+.vineNav {
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    color: white;
+    margin: 0 0 15px 0;
+}
+
+.vineNavLink {
+    text-decoration: none;
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    color: white;
+    margin: 0 0 15px 0;
+}
+
+.vineNavLink:hover {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px rgb(125, 172, 66);
+}
+
+#notUserTitleHolder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 20px 0 20px 0;
+}
+
+#notUserTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+}
+
+#notUserTitleText {
+    font-family: 'Poiret One', cursive;
+    font-size: xx-large;
+    color: white;
+    margin: 0 0 0 0;
+}
+
+.commentAtLink {
+    text-decoration: none;
+    color: rgb(125, 172, 66);
+}
+
+#userInitialsHolder {
+    font-family: 'Poiret One', cursive;
+    font-size: 100px;
+    color: white;
+    text-transform: capitalize;
+    margin: 0 0 0 0;
+}

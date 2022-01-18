@@ -19,18 +19,26 @@ body {
 }
 
 #usernamedetailsbox {
+    font-family: 'Poiret One', cursive;
+    color: white;
     margin: 5px 0 2px 0;
 }
 
 #cityState {
+    font-family: 'Poiret One', cursive;
+    color: white;
     margin: 3px 0 15px 0;
 }
 
 #favoriteBeerTitle {
+    font-family: 'Poiret One', cursive;
+    color: white;
     margin: 15px 0 3px 0;
 }
 
 #favoriteBeer {
+    font-family: 'Poiret One', cursive;
+    color: white;
     margin: 2px 0 10px 0;
 }
 
@@ -38,29 +46,28 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
     width: 30%;
-    height: 400px;
     color: white;
-    position: sticky; top: 0;
-    z-index: 1;
-    font-family: 'Poiret One', cursive;
+    position: sticky;
+    top: 0;
     margin: 15px 0 0 0;
 }
 
 #proPic {
-    width: 100%;
-    margin: 10px 0 10px 0;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
 }
 
 #userInitials {
     font-family: 'Poiret One', cursive;
     font-size: 60px;
     text-transform: uppercase;
+    margin: 20px 0 20px 0;
 }
 
 #breweriesTitle {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Poiret One', cursive;
     color: white;
     margin: 20px 0 10px 0;
 }
@@ -77,7 +84,7 @@ body {
     background-size: 70%;
     margin: 15px 0 15px 0;
     width: 85%;
-    font-family: 'Fredoka One', cursive;
+    font-family: 'Poiret One', cursive;
 }
 
 .bStreet {
@@ -105,7 +112,7 @@ body {
     align-items: center;
     justify-content: center;
     width: 50%;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 #faveBeerHolder {

@@ -1,20 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Poiret+One&family=Roboto:wght@300&display=swap');
 
 #mainHeaderHolder {
+    position: sticky;
+    top: 0;
+    z-index: 1;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     border-bottom: 2px solid rgb(125, 172, 66);
+    background-color: black;
     
 }
 
 #homeLinkHolder {
-    width: 15%;
+    width: 23%;
 }
 
 #headerLogo {
-    width: 25%;
+    width: 17%;
     margin: 5px 0 5px 5px;
 }
 
@@ -56,7 +60,7 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    width: 15%;
+    width: 100%;
     margin: 10px 0 10px 10px;
 }
 
@@ -75,8 +79,9 @@
     color: rgb(125, 172, 66);
 }
 
-#proPicHeader {
-    width: 20%;
+#proPicDiv {
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
 }
 
@@ -84,6 +89,11 @@
     color: white;
     font-family: 'Poiret One', cursive;
     font-size: x-large;
+    text-decoration: none;
+}
+
+#usernameLink {
+    text-decoration: none;
 }
 
 #footer {
@@ -122,4 +132,304 @@
     font-family: 'Poiret One', cursive;
     font-size: large;
     margin: 5px 0 0 0;
+}
+
+#notifyDot {
+    position: relative;
+    top: 20px;
+    left: -5px;
+    background-color: rgb(125, 172, 66);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+#userInfo {
+    display: flex;
+    align-items: center;
+    width: 23%;
+    margin-right: 5px;
+}
+
+#notifications {
+   display: none;
+   background-color: hsla(0, 0%, 100%, 0.145);
+   backdrop-filter: blur(5px);
+   align-items: center;
+   position: absolute;
+   top: 80px;
+   left: 70%;
+   width: 350px;   
+}
+
+#notificationTitle {
+    color: white;
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    text-decoration: none;
+}
+
+#notificationTitle:hover {
+    color: rgb(125, 172, 66);
+}
+
+#notify {
+    display: flex;
+    justify-content: center;
+}
+
+.notificationHolder {
+    background-color: rgba(255, 255, 255, 0);
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: .5px solid rgb(125, 172, 66);
+}
+
+.notificationHolder:hover {
+    background-color: black;
+    cursor: pointer;
+}
+
+.posterPic {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    margin-left: 4%;
+}
+
+.notifyDesc {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-right: 4%;
+    
+
+}
+
+.notifyText {
+    color: rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.postTime {
+    color: rgba(124, 172, 66, 0.699);
+    font-family: 'Poiret One', cursive;
+    font-size: x-small;
+    margin: 0;
+}
+
+.ifNew {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 25px;
+    
+}
+
+.new {
+    background-color: rgb(125, 172, 66);
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+/* modal help from w3 schools */
+.notificationModal {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modalContent {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 200px;
+    background-color: #fefefe25;
+    backdrop-filter: blur(5px);
+    border-bottom: .5px solid rgb(125, 172, 66);
+    margin: auto;
+    width: 50%;
+    height: 50%;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:200px; opacity:1}
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: .5px solid rgb(125, 172, 66);
+    height: 10%;
+}
+
+.modalPostCreated {
+    margin: 5px 0 5px 15px;
+    color: rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+}
+
+.modalClose {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    border: 2px solid rgb(125, 172, 66);
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.modalClose:hover {
+    background-color: rgb(125, 172, 66);
+}
+
+.modalClose:hover .modalX {
+    color: rgba(0, 0, 0, 0.411);
+}
+
+.modalMainContent {
+    display: flex;
+    height: 90%;
+}
+
+.modalProfile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid rgba(124, 172, 66, 0.699);
+    height: 100%;
+    width: 25%;
+}
+
+.modalProfilePic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.modalUsername {
+    color: rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin: 0 0 5px 0;
+}
+
+.modalUserFrom {
+    color: rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    margin: 0 0 0 0;
+}
+
+.modalX {
+    margin: 0 0 1px 0;
+    color: rgba(0, 0, 0, 0);
+}
+
+
+
+.modalPostData {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 75%;
+}
+
+.modalNotifyDesc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    margin: 0 0 0 0;
+    height: 15%;
+    width: 100%;
+    border-bottom: .5px solid rgb(125, 172, 66);
+}
+
+.modalPostContent {
+    width: 100%;
+    height: 70%;
+    overflow-y: auto;
+    color: rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    border-bottom: .5px solid rgb(125, 172, 66);
+}
+
+.modalPost {
+    color: rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    margin: 15px 0 15px 15px;
+    word-wrap: break-word;
+}
+
+.modalPostLikes {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    height: 15%;
+}
+
+.modalDelete {
+    color: rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    margin: 0 15px 0 0;
+    cursor: pointer;
+}
+
+.modalLikes {
+    color: rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    margin-left: 15px;
+}
+
+.cheers {
+    width: 30px;
+    margin-top: 2px;
+}
+
+.iconLikes {
+    display: flex;
+    align-items: center;
+    margin-top: 3px;
+    margin: 3px 0 0 15px;
+}
+
+.modalPostImage {
+    width: 50%;
+    margin-left: 25%;
 }

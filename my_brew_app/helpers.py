@@ -3,6 +3,7 @@ from decouple import config
 import string
 import random
 from my_brew_app.forms import StateSearchForm
+from my_brew_notifications.models import UserPostNotification
 
 
 def state_search(request):

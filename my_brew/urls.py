@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from my_brew_app import views
+from my_brew_brewery import views as b_views
+from my_brew_posts import views as p_views
+from my_brew_notifications import views as n_views
 from my_brew import settings
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -23,29 +26,72 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('', views.home_view, name='home'),
+    path(
+        'profile/<str:username>/followingVine/',
+        views.user_profile_view,
+        name='user_profile'),
+    path(
+        'profile/<str:username>/myVine/',
+        views.user_profile_view,
+        name='user_profile_my_vine'
+    ),
+    path(
+        'profile/<str:username>/exploreVine/',
+        views.user_profile_view,
+        name='user_profile_explore_vine'
+    ),
     path('stateresults/<str:state>/', views.state_view, name='state'),
-    path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
-    path('signup/', views.signup_view, name='signup'),
+    path('usersignup/', views.signup_view, name='signup'),
     path(
         'favorite/<str:brew_name>/',
         views.favorite_brewery_view,
         name='favorite'
     ),
+
     path(
-        'rate/<int:rated>/<str:brewery_address>/',
-        views.rating_view,
+        'rate/<int:rated>/<int:id>/',
+        b_views.rating_view,
         name='rating'
     ),
+    path('userpostsubmission/', p_views.user_post_view, name='userpost'),
     path(
         'updateuser/<int:user_id>/',
         views.update_user_view,
         name='update_user'
     ),
+    path('postlike/<str:username>/<int:post_id>/', p_views.post_like_view),
+    path(
+        'notificationviewed/<int:notification_id>/',
+        n_views.notification_viewed_view,
+        name='viewed'
+    ),
+    path(
+        'postcommentdata/<str:post_commenter>/<int:post_id>/<str:post_creator>/',
+        p_views.post_comment_data_view,
+        name='post_comment_data'
+    ),
+    path(
+        'postcommentsubmission/',
+        p_views.post_comment_view,
+        name='post_comment'
+    ),
+    path(
+        'notificationdelete/<int:notification_id>/',
+        n_views.notification_delete_view,
+        name='delete_notification'
+    ),
     path('resetrequest/', views.reset_request_view, name='request_reset'),
     path('passwordreset/<str:username>/<str:snippet>/',
          views.password_reset_view, name='password_reset'),
-    # path('registerbrewery/', views.register_brewery, name='register_brewery'),
+    path('follow/<str:username>/', views.follow_user_view, name='follow'),
+    path('unfollow/<str:username>/', views.unfollow_view, name='unfollow'),
+    path('tempusers/', views.temp_all_users, name='temp'),
+    # path(
+    #     'registerbrewery/',
+    #     views.register_brewery,
+    #     name='register_brewery'
+    # ),
     path('admin/', admin.site.urls),
 ]
 

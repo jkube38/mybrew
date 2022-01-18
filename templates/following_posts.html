@@ -1,0 +1,87 @@
+<div id='allPostHolder'>
+    {% for post in relevant_posts %}
+        <div class='postHolder' id="postHolder{{ post.0.pk }}">
+            <div class='commentUserDetails'>
+                {% if post.0.created_by.profile_pic %}
+                    <a href='/profile/{{ post.0.created_by.username }}/followingVine/' class="commentAtLink" ><div class='imgHolder'style="background-image: url('{{ post.0.created_by.profile_pic.url }}'); background-size: cover;"></div></a>
+                {% else %}
+                    <div class='postUserInitials'></div>
+                {% endif %}
+                <h4 class='poster'><a href='/profile/{{ post.0.created_by.username }}/followingVine/' class="commentAtLink" >@{{ post.0.created_by }}</a></h4>
+            </div>
+            <div class='postTextHolder'>
+                <p class='post'>{{ post.0.post }}</p>
+                {% if post.0.post_pic %}
+                    <img class='postImage' src="{{ post.0.post_pic.url }}" alt="img posted by user in post"/>
+                {% endif %}
+            </div>
+            <div class='postDetailsHolder' id='postDetailsHolder{{ post.0.pk }}'>
+                <div class='likesHolder' data-value="{{post.0.pk}}">
+                    <div class="iconLikes">
+                        {% if request.user.username in post.1 %}
+                            <img class='cheers' src="/static/images/beer_mugs.png" alt="cheers with beermugs a like button" />
+                        {% else %}
+                            <img class='cheersWithLink' data-value="{{ post.0.pk }},{{user.username}}" src="/static/images/beer_mugs.png" alt="cheers with beermugs a like button" />
+                        {% endif %}
+                        <h4 class='likes'>
+                        {% if post.0.likes is None %}
+                            0
+                        {% else %}
+                            {{ post.0.likes }}
+                        {% endif %}
+                        </h4>
+                    </div>
+                    <div class="dropHolder">
+                        {% if post.1 %}
+                        <div class="likesDropdown" id='drop{{post.0.pk}}'>
+                            {% for like in post.1 %}
+                            <a href='/profile/{{like}}/' class="likeLink"><h3 class=likedBy>{{ like }}</h3></a>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class='commentButtonHolder'><h3 class='commentButton' data-value="{{ post.0.pk }},{{ request.user.username }},{{ post.0.created_by }}">COMMENT</h3></div>
+                <div class='createdAt'>{{ post.0.created_at }}</div>
+            </div>
+        </div>
+        <div class="allCommentTitle" id="allCommentTitle{{ post.0.pk }}">
+            {% if post.2 %}
+                <div class="downArrowHolder">
+                    <h4 class="displayCommentText" id="displayCommentText{{ post.0.pk }}">hide comments</h4>
+                    <h4 class="downArrow" data-value="{{ post.0.pk }}" id="arrow{{ post.0.pk }}">V</h4>
+                </div>
+            {% else %}
+                <div class="downArrowHolder" id="downArrowHolder{{ post.0.pk}}" style="display: none;">
+                    <h4 class="displayCommentText" id="displayCommentText{{ post.0.pk }}">hide comments</h4>
+                    <h4 class="downArrow" data-value="{{ post.0.pk }}" id="arrow{{ post.0.pk }}">V</h4>
+                </div>
+            {% endif %}
+        </div>
+        <div class='allCommentHolder' id='allCommentHolder{{ post.0.pk }}'>
+            {% for comment in post.2 %}
+            <div class='commentHolder' id='comment{{ post.0.pk }}'>
+                <div class="commentData">
+                    {% if comment.commenter.profile_pic %}
+                    <a href='/profile/{{ comment.commenter.username }}/followingVine/' class="commentAtLink" ><div class='commenterImage'style="background-image: url('{{ comment.commenter.profile_pic.url }}'); background-size: cover;"></div></a>
+                    {% endif %}
+                    <div class="commentDetails">
+                        <div class="commentHeader">
+                            <h4 class='commenterName'><a href='/profile/{{ comment.commenter.username }}/followingVine/' class="commentAtLink" >@{{ comment.commenter.username }}</a> - commented</h4>
+                        </div>
+                        <div class="commentTextImg">
+                            <h4 class="commentText">{{ comment.comment }}</h4>
+                            {% if comment.comment_pic %}
+                                <img src="{{ comment.comment_pic.url}}" alt='image uploaded with the comment' class='commentUploadImage' />
+                            {% endif %}
+                        </div>
+                        <div class="commentFooter">
+                            <h4 class='commentTime'>{{ comment.created_at }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>

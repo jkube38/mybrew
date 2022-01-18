@@ -1,0 +1,19 @@
+<div id="signupModalHolder">
+    <div id="signupModal">
+        <div id="signupTitleHolder">
+            <img src='/static/images/My-Brew-Logo-White.png' alt="my brew logo" id="modalLogo" />
+        </div>
+        <div id="signupFormHolder">
+            <form  action='' method="post" id='signupForm' enctype="multipart/form-data" style="display: flex; flex-direction: column; align-items: center;" >
+                {% csrf_token %}
+                {{ signup_form }}
+                <input type="submit" value="signup" id='signupSubmit'>
+            </form>
+        </div>
+        <h3 id="errorMessage"></h3>
+        <div id="signupModalFooter">
+            <h3 id="cancelButton">cancel</h3>
+            <img id="footerHops" src="/static/images/green_white_hop.png" alt="outline of a beer hop" />
+        </div>
+    </div>
+</div>

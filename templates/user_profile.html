@@ -1,0 +1,328 @@
+{% extends 'base_header.html' %}
+
+{% block content %}
+{% load static %}
+<link rel='stylesheet' href="{% static 'user_profile.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<title>MyBrew | {{ user.username }}</title>
+<!-- modal for post comment form -->
+<div id="commentModalHolder">
+    <div id="commentFormHolder">
+        <div id='commentModalHeader'>
+            <div id='commentModalTitle'></div>
+            <div id='closeCommentModal'><h5 id='modalX'>&times;</h5></div>
+        </div>
+        <form  action='' method="post" enctype='multipart/form-data' id='commentForm'>
+            {% csrf_token %}
+            {{ comment_form }}
+            <div id='commentUploadHolder'>
+                <div id="imageUpload">
+                    <label for="id_comment_pic" id="chooseFile"><img src="/static/images/image_upload_icon.png" alt="image upload icon" id="commentUploadIcon"></label>
+                    <h3 id='imgCheck'></h3>
+                    <div id='removeImageHolderComment'>
+                        <h3 id='removeImageComment'>X</h3>
+                    </div>
+                </div>
+                <input type="submit" value="comment" id='commentButton'>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- end modal -->
+<div id='pageHolder'>
+    <div id='userDetailsHolder'>
+        <div id='userDetails'>
+            {% if user.profile_pic %}
+                <div id='userPicHolder' style="background-image: url('{{ user.profile_pic.url }}'); background-size: cover;"></div>
+            {% else %}
+                <div id='userInitialsHolder'>{{ initials }}</div>
+            {% endif %}
+            <h2 class='details' id='profileUsername'>{{ user.username }}</h2>
+            {% if user.first_name and user.last_name %}
+            <h3 class='details'>{{ user.first_name }}, {{ user.last_name }}</h3>
+            {% endif %}
+            <h3 class='details'>{{ user.city }}, {{ user.state }}</h3>
+            <!-- <a href='/updateuser/{{request.user.id}}/' id='updateUserLink'><h4 id='updateUser'>Update Profile</h4></a> -->
+            <div id='followHolder'>
+                {% if request.user != user and user.username not in following_usernames %}
+                    <button class='followSelector' id='followButton' value="{{ user.username }}">FOLLOW</button>
+                {% elif request.user != user and user.username in following_usernames %}
+                    <button class='followSelector' id='unfollowButton' value="{{ user.username }}">UNFOLLOW</button>
+                {% endif %}
+                {% if request.user.username == user.username %}
+                <a href="/updateuser/{{ request.user.id }}/" id="updateUser">Update Profile</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div id='postFeed'>
+        {% if request.user.username == user.username %}
+        <div id='userPostHolder'>
+            <form  action='' method="post" enctype='multipart/form-data' id='postForm'>
+                {% csrf_token %}
+                {{ post_form }}
+                <div id='postUploadHolder'>
+                    <div id='picAndTitle'>
+                        <label for="id_post_pic" id="chooseFile"><img src="/static/images/image_upload_icon.png" alt="image upload icon" id="uploadIcon"></label>
+                        <h3 id='imgPostCheck'></h3>
+                        <div id='removeImageHolderPost'>
+                            <h3 id='removeImagePost'>X</h3>
+                        </div>
+                    </div>
+                    <input type="submit" value="POST" id='postButton'>
+                </div>
+            </form>
+        </div>
+        <div id='vinesHolder'>
+            <div id='vinesTitleHolder'>
+                <h3 id='vinesTitle'>VINES</h3>
+            </div>
+            <div id='vinesNavigation'>
+                <h3 class='vineNav' id='myVine'><a href="/profile/{{ request.user.username }}/myVine" class="vineNavLink">My Vine</a></h3>
+                <h3 class='vineNav' id='followingVine'><a href="/profile/{{ request.user.username }}/followingVine" class="vineNavLink">Following Vine</a></h3>
+                <h3 class='vineNav' id='exploreVine'><a href="/profile/{{ request.user.username }}/exploreVine" class="vineNavLink">Explore Vine</a></h3>
+            </div>
+        </div>
+        {% else %}
+        <div id="notUserTitleHolder">
+            <div id="notUserTitle">
+                <h3 id="notUserTitleText">{{ user.username }}'s brew posts</h3>
+            </div>
+        </div>
+        {% endif %}
+        {% include 'following_posts.html' %}
+    </div>
+    <div id='followingHolder'>
+        <div id='followingHolderDetails'>
+            <h2 id='followingHolderTitle'>connections</h2>
+            {% for connection in following_users %}
+            <a href="/profile/{{ connection.username }}/followingVine" class='connectionLink' id='{{ connection.username }}/newProfile'>
+                <div id='connectionHolder'>
+                    {% if connection.profile_pic %}
+                        <div id='connectPic' style="background-image: url('{{ connection.profile_pic.url }}'); background-size: cover;"></div>
+                    {% else %}
+                        <div id='connectPic'>{{ connection.username.0.capitalize }}</div>
+                    {% endif %}
+                    <h3 class='connectionName' id="{{ connection.username }}">{{ connection.username }}</h3>
+                </div>
+            </a>
+            {% endfor %}
+            <h2 id='followingBreweriesTitle'>breweries</h2>
+            {% for brewery in following_breweries %}
+                <h3 id='breweryName'>{{ brewery.brewery_name }}</h3>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- ajax help from stack overflow and 'code with Tomi' youtube channel -->
+<script type="text/javascript">
+    
+    // Allows users to follow another user
+    $('#userDetails').on('click', '.followSelector', function () {
+        let username = $('#followButton').val()
+        $.ajax({
+            url:`/follow/${username}/`,
+            success: function () {
+                // reloading help from 'Gass' and 'Jaak Kutt' posts on stackoverflow
+                $('#followHolder').load(' #followHolder > *')
+            }
+        })
+    })
+
+    // Allows user to unfollow another user
+    $('#userDetails').on('click', '.followSelector', function () {
+        let username = $('#unfollowButton').val()
+        $.ajax({
+            url:`/unfollow/${username}/`,
+            success: function () {
+                $('#followHolder').load(' #followHolder > *')
+            }
+        })
+
+    })
+
+    // Hover function for the likesHolder to display which users have
+    // like the post
+    $('#allPostHolder').on('mouseenter', '.likesHolder', function () {
+        let dropDown = $(this).data('value')
+        $(`#drop${dropDown}`).css('display', 'flex')
+        $(`#drop${dropDown}`).css('flex-direction', 'column')
+    
+    }).on('mouseleave', '.likesHolder', function () {
+        let dropDown = $(this).data('value')
+        $(`#drop${dropDown}`).css('display', 'none')
+    })
+
+    // Allows the user to like(cheers) a post and reloads the div
+    // to display updated likes
+    $('#allPostHolder').on('click', '.cheersWithLink', function () {
+        let urlData = $(this).data('value').split(',')
+        let username = urlData[1]
+        let postId = urlData[0]
+        
+        $.ajax({
+            url:`/postlike/${username}/${postId}/`,
+            success: function () {
+                let likeId = postId
+                $(`#postDetailsHolder${likeId}`).load(` #postDetailsHolder${likeId} > *`)
+            }
+        })
+    })
+
+    // Opens the comment modal allowing the user to comment on a post and sends
+    // a post request to the post comment view to create a comment record
+    $('#allPostHolder').on('click', '.commentButton', function () {
+
+        let buttonData = $(this).data('value').split(',')
+        
+        $('#commentModalHolder').css('display', 'block')
+        $('#removeImageHolderComment').css('display', 'none')
+        $('body').css('overflow', 'hidden')
+        $('#commentModalTitle').text(`commenting on ${buttonData[2]}'s post`)
+
+
+        $('#closeCommentModal').click(function (){
+            $('#commentModalHolder').css('display', 'none')
+            $('body').css('overflow', 'auto')
+            $('#commentForm').trigger('reset')
+            $('#imgCheck').text('')
+        })
+
+
+        $('#id_comment_pic').change( function () {
+            let fileToUpload = $('#id_comment_pic').val().split('\\')[2]
+    
+            if ($('#id_comment_pic').val() !== ''){
+                $('#removeImageHolderComment').css('display', 'flex')
+                $('#imgCheck').text(fileToUpload)
+            }
+        })
+
+
+        $('#removeImageHolderComment').on('click', function () {
+            $('#id_post_pic').val('')
+            $('#removeImageHolderComment').css('display', 'none')
+            $('#imgCheck').text('')
+        })
+
+        $.ajax({
+            url: `/postcommentdata/${buttonData[1]}/${buttonData[0]}/${buttonData[2]}/`,
+            success: function () {
+
+            }
+        })
+        
+    })
+
+
+    $('#commentForm').on('submit', function(e) {
+        e.preventDefault()
+        
+        let formValue = new FormData()
+
+        let formPic = $('#id_comment_pic').prop('files')[0]
+        let formComment = $('#id_comment').val()
+
+        formValue.append('comment_pic', formPic)
+        formValue.append('comment', formComment)
+        formValue.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+
+        $.ajax({
+            url: '/postcommentsubmission/',
+            type: 'POST',
+            data: formValue,
+            processData: false,
+            contentType: false,
+            success: function (post_id) {
+
+                $('#commentModalHolder').css('display', 'none')
+                $('body').css('overflow', 'auto')
+                $('#commentForm').trigger('reset')
+                $('#imgCheck').text('')
+                
+                $(`#allCommentHolder${post_id}`).load(` #allCommentHolder${post_id} > *`)
+                let tempHideShow = $(`#downArrowHolder${post_id}`)
+                if (tempHideShow.css('display') === 'none') {
+                    tempHideShow.css('display', 'flex')
+                }
+
+            }
+
+        })
+    })
+    
+    
+    $('#postForm').on('submit', function (e) {
+        e.preventDefault()
+
+        let postForm = new FormData()
+
+        let formPic = $('#id_post_pic').prop('files')[0]
+        let formComment = $('#id_post').val()
+
+        postForm.append('post', formComment)
+        postForm.append('post_pic', formPic)
+        postForm.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+
+        $.ajax({
+            url: '/userpostsubmission/',
+            type: 'POST',
+            data: postForm,
+            processData: false,
+            contentType: false,
+            success: function () {
+                // $('#postForm').trigger('reset')
+                $('#imgPostCheck').text('')
+                $('#id_post').val('')
+                $('#id_post_pic').val('')
+                $('#removeImageHolderPost').css('display', 'none')
+                $('#allPostHolder').load( ' #allPostHolder > *')
+            }
+        })
+    })
+
+
+    // Allows the user to toggle the comment display on and off
+    $('#allPostHolder').on('click', '.downArrow', function () {
+        let commentId = $(this).data('value')
+        let arrow = `#arrow${commentId}`
+        let commentText = `#displayCommentText${commentId}`
+        
+        if ($(`#allCommentHolder${commentId}`).css('display') === 'flex') {
+            $(`#allCommentHolder${commentId}`).css('display', 'none')
+            $(arrow).css('transform', 'none')
+            $(commentText).text('show comments')
+        }
+        else if ($(`#allCommentHolder${commentId}`).css('display') === 'none') {
+            $(`#allCommentHolder${commentId}`).css('display', 'flex')
+            $(arrow).css('transform', 'rotate(180deg)')
+            $(commentText).text('hide comments')
+        }
+    })
+
+    // Displays the filename of the chosen file to upload on post
+    $('#id_post_pic').change(function () {
+        let fileToUpload = $('#id_post_pic').val().split('\\')[2]
+    
+        if ($('#id_post_pic').val() !== ''){
+            $('#removeImageHolderPost').css('display', 'flex')
+            $('#imgPostCheck').text(fileToUpload)
+        }
+    })
+
+    $('#removeImageHolderPost').on('click', function () {
+        $('#id_post_pic').val('')
+        $('#removeImageHolderPost').css('display', 'none')
+        $('#imgPostCheck').text('')
+    })
+
+    // Highlights the active vine link
+    $('document').ready(function () {
+        let currentUrl = $(location).attr('href').split('/')
+        let vine = currentUrl[5]
+        $(`#${vine}`).css('text-shadow', '0 0 10px #fff, 0 0 20px #fff, 0 0 30px rgb(125, 172, 66)')
+    })
+
+</script>
+{% endblock %}
+
