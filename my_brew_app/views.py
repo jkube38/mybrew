@@ -1,7 +1,10 @@
+from django.http.response import HttpResponse
 from django.shortcuts import render, redirect, reverse
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
 from itertools import chain
 from decouple import config
 from my_brew_app.models import MyBrewUser, TemporaryUrl
@@ -9,105 +12,88 @@ from my_brew_brewery.models import MyBrewBrewery
 from my_brew_app.forms import SignUpForm, LoginForm, StateSearchForm
 from my_brew_app.forms import ResetRequest, ResetPasswordForm
 from my_brew_app.forms import UserUpdateForm
-from my_brew_app.helpers import state_search, string_generator
+from my_brew_posts.forms import UserPostForm, PostCommentForm
+from my_brew_app.helpers import state_search
+from my_brew_app.helpers import string_generator
+from my_brew_notifications.views import header_notifications_view
+from my_brew_posts.post_helpers import sort_posts, all_current_posts
+from my_brew_posts.post_helpers import current_user_posts
+from my_brew_posts.views import user_post_view
 import requests
 
 
 # Create your views here.
 def signup_view(request):
-    context = {}
-
-# runs the header search bar
-    state_breweries = state_search(request)
-    if state_breweries:
-        request.session['state_search_results'] = state_breweries
-        return redirect(f'/stateresults/{state_breweries[0]["state"]}/')
-
-# Creates a new user
-    if request.method == 'POST':
+    '''Provides form for user to register'''
+    print('IN SIGNUP VIEW --------------->>>')
+    if request.is_ajax():
+        print('PAST AJAX--------------->>')
         form = SignUpForm(request.POST)
+        print('FORM ERRORS ----------->>> ', form.errors)
         if form.is_valid():
             data = form.cleaned_data
-            MyBrewUser.objects.create(
-                username=data['username'],
-                email=data['email'],
-                state=data['state'].capitalize(),
-                city=data['city'].capitalize(),
-                favorite_beer=data['favorite_beer'],
-            )
-            new_user = MyBrewUser.objects.get(username=data['username'])
-            new_user.set_password(data['password'])
-            new_user.save()
-            return redirect(reverse('login'))
-    state_form = StateSearchForm()
-    form = SignUpForm()
-    context.update({
-        'form': form,
-        'state_form': state_form
-    })
-    return render(request, 'signup.html', context)
+            try:
+                MyBrewUser.objects.create(
+                    first_name=data['first_name'],
+                    last_name=data['last_name'],
+                    username=data['usernameSU'],
+                    email=data['email'],
+                    state=data['state'].capitalize(),
+                    city=data['city'].capitalize(),
+                    favorite_beer=data['favorite_beer'],
+                )
 
+                new_user = MyBrewUser.objects.get(username=data['usernameSU'])
+                new_user.set_password(data['passwordSU'])
+                new_user.save()
+                return HttpResponse('success')
 
-def login_view(request):
-    context = {}
-
-# runs the header search bar
-    state_breweries = state_search(request)
-    if state_breweries:
-        request.session['state_search_results'] = state_breweries
-        return redirect(f'/stateresults/{state_breweries[0]["state"]}/')
-
-    if request.method == "POST":
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            brew_user = authenticate(
-                request,
-                username=data['username'],
-                password=data['password']
-            )
-            if brew_user:
-                login(request, brew_user)
-                return redirect('home')
-    state_form = StateSearchForm()
-    form = LoginForm()
-    context.update({
-        'form': form,
-        'state_form': state_form
-    })
-    return render(request, 'login.html', context)
+            except IntegrityError as e:
+                error = str(e.__cause__)
+                error_type = error.split('.')[-1]
+                if error_type == 'email':
+                    return HttpResponse(error_type)
+                elif error_type == 'username':
+                    return HttpResponse(error_type)
+    return HttpResponse('oops')
 
 
 def home_view(request):
+    '''Determines user and directs accordingling to landing page
+        or homepage with breweries in the users city. Allows for
+        state search, login, forgot password link, signup link'''
+
     context = {}
     login_form = LoginForm()
     favorite_list = []
-    brew_response = []
     local_brews = []
-    fave_list_address = []
+    fave_list_id = []
     local_brews_response = request.session.get('brew_response')
+    notifications = header_notifications_view(request)
 # runs the header search bar
     state_breweries = state_search(request)
     if state_breweries:
         request.session['state_search_results'] = state_breweries
-        return redirect(f'stateresults/{state_breweries[0]["state"]}/')
+        return redirect(f'/stateresults/{state_breweries[0]["state"]}/')
 
-# if user is authenticated and brewery is in user favorites voting
+# if user is authenticated and brewery is in user followed breweries voting
 # feature will be available
     brew_user = request.user
+    endpoint = 'https://brianiswu-open-brewery-db-v1.p.rapidapi.com/breweries'
     if brew_user.is_anonymous is False:
-        favorite_list = list((brew_user.favorites.all()))
+        favorite_list = list((brew_user.followed_brewery.all()))
         db_breweries = MyBrewBrewery.objects.all()
         for brewery in favorite_list:
-            fave_list_address.append(brewery.brewery_address)
+            fave_list_id.append(brewery.id)
 
 # Get Local Breweries By User State
         if not local_brews_response:
-            url = "https://brianiswu-open-brewery-db-v1.p.rapidapi.com/breweries"
+            url = endpoint
             querystring = {"by_state": request.user.state}
             headers = {
                 'x-rapidapi-key': config('MY_BREW_API_KEY'),
-                'x-rapidapi-host': "brianiswu-open-brewery-db-v1.p.rapidapi.com"
+                'x-rapidapi-host':
+                "brianiswu-open-brewery-db-v1.p.rapidapi.com"
             }
             response = requests.request(
                 "GET",
@@ -118,28 +104,32 @@ def home_view(request):
             brew_response = response.json()
 
             request.session['brew_response'] = (brew_response)
-# Filters state search by users city
+# Filters state search by users city if using api response
             local_brews = []
             for brew in brew_response:
                 if request.user.city == brew['city']:
                     local_brews.append(brew)
 
-# If brewery has been rated it will display the rating
+# if brewery is in our db, id of response is changed to match our db
+# also adds the brewery rating to the response
             for brewery in db_breweries:
                 for local in local_brews:
-                    if brewery.brewery_address == local['street']:
+                    if brewery.brewery_name == local['name']:
+                        local['id'] = brewery.id
                         local['rating'] = brewery.brewery_rating
 
+# Filters state search by users city if using session
         else:
-            # Filters state search by users city
             local_brews = []
             for brew in local_brews_response:
                 if request.user.city == brew['city']:
                     local_brews.append(brew)
-
+# if brewery is in our db, id of response is changed to match our db
+# also adds the brewery rating to the response
             for brewery in db_breweries:
                 for local in local_brews:
-                    if brewery.brewery_address == local['street']:
+                    if brewery.brewery_name == local['name']:
+                        local['id'] = brewery.id
                         local['rating'] = brewery.brewery_rating
 
 # Logs in a registered user
@@ -154,28 +144,86 @@ def home_view(request):
         else:
             login_form_errors = login_form.non_field_errors
 
+    signup_form = SignUpForm()
     login_form = LoginForm()
     state_form = StateSearchForm()
     user_initials = request.user.username[0:2]
+
     context.update({
         'user_initials': user_initials,
-        'brew_response': brew_response,
         'local_brews': local_brews,
-        'fave_list_address': fave_list_address,
+        'fave_list_id': fave_list_id,
         'state_form': state_form,
         'login_form': login_form,
         'favorite_list': favorite_list,
-        'login_form_errors': login_form_errors
+        'login_form_errors': login_form_errors,
+        'notifications': notifications,
+        'signup_form': signup_form
     })
     return render(request, 'home.html', context)
 
 
+@login_required(login_url='/')
+def user_profile_view(request, username):
+    '''Displays all of a users information'''
+    context = {}
+
+    user = MyBrewUser.objects.get(username=username)
+
+    notifications = header_notifications_view(request)
+
+    relevant_posts = []
+
+    post_list_selector = request.path.split('/')[3]
+    if post_list_selector == 'followingVine':
+        relevant_posts = sort_posts(request, username)
+    elif post_list_selector == 'myVine':
+        relevant_posts = current_user_posts(request)
+    elif post_list_selector == 'exploreVine':
+        relevant_posts = all_current_posts()
+
+# runs the post, comment submit form
+    post_form = user_post_view(request)
+
+# runs the header search bar
+    state_breweries = state_search(request)
+    if state_breweries:
+        request.session['state_search_results'] = state_breweries
+        return redirect(f'/stateresults/{state_breweries[0]["state"]}/')
+
+    following_users = user.followed_user.all()
+    following_usernames = [
+        follow.username for follow in request.user.followed_user.all()]
+    following_breweries = user.followed_brewery.all()
+    initials = user.username[:2]
+
+    state_form = StateSearchForm()
+    post_form = UserPostForm()
+    comment_form = PostCommentForm()
+    context.update({
+        'state_form': state_form,
+        'user': user,
+        'initials': initials,
+        'following_users': following_users,
+        'following_breweries': following_breweries,
+        'post_form': post_form,
+        'relevant_posts': relevant_posts,
+        'following_usernames': following_usernames,
+        'notifications': notifications,
+        'comment_form': comment_form
+    })
+    return render(request, 'user_profile.html', context)
+
+
 def logout_view(request):
+    '''User Logout'''
     logout(request)
-    return redirect(reverse('login'))
+    return redirect(reverse('home'))
 
 
 def favorite_brewery_view(request, brew_name):
+    '''allows users to add a brewery to their followed breweries and if
+        the brewery is not already in our db it adds it.'''
 
     local_brews_response = request.session.get('brew_response')
     state_search_results = request.session.get('state_search_results')
@@ -203,50 +251,38 @@ def favorite_brewery_view(request, brew_name):
             )
             break
 
-    add_to_favorites = MyBrewBrewery.objects.get(brewery_name=brew_name)
+    add_to_followed_brewery = MyBrewBrewery.objects.get(brewery_name=brew_name)
 
-    request.user.favorites.add(add_to_favorites)
+    request.user.followed_brewery.add(add_to_followed_brewery)
     request.user.save()
-    if add_to_favorites.brewery_city == request.user.city:
+    if add_to_followed_brewery.brewery_city == request.user.city:
         return redirect(reverse('home'))
     else:
-        print(add_to_favorites)
-        return redirect(f'/stateresults/{ add_to_favorites.brewery_state }/')
-
-
-def rating_view(request, rated, brewery_address):
-
-    update_brewery = MyBrewBrewery.objects.get(brewery_address=brewery_address)
-
-# updates and calculates the new rating values in brewery object
-    new_rating_total = update_brewery.brewery_rating_total + rated
-    new_num_votes = update_brewery.brewery_num_votes + 1
-    new_rating = new_rating_total / new_num_votes
-
-    update_brewery.brewery_rating_total = new_rating_total
-    update_brewery.brewery_num_votes = new_num_votes
-    update_brewery.brewery_rating = new_rating
-    update_brewery.save()
-
-    if update_brewery.brewery_city == request.user.city:
-        return redirect(reverse('home'))
-    else:
-        return redirect(f'/stateresults/{ update_brewery.brewery_state }/')
+        print(add_to_followed_brewery)
+        return redirect(
+            f'/stateresults/{add_to_followed_brewery.brewery_state }/')
 
 
 def state_view(request, state):
+    '''Returns the state search results from the header search bar'''
     context = {}
+    notifications = header_notifications_view(request)
+# runs search bar in header
+    state_breweries = state_search(request)
+    if state_breweries:
+        request.session['state_search_results'] = state_breweries
+        return redirect(f'/stateresults/{state_breweries[0]["state"]}/')
+
     state_search_results = request.session.get('state_search_results')
     db_breweries = MyBrewBrewery.objects.all()
 
-    fave_list_streets = []
-# if the user is signed in creates a list of their favorites address
-# gotta figure out how to use id's with id's coming back with response
+# if the user is signed in, creates a list of their followed brewery id's
+    fave_list_ids = []
     brew_user = request.user
     if brew_user.is_anonymous is False:
-        favorite_list = list((brew_user.favorites.all()))
+        favorite_list = list((brew_user.followed_brewery.all()))
         for brewery in favorite_list:
-            fave_list_streets.append(brewery.brewery_address)
+            fave_list_ids.append(brewery.id)
 
 # saving this incase i put a city filter on the state search
         # state_brews = []
@@ -254,18 +290,14 @@ def state_view(request, state):
         #     if request.user.city == brew['city']:
         #         state_brews.append(brew)
 
-# runs search bar in header
-    state_breweries = state_search(request)
-    if state_breweries:
-        request.session['state_search_results'] = state_breweries
-        return redirect(f'/stateresults/{state_breweries[0]["state"]}/')
-
-# adds rating to the state search results json (dict)
+# if brewery is in our db, id of response is changed to match our db
+# also adds the brewery rating to the response
     for brewery in db_breweries:
         for state in state_search_results:
-            if brewery.brewery_address == state['street']:
+            if brewery.brewery_name == state['name']:
+                state['id'] = brewery.id
                 state['brewery_rating'] = brewery.brewery_rating
-
+    user_initials = request.user.username[0:2]
     state_form = StateSearchForm()
     state = state_search_results[0]['state']
     context.update({
@@ -273,13 +305,16 @@ def state_view(request, state):
         'search_results': state_search_results,
         'state': state,
         # 'state_brews': state_brews,
-        'fave_list_streets': fave_list_streets
+        'fave_list_ids': fave_list_ids,
+        'notifications': notifications,
+        'user_initials': user_initials
     })
     return render(request, 'state_results.html', context)
 
 
+@login_required(login_url='/')
 def update_user_view(request, user_id):
-
+    '''Allows the user to update profile info and add profile pic'''
     context = {}
 
 # runs the header search bar
@@ -298,6 +333,8 @@ def update_user_view(request, user_id):
             return redirect(reverse('home'))
     else:
         profile_form = UserUpdateForm(initial={
+            'first_name': request.user.first_name,
+            'last_name': request.user.last_name,
             'username': request.user.username,
             'email': request.user.email,
             'state': request.user.state,
@@ -343,6 +380,8 @@ def error_500(request):
 
 
 def reset_request_view(request):
+    '''Allows the user to request a unique one time use url sent to
+        their email allowing them to reset their password'''
     context = {}
 
 # runs the header search bar
@@ -379,7 +418,8 @@ def reset_request_view(request):
                     user=request_user
                 )
 
-                random_snippet = TemporaryUrl.objects.get(snippet=random_string)
+                random_snippet = TemporaryUrl.objects.get(
+                    snippet=random_string)
 
 # Email Data
                 subject = 'MyBrew Password Reset'
@@ -409,7 +449,8 @@ def reset_request_view(request):
 
 
 def password_reset_view(request, username, snippet):
-
+    '''Allows the user to reset their password only accessible via the
+        one time use link sent to their email at their request'''
     # runs the header search bar
     state_breweries = state_search(request)
     if state_breweries:
@@ -446,3 +487,39 @@ def password_reset_view(request, username, snippet):
         })
 
         return render(request, 'password_reset.html', context)
+
+
+@login_required(login_url='/')
+def follow_user_view(request, username):
+    '''Allow users to follow each other for activity feed
+        and socializing'''
+
+    follow_user = MyBrewUser.objects.get(username=username)
+    user = request.user
+    user.followed_user.add(follow_user)
+    user.save()
+    return HttpResponse()
+
+
+@login_required(login_url='/')
+def unfollow_view(request, username):
+    '''Allows users to unfollow each other'''
+
+    unfollow_user = MyBrewUser.objects.get(username=username)
+    user = request.user
+    user.followed_user.remove(unfollow_user)
+    user.save()
+    return HttpResponse()
+
+
+@login_required(login_url='/')
+def temp_all_users(request):
+    context = {}
+
+    # user = MyBrewUser.objects.get(username=request.user)
+    following = MyBrewUser.objects.all()
+
+    context.update({
+        'following': following
+    })
+    return render(request, 'temp.html', context)

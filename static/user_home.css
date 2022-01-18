@@ -13,14 +13,18 @@ body {
     align-items: center;
     width: 100%;
     border-bottom: 2px solid rgb(125, 172, 66);
+    background-color: black;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 #homeLinkHolder {
-    width: 15%;
+    width: 25%;
 }
 
 #headerLogo {
-    width: 25%;
+    width: 15%;
     margin: 5px 0 5px 5px;
 }
 
@@ -58,7 +62,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    width: 15%;
+    width: 100%;
     margin: 10px 0 10px 10px;
 }
 
@@ -72,8 +76,9 @@ body {
     color: rgb(125, 172, 66);
 }
 
-#proPicHeader {
-    width: 20%;
+#proPicDiv {
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
 }
 
@@ -81,48 +86,43 @@ body {
     color: white;
     font-family: 'Poiret One', cursive;
     font-size: x-large;
+    text-decoration: none;
+}
+
+#userInitialsHolder {
+    color: white;
+    font-family: 'Poiret One', cursive;
+    margin: 20px 0 20px 0;
+    text-transform: capitalize;
+}
+
+#usernameLink {
+    text-decoration: none;
 }
 
 #pageHolder {
     display: flex;
+    width: 100%;
 }
 
 #breweryHolder {
     display: flex;
     flex-direction: column;
     align-items: center;
-    z-index: 0;
     width: 70%;
 }
 
-#usernamedetailsbox {
-    margin: 5px 0 2px 0;
-}
-
-#cityState {
-    margin: 3px 0 15px 0;
-}
-
 #favoriteBeerTitle {
+    font-family: 'Poiret One', cursive;
+    color: white;
     margin: 15px 0 3px 0;
 }
 
 #favoriteBeer {
-    margin: 2px 0 10px 0;
-}
-
-#userDetails {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    height: 650px;
-    width: 30%;
-    color: white;
-    position: sticky; top: 0;
-    z-index: 1;
     font-family: 'Poiret One', cursive;
-    margin: 15px 0 0 0;
+    color: white;
+    font-size: larger;
+    margin: 2px 0 10px 0;
 }
 
 #favList {
@@ -133,27 +133,20 @@ body {
 }
 
 .fave {
+    font-family: 'Poiret One', cursive;
+    color: white;
     text-align: center;
     margin: 18.7px 0 0 0;
 }
 
 .faveState {
+    font-family: 'Poiret One', cursive;
+    color: white;
     margin: 0 0 0 0;
 }
 
 #favList::-webkit-scrollbar-track {
     background-color: black;
-}
-
-#proPic {
-    width: 100%;
-    margin: 10px 0 10px 0;
-}
-
-#userInitials {
-    font-family: 'Poiret One', cursive;
-    font-size: 60px;
-    text-transform: uppercase;
 }
 
 #breweriesTitle {
@@ -188,22 +181,6 @@ body {
 
 .bUrl {
     margin: 18px 0 18px 0;
-}
-
-#nameLocationHolder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-#profilePicHolder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 50%;
-    overflow: hidden;
 }
 
 #faveBeerHolder {
@@ -289,10 +266,21 @@ a:visited {
     margin: 0 0 22px 0;
 }
 
+#updateUserLink {
+    text-decoration: none;
+}
+
 #updateUser {
+    font-family: 'Poiret One', cursive;
+    font-size: large;
     color: rgb(78, 67, 48);
-    font-size: .75vw;
-    margin: 0 0 14 0;
+    margin: 0 0 14px 0;
+}
+
+#favTitle {
+    font-family: 'Poiret One', cursive;
+    font-size: larger;
+    color: white;
 }
 
 #favorite {
@@ -335,4 +323,332 @@ a:visited {
     font-family: 'Poiret One', cursive;
     font-size: large;
     margin: 5px 0 0 0;
+}
+
+#notifyDot {
+    position: relative;
+    top: 20px;
+    left: -5px;
+    background-color: rgb(125, 172, 66);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+#userInfo {
+    display: flex;
+    align-items: center;
+    width: 23%;
+    margin-right: 5px;
+}
+
+#notifications {
+   display: none;
+   background-color: rgba(0, 0, 0, 0.24);
+   backdrop-filter: blur(5px);
+   align-items: center;
+   position: absolute;
+   top: 80px;
+   left: 70%;
+   width: 350px;   
+}
+
+#notificationTitle {
+    color: white;
+}
+
+#notify {
+    display: flex;
+    justify-content: center;
+}
+
+.notificationHolder {
+    background-color: rgba(255, 255, 255, 0);
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: .5px solid rgb(125, 172, 66);
+}
+
+.notificationHolder:hover {
+    background-color: black;
+    cursor: pointer;
+}
+
+.posterPic {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    margin-left: 4%;
+}
+
+.notifyDesc {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-right: 4%;
+    
+
+}
+
+.notifyText {
+    color: rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.postTime {
+    color: rgba(124, 172, 66, 0.699);
+    font-family: 'Poiret One', cursive;
+    font-size: x-small;
+    margin: 0;
+}
+
+.ifNew {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 25px;
+    
+}
+
+.new {
+    background-color: rgb(125, 172, 66);
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+/* modal help from w3 schools */
+.notificationModal {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modalContent {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 200px;
+    background-color: #fefefe25;
+    backdrop-filter: blur(5px);
+    border-bottom: .5px solid rgb(125, 172, 66);
+    margin: auto;
+    width: 50%;
+    height: 50%;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:200px; opacity:1}
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: .5px solid rgb(125, 172, 66);
+    height: 10%;
+}
+
+.modalPostCreated {
+    margin: 5px 0 5px 15px;
+    color: rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+}
+
+.modalClose {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    border: 2px solid rgb(125, 172, 66);
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.modalClose:hover {
+    background-color: rgb(125, 172, 66);
+}
+
+.modalClose:hover .modalX {
+    color: rgba(0, 0, 0, 0.411);
+}
+
+.modalMainContent {
+    display: flex;
+    height: 90%;
+}
+
+.modalProfile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid rgba(124, 172, 66, 0.699);
+    height: 100%;
+    width: 25%;
+}
+
+.modalProfilePic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.modalUsername {
+    color: rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin: 0 0 5px 0;
+}
+
+.modalUserFrom {
+    color: rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    margin: 0 0 0 0;
+}
+
+.modalX {
+    margin: 0 0 1px 0;
+    color: rgba(0, 0, 0, 0);
+}
+
+
+
+.modalPostData {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 75%;
+}
+
+.modalNotifyDesc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    margin: 0 0 0 0;
+    height: 15%;
+    width: 100%;
+    border-bottom: .5px solid rgb(125, 172, 66);
+}
+
+.modalPostContent {
+    width: 100%;
+    height: 70%;
+    overflow-y: auto;
+    color: rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    border-bottom: .5px solid rgb(125, 172, 66);
+}
+
+.modalPost {
+    color: rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    margin: 15px 0 15px 15px;
+    word-wrap: break-word;
+}
+
+.modalPostLikes {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    height: 15%;
+}
+
+.modalDelete {
+    color: rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    margin: 0 15px 0 0;
+    cursor: pointer;
+}
+
+.modalLikes {
+    color: rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    margin-left: 15px;
+}
+
+.cheers {
+    width: 30px;
+    margin-top: 2px;
+}
+
+.iconLikes {
+    display: flex;
+    align-items: center;
+    margin-top: 3px;
+    margin: 3px 0 0 15px;
+}
+
+#userDetailsHolder {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 25px 0 0 0;
+}
+
+#userDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: sticky;
+    top: 100px;
+}
+
+#userPicHolder {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+#userInitialsHolder {
+    color: white;
+    font-family: 'Poiret One', cursive;
+    font-size: xxx-large;
+}
+
+.details {
+    font-family: 'Poiret One', cursive;
+    color: white;
+    margin: 0 0 5px 0;
+}
+
+.modalPostImage {
+    width: 50%;
+    margin-left: 25%;
 }

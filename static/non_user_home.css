@@ -10,22 +10,26 @@ body {
 #heroHolder {
     display: flex;
     justify-content: space-around;
+    border-top: 1px solid rgb(125, 172, 66);
+    border-bottom: 1px solid rgb(125, 172, 66);
 }
 
 #rightBlock {
     width: 12%;
     background-image: url(/static/images/black_wood_grain.jpg);
     transform: scaleX(-1);
+    margin: 5px 0 5px 0;
 }
 
 #hero {
     width: 70%;
-    margin: 0 0 0 0;
+    margin: 5px 0 5px 0;
 }
 
 #leftBlock {
     width: 12%;
     background-image: url(/static/images/black_wood_grain.jpg);
+    margin: 5px 0 5px 0;
 }
 
 #welcome {
@@ -45,6 +49,16 @@ body {
     width: 90%;
     text-align: center;
 
+}
+
+#noticeHolder {
+    display: flex;
+}
+
+#noticeText {
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    color: rgb(125, 172, 66);
 }
 
 #nonuserHomePage {
@@ -136,9 +150,8 @@ body {
 
 #signup {
     font-family: 'Poiret One', cursive;
-    font-size: x-large;
+    font-size: xx-large;
     margin: 50px 0 0 0;
-    text-decoration: none;
     color: black;
     
 }

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     {% load static %}
     <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
     {% if request.user.is_authenticated %}
@@ -12,11 +13,59 @@
     {% else %}
         {% load static %}
         <link rel='stylesheet' href="{% static 'non_user_home.css' %}">
+        <link rel='stylesheet' href="{% static 'signup_modal.css' %}">
     {% endif %}
     <title>My Brew | Home</title>
 </head>
 <body>
     {% if request.user.is_authenticated %}
+    <!-- modal for notifcation display -->
+    <div id='modalHolder'>
+        {% for notification in notifications.0 %}
+        <div class='notificationModal' id="notify{{notification.pk}}">
+                <div class='modalContent' id="content{{notification.pk}}">
+                    <div class='modalHeader'>
+                        <h5 class='modalPostCreated'>{{ notification.target_post.created_at }}</h5>
+                        <div class='modalClose' id='close{{notification.pk}}'><h5 class="modalX">&times;</h5></div>
+                    </div>
+                    <div class='modalMainContent'>
+                        <div class='modalProfile'>
+                            {% if notification.posted_by.profile_pic %}
+                                <div class='modalProfilePic' style="background-image: url('{{ notification.posted_by.profile_pic.url }}'); background-size: cover;"></div>
+                            {% endif %}
+                            <h3 class='modalUsername'>{{ notification.posted_by.username }}</h3>
+                            <h3 class='modalUserFrom'>{{ notification.posted_by.city }}, {{ notification.posted_by.state }}</h3>
+                        </div>
+                        <div class='modalPostData'>
+                            <div class='modalNotifyDesc'>
+                                <h3 class='modalUsername'>{{ notification.posted_by.username }} mentioned you in this post</h3>
+                            </div>
+                            <div class='modalPostContent'>
+                                <h4 class='modalPost'>{{ notification.target_post.post }}</h4>
+                                {% if notification.target_post.post_pic %}
+                                    <img class='modalPostImage' src="{{ notification.target_post.post_pic.url }}" alt="image uploaded by the user" />
+                                {% endif %}
+                            </div>
+                            <div class='modalPostLikes'>
+                                <div class="iconLikes">
+                                    <img class='cheers' src="/static/images/beer_mugs.png" alt="cheers with beermugs a like button" />
+                                    <h4 class='modalLikes'>
+                                    {% if notification.target_post.likes is None %}
+                                        0 Cheers so far
+                                    {% else %}
+                                        {{ notification.target_post.likes }} Cheers already
+                                    {% endif %}
+                                    </h4>
+                                </div>
+                                <h3 class='modalDelete' data-value="{{ notification.pk }}">delete</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- end notification motal -->
 <div id='homeUserHeader'>
     <div id='homeLinkHolder'>
         <a href='/'><img src='{% static "images/hop_logo_white.png" %}' id='headerLogo' alt='My brew initial logo' /></a>
@@ -28,48 +77,71 @@
             <input type="submit" value="search" id='stateSearchButton'>
         </form>
     </div>
-    <div id='loginLogout'>
-        {% if request.user.is_authenticated %}
-            {% if request.user.profile_pic %}
-                <img src='{{ request.user.profile_pic.url }}' alt='{{ request.user.username }}s picture' id='proPicHeader'/>
-            {% else %}
-                <h2 id='userInitialsHeader'>{{user_initials}}</h2>
-            {% endif %}
-            <h3 id='logout' class='userNav'> | </h3>
-            <a href='/logout/' id='logout'><h3 id='logout' class='userNav'>Logout </h3></a>
-        {% else %}
-            <a href="/login/" id='login' class='userNav'>Login</a>
-            <a href="/signup/" id='signup' class='userNav'>Signup</a>
-        {% endif %}
+    <div id='userInfo'>
+        <div id='loginLogout'>
+                <div id="notify" onmouseover="displayNotifications()" onmouseout="hideNotifications()">
+                    <h2 class='userNav id='notificationTitle'>Notifications</h2>
+                    {% if notifications.1 is True %}
+                        <div id='notifyDot'></div>
+                    {% endif %}
+                    <div id='notifications'>
+                        {% for notification in notifications.0 %}
+                            <div class='notificationHolder' data-value="{{ notification.pk }}">
+                                {% if notification.posted_by.profile_pic %}
+                                    <div class='posterPic' style="background-image: url('{{ notification.posted_by.profile_pic.url }}'); background-size: cover;" ></div>
+                                {% endif %}
+                                <div class='notifyDesc'>
+                                    <h2 class='notifyText'>{{ notification.posted_by.username }} mentioned you in a post.</h2>
+                                    <h2 class='postTime'>{{ notification.target_post.created_at }}</h2>
+                                </div>
+                                <div class='ifNew'>
+                                    {% if not notification.viewed %}
+                                        <div class='new' id="{{ notification.pk }}"></div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <h3 id='logout' class='userNav'> | </h3>
+                {% if request.user.profile_pic %}
+                    <a href='/profile/{{request.user.username}}/followingVine/'>
+                        <div id='proPicDiv' style="background-image: url('{{ request.user.profile_pic.url }}'); background-size: cover;"></div>
+                    </a>
+                {% else %}
+                    <a href='/profile/{{request.user.username}}/followingVine/' id='usernameLink'><h2 class="userNav">{{ request.user.username }}</h2></a>
+                {% endif %}
+                <h3 id='logout' class='userNav'> | </h3>
+                <a href='/logout/' id='logout'><h3 id='logout' class='userNav'>Logout </h3></a>
+        </div>
     </div>
 </div>
 <div id='pageHolder'>
-    <div id='userDetails'>
-        <div id="nameLocationHolder">
-            <h2 id='usernamedetailsbox'>{{ request.user.username }}</h2>
-            <h2 id='cityState'>{{ request.user.city }}, {{ request.user.state }}</h2>
-        </div>
-        <div id='profilePicHolder'>
-            {% if request.user.profile_pic %}
-                <img src='{{ request.user.profile_pic.url }}' alt='{{ request.user.username }}s picture' id='proPic'/>
+    <div id='userDetailsHolder'>
+        <div id='userDetails'>
+            {% if user.profile_pic %}
+                <div id='userPicHolder' style="background-image: url('{{ user.profile_pic.url }}'); background-size: cover;"></div>
             {% else %}
-                <h2 id='userInitials'>{{user_initials}}</h2>
+                <div id='userInitialsHolder'>{{ user_initials }}</div>
             {% endif %}
-        </div>
-        <div id='faveBeerHolder'>
-            <h2 id='favoriteBeerTitle'>My Go To Beer</h2>
-            <h2 id='favoriteBeer'>{{ request.user.favorite_beer}}</h2>
-            <a href='/updateuser/{{request.user.id}}/'><h4 id='updateUser'>Update Profile</h4></a>
-        </div>
-        <h2 id='favTitle'>My Favorites</h2>
-        <div id='favList'>
-            {% for favorite in favorite_list %}
-                <h3 class='fave'>{{ favorite }}</h3>
-                <h4 class='faveState'>{{ favorite.state }}</h4>
-            {% endfor %}
+            <h2 class='details'>{{ user.username }}</h2>
+            {% if user.first.name and user.last_name %}
+            <h3 class='details'>{{ user.first_name }}, {{ user.last_name }}</h3>
+            {% endif %}
+            <h3 class='details'>{{ user.city }}, {{ user.state }}</h3>
+            <div id='faveBeerHolder'>
+                <h2 id='favoriteBeerTitle'>My Go To Beer</h2>
+                <h2 id='favoriteBeer'>{{ request.user.favorite_beer}}</h2>
+            </div>
+            <h2 id='favTitle'>My Favorites</h2>
+            <div id='favList'>
+                {% for favorite in favorite_list %}
+                    <h3 class='fave'>{{ favorite }}</h3>
+                    <h4 class='faveState'>{{ favorite.state }}</h4>
+                {% endfor %}
+            </div>
         </div>
     </div>
-    
     <div id='breweryHolder'>
         <h2 id='breweriesTitle'>Registered Breweries in your city</h2>
         {% for brewery in local_brews %}
@@ -90,22 +162,22 @@
                 </div>
                 <div class="ratings">
                     {% if request.user.is_authenticated %}
-                        {% if brewery.street not in fave_list_address %}
+                        {% if brewery.id not in fave_list_id %}
                             <a href="/favorite/{{brewery.name}}/"><h5 id='favorite'>Add to Favorites</h5></a>
                             <h5 class='voteWhenAdded'>Once a brewery is in your favorites you will be able to vote and comment on it.</h5>
                         {% else %}
                             <h5 id='inFavorites'>{{brewery.name}} is in your favorites</h5>
                         {% endif %}
                     {% endif %}
-                    {% if brewery.street in fave_list_address %}
+                    {% if brewery.id in fave_list_id %}
                     <div class='ratingHolder'>
                         <h4 id='ratingTitle'>Rate Us</h4>
                         <div class='hops'>
-                            <a href='/rate/1/{{brewery.street}}/'><div class='beerGlass' id='rate1{{ forloop.counter}}' onmouseover="hop1{{ forloop.counter }}Hover()" onmouseout="hop1{{ forloop.counter }}Exit()"></div></a>
-                            <a href='/rate/2/{{brewery.street}}/'><div class='beerGlass' id='rate2{{ forloop.counter}}' onmouseover="hop2{{ forloop.counter }}Hover()" onmouseout="hop2{{ forloop.counter }}Exit()"></div></a>
-                            <a href='/rate/3/{{brewery.street}}/'><div class='beerGlass' id='rate3{{ forloop.counter}}' onmouseover="hop3{{ forloop.counter }}Hover()" onmouseout="hop3{{ forloop.counter }}Exit()"></div></a>
-                            <a href='/rate/4/{{brewery.street}}/'><div class='beerGlass' id='rate4{{ forloop.counter}}' onmouseover="hop4{{ forloop.counter }}Hover()" onmouseout="hop4{{ forloop.counter }}Exit()"></div></a>
-                            <a href='/rate/5/{{brewery.street}}/'><div class='beerGlass' id='rate5{{ forloop.counter}}' onmouseover="hop5{{ forloop.counter }}Hover()" onmouseout="hop5{{ forloop.counter }}Exit()"></div></a>
+                            <a href='/rate/1/{{brewery.id}}/'><div class='beerGlass' id='rate1{{ forloop.counter}}' onmouseover="hop1{{ forloop.counter }}Hover()" onmouseout="hop1{{ forloop.counter }}Exit()"></div></a>
+                            <a href='/rate/2/{{brewery.id}}/'><div class='beerGlass' id='rate2{{ forloop.counter}}' onmouseover="hop2{{ forloop.counter }}Hover()" onmouseout="hop2{{ forloop.counter }}Exit()"></div></a>
+                            <a href='/rate/3/{{brewery.id}}/'><div class='beerGlass' id='rate3{{ forloop.counter}}' onmouseover="hop3{{ forloop.counter }}Hover()" onmouseout="hop3{{ forloop.counter }}Exit()"></div></a>
+                            <a href='/rate/4/{{brewery.id}}/'><div class='beerGlass' id='rate4{{ forloop.counter}}' onmouseover="hop4{{ forloop.counter }}Hover()" onmouseout="hop4{{ forloop.counter }}Exit()"></div></a>
+                            <a href='/rate/5/{{brewery.id}}/'><div class='beerGlass' id='rate5{{ forloop.counter}}' onmouseover="hop5{{ forloop.counter }}Hover()" onmouseout="hop5{{ forloop.counter }}Exit()"></div></a>
                         </div>
                         <h4 id='rating'>Rated</h4>
                         {% if brewery.rating > 0 %}
@@ -131,10 +203,14 @@
     </div>
 </div>
     {% else %}
+    {% include 'signup_modal.html' %}
     <div id='heroHolder'>
         <div id='leftBlock'></div>
         <img src="{% static 'images/hero_taps.png' %}" id='hero'/>
         <div id='rightBlock'></div>
+    </div>
+    <div id='noticeHolder'>
+        <h2 id='noticeText'>MyBrew is currently under development, we welcome you to still explore and play around with the availble features.</h2>
     </div>
     <div id='nonuserHomePage'>
         <div id='welcome'>
@@ -142,8 +218,7 @@
                 out there, just like you. Breweries are a fun and comfortable place to sample
                 new tasty brews and unwind with friends and family. Now you can find all the 
                 registered breweries in your area and while traveling. We suggest creating an account for a more
-                personalized experience to keep track of your favorites, rating, comments and
-                social interaction (coming soon) with other craft beer lovers like yourself. Otherwise
+                personalized experience while exploring the extra features and meeting other craft beer lovers like yourself. Otherwise
                 the basic search is availble to everyone with minimized features. Have fun
                 exploring and sampling.
             </h2>
@@ -154,7 +229,7 @@
                 <form  action='' method="post" id='state_form'>
                     {% csrf_token %}
                     {{ state_form }}
-                    <input type="submit" value="SEARCH" ID='searchButton'>
+                    <input type="submit" value="SEARCH" id='searchButton'>
                 </form>
             </div>
             <div id='formNText'>
@@ -174,7 +249,7 @@
                     {% endif %}
                 </div>
             </div>
-            <a href="/signup/" id='signup'>SIGNUP</a>
+            <h3 id='signup'>SIGNUP</h3>
         </div>
     </div>
     <div id='footer'>
@@ -191,5 +266,133 @@
 
     {% load static %}
     <script src="{% static 'rating_icons.js'%}"></script>
+    {% load static %}
+    <script type="text/javascript" src="{% static 'notify_hover.js' %}"></script>
+    <script type="text/javascript">
+
+        //clicking a notification will open a model and change the
+    //viewed paremeter of notification to true
+    $('#notify').on('click', '.notificationHolder', function () {
+        //grabs the data-value of the div
+        let notificationId = $(this).data('value')
+        $.ajax({
+            url:`/notificationviewed/${notificationId}/`,
+            success: function () {
+                let thisDiv = notificationId
+                //notification has been marked as viewed and the new
+                //notify dot is removed
+                $(`#${thisDiv}`).css('display', 'none')
+
+                //hides notifications list
+                $('#notifications').css('display', 'none')
+
+                //displays the selected modal
+                $(`#notify${notificationId}`).css('display', 'block')
+                $('body').css('overflow', 'hidden')
+
+                //function to activate the x and close the modal
+                $(`#close${notificationId}`).click(function (){
+
+                $(`#notify${notificationId}`).css('display', 'none')
+                $('body').css('overflow', 'auto')
+                
+        })
+            }
+        })
+        
+    })
+
+    //allows user to delete a notification
+    $('#modalHolder').on('click', '.modalDelete', function () {
+        let notificationId = $(this).data('value')
+        $.ajax({
+            url:`/notificationdelete/${notificationId}/`,
+            success: function () {
+                let thisModal = notificationId
+                $(`#notify${notificationId}`).css('display', 'none')
+                $('#modalHolder').load(' #modalHolder > *')
+                $('#notifications').load(' #notifications > *')
+       
+            }
+        })
+    })
+
+    //opens the signup form modal
+    $('#signup').click(function () {
+        $('#signupModalHolder').css('display', 'block')
+        $('body').css('overflow', 'hidden')
+    })
+
+    //closes the signup form modal
+    $('#cancelButton').click(function () {
+        $('#signupModalHolder').css('display', 'none')
+        $('body').css('overflow', 'auto')
+        $('#signupForm').trigger('reset')
+        $('#errorMessage').text('')
+        $('label').css('display', 'none')
+    })
+
+    //submits the signup form
+    $('#signupForm').on('submit', function (e) {
+        e.preventDefault()
+
+        let signupForm = new FormData()
+
+        let first_name = $('#id_first_name').val()
+        let last_name = $('#id_last_name').val()
+        let username = $('#id_usernameSU').val()
+        let email = $('#id_email').val()
+        let state = $('#id_state').val()
+        let city = $('#id_city').val()
+        let favorite_beer = $('#id_favorite_beer').val()
+        let password = $('#id_passwordSU').val()
+
+        signupForm.append('first_name', first_name)
+        signupForm.append('last_name', last_name)
+        signupForm.append('usernameSU', username)
+        signupForm.append('email', email)
+        signupForm.append('state', state)
+        signupForm.append('city', city)
+        signupForm.append('favorite_beer', favorite_beer)
+        signupForm.append('passwordSU', password)
+        signupForm.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+        
+        $.ajax ({
+            url:'/usersignup/',
+            type: 'POST',
+            data: signupForm,
+            processData: false,
+            contentType: false,
+            success: function (msg) {
+                if (msg === 'success') {
+                    //closes the modal
+                    $('#signupModalHolder').css('display', 'none')
+                    $('body').css('overflow', 'auto')
+                    $('#signupForm').trigger('reset')
+                } else if (msg === 'email') {
+                    $('#errorMessage').text('That email is already in use, you can use the reset password link')
+                } else if (msg === 'username') {
+                    $('#errorMessage').text('That username is already in use please try different one')
+                }
+            }
+        })
+    })
+
+
+    //displays the label for the input
+    $('#signupForm').on('focus', 'input', function () {
+        let inputID = $(this).attr('id')
+        console.log(inputID)
+        $(`label[for=${inputID}]`).css('display', 'block')
+    })
+
+    //displays label for the state select
+    $('#signupForm').on('focus', 'select', function () {
+        let inputID = $(this).attr('id')
+        console.log(inputID)
+        $(`label[for=${inputID}]`).css('display', 'block')
+    })
+    
+    </script>
 </body>
 </html>

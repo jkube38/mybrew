@@ -6,11 +6,13 @@ from my_brew_app.models import MyBrewUser, TemporaryUrl
 UserAdmin.fieldsets += (
     'Personal_Details', {
         'fields': (
+            'brewery_owner',
             'favorite_beer',
             'city',
             'state',
             'profile_pic',
-            'favorites'
+            'followed_brewery',
+            'followed_user'
         )
     },
 ),

@@ -1,5 +1,6 @@
 const get_div = document.getElementById('breweryHolder').children.length - 1
-
+// rating hover will not work if any elements are added or deleted from the breweryHolder div
+// adjust get_div accordingly
 function ratingIcons1() {
     hopFunctions = []
     for(let brewery = 1; brewery < get_div + 1; brewery++){
@@ -132,8 +133,12 @@ function ratingIcons1() {
             }
         }
     }
-    console.log(hopFunctions)
     return(hopFunctions)
 }
 ratingIcons1()
+
+
+// function reloadTest(id) {
+//     $(id).focus()
+// }
 

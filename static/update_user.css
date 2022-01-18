@@ -6,19 +6,192 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 25px 0 0 0;
 }
 
 #form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
-    height: 360px;
-    background-color: #db9d30;
-    margin: 50px 0 0 0;
-    padding: 20px 20px 20px 20px;
+    width: 40%;
+    background-color: #fefefe25;
+    border-bottom: .5px solid rgb(125, 172, 66);
+    border-top: .5px solid rgb(125, 172, 66);
 }
 
 #id_state {
     width: 153px;
+}
+
+#id_first_name {
+    border-width: 0;
+    border-bottom: 1px solid rgb(125, 172, 66);
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    color: white;
+}
+
+#id_last_name {
+    border-width: 0;
+    border-bottom: 1px solid rgb(125, 172, 66);
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    color: white;
+}
+
+#id_username {
+    border-width: 0;
+    border-bottom: 1px solid rgb(125, 172, 66);
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    color: white;
+}
+
+#id_username::placeholder{
+    color: white;
+}
+
+#id_email {
+    border-width: 0;
+    border-bottom: 1px solid rgb(125, 172, 66);
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    color: white;
+}
+
+#id_email::placeholder{
+    color: white;
+}
+
+#id_state {
+    border-width: 0;
+    border-bottom: 1px solid rgb(125, 172, 66);
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    color: white;
+}
+
+#id_city {
+    border-width: 0;
+    border-bottom: 1px solid rgb(125, 172, 66);
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    color: white;
+
+}
+
+#id_city::placeholder{
+    color: white;
+}
+
+#id_favorite_beer {
+    border-width: 0;
+    border-bottom: 1px solid rgb(125, 172, 66);
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    color: white;
+}
+
+#id_favorite_beer::placeholder{
+    color: white;
+}
+
+#id_password {
+    border-width: 0;
+    border-bottom: 1px solid rgb(125, 172, 66);
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    color: rgb(125, 172, 66);
+}
+
+#id_passwordS::placeholder{
+    color: white;
+}
+
+#signupSubmit {
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Poiret One', cursive;
+    font-size: xx-large;
+    color: white;
+    margin: 0 0 15px 0;
+}
+
+label {
+    color: rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    font-size: small;
+    position: relative;
+    left: -80px;
+}
+
+#id_profile_pic {
+    background-color: rgba(0, 0, 0, 0);
+    outline: none;
+    border: none;
+    color: rgb(125, 172, 66);
+}
+
+a {
+    text-decoration: none;
+    color: rgb(125, 172, 66);
+}
+
+#updateButton {
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    outline: none;
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    margin-top: 15px;
+    color: rgb(125, 172, 66);
+    margin-bottom: 15px;
+
+}
+
+#updateButton:hover {
+    cursor: pointer;
+}
+
+input[type='file'] {
+    display: none;
+}
+
+#uploadIcon {
+    width: 35px;
+    cursor: pointer;
+    margin-top: 5px;
+    position: relative;
+    left: 80px;
+}
+
+#filename {
+    font-family: 'Poiret One', cursive;
+    font-size: medium;
+    margin: 0 0 0 0;
+    color: rgb(125, 172, 66);
 }

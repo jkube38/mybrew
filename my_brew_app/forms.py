@@ -6,32 +6,50 @@ from my_brew_app.state_choice import STATE_CHOICES
 
 class SignUpForm(forms.Form):
 
-    username = forms.CharField(
-        max_length=180,
-        label='',
+    first_name = forms.CharField(
+        max_length=18,
+        label='First Name',
         required=True,
         widget=forms.TextInput(attrs={
-            'placeholder': '*Username'
+            'placeholder': 'First Name'
+        })
+    )
+
+    last_name = forms.CharField(
+        max_length=18,
+        label='Last Name',
+        required=True,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Last Name'
+        })
+    )
+
+    usernameSU = forms.CharField(
+        max_length=180,
+        label='Username',
+        required=True,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Username'
         })
     )
 
     email = forms.EmailField(
-        label='',
+        label='Email',
         required=True,
-        widget=forms.TextInput(attrs={
-            'placeholder': '*Email'
+        widget=forms.EmailInput(attrs={
+            'placeholder': 'Email'
         })
     )
 
     state = forms.ChoiceField(
-        label='',
+        label='State',
         required=True,
         choices=STATE_CHOICES
     )
 
     city = forms.CharField(
         max_length=60,
-        label='',
+        label='City',
         required=True,
         widget=forms.TextInput(attrs={
             'placeholder': 'City'
@@ -40,18 +58,18 @@ class SignUpForm(forms.Form):
 
     favorite_beer = forms.CharField(
         max_length=180,
-        label='',
+        label='Favorite Beer',
         required=False,
         widget=forms.TextInput(attrs={
             'placeholder': 'Favorite Beer'
         })
     )
 
-    password = forms.CharField(
-        label='',
+    passwordSU = forms.CharField(
+        label='Password',
         required=True,
         widget=forms.PasswordInput(attrs={
-            'placeholder': '*password'
+            'placeholder': 'password'
         }))
 
 
@@ -104,9 +122,27 @@ class StateSearchForm(forms.Form):
 
 class UserUpdateForm(forms.ModelForm):
 
+    first_name = forms.CharField(
+        max_length=18,
+        label='First Name',
+        required=True,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'First Name'
+        })
+    )
+
+    last_name = forms.CharField(
+        max_length=18,
+        label='Last Name',
+        required=True,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Last Name'
+        })
+    )
+
     username = forms.CharField(
         max_length=18,
-        label='',
+        label='Username',
         required=True,
         widget=forms.TextInput(attrs={
             'placeholder': 'Username'
@@ -114,7 +150,7 @@ class UserUpdateForm(forms.ModelForm):
     )
 
     email = forms.EmailField(
-        label='',
+        label='Email',
         required=True,
         widget=forms.EmailInput(attrs={
             'placeholder': 'Email'
@@ -122,13 +158,13 @@ class UserUpdateForm(forms.ModelForm):
     )
 
     state = forms.ChoiceField(
-        label='',
+        label='State',
         required=True,
         choices=STATE_CHOICES
     )
 
     city = forms.CharField(
-        label='',
+        label='City',
         required=True,
         widget=forms.TextInput(attrs={
             'placeholder': 'City'
@@ -136,18 +172,20 @@ class UserUpdateForm(forms.ModelForm):
     )
 
     favorite_beer = forms.CharField(
-        label='',
+        label='Favorite Beer',
         required=False,
         widget=forms.TextInput(attrs={
             'placeholder': 'Favorite Beer'
         })
     )
 
-    profile_pic = forms.FileField(label='')
+    profile_pic = forms.FileField(label='Profile Picture')
 
     class Meta:
         model = MyBrewUser
         fields = [
+            'first_name',
+            'last_name',
             'username',
             'email',
             'state',

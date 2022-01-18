@@ -4,11 +4,59 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     {% load static %}
     <link rel='stylesheet' href="{% static 'base_header.css' %}">
     <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
 </head>
 <body>
+    <!-- modal for notifcation display -->
+    <div id='modalHolder'>
+    {% for notification in notifications.0 %}
+    <div class='notificationModal' id="notify{{notification.pk}}">
+            <div class='modalContent' id="content{{notification.pk}}">
+                <div class='modalHeader'>
+                    <h5 class='modalPostCreated'>{{ notification.target_post.created_at }}</h5>
+                    <div class='modalClose' id='close{{notification.pk}}'><h5 class="modalX">&times;</h5></div>
+                </div>
+                <div class='modalMainContent'>
+                    <div class='modalProfile'>
+                        {% if notification.posted_by.profile_pic %}
+                        <div class='modalProfilePic' style="background-image: url('{{ notification.posted_by.profile_pic.url }}'); background-size: cover;"></div>
+                        {% endif %}
+                        <h3 class='modalUsername'>{{ notification.posted_by.username }}</h3>
+                        <h3 class='modalUserFrom'>{{ notification.posted_by.city }}, {{ notification.posted_by.state }}</h3>
+                    </div>
+                    <div class='modalPostData'>
+                        <div class='modalNotifyDesc'>
+                            <h3 class='modalUsername'>{{ notification.posted_by.username }} mentioned you in this post</h3>
+                        </div>
+                        <div class='modalPostContent'>
+                            <h4 class='modalPost'>{{ notification.target_post.post }}</h4>
+                            {% if notification.target_post.post_pic %}
+                                <img class='modalPostImage' src="{{ notification.target_post.post_pic.url }}" alt="image uploaded by the user" />
+                            {% endif %}
+                        </div>
+                        <div class='modalPostLikes'>
+                            <div class="iconLikes">
+                                <img class='cheers' src="/static/images/beer_mugs.png" alt="cheers with beermugs a like button" />
+                                <h4 class='modalLikes'>
+                                {% if notification.target_post.likes is None %}
+                                    0 Cheers so far
+                                {% else %}
+                                    {{ notification.target_post.likes }} Cheers already
+                                {% endif %}
+                                </h4>
+                            </div>
+                            <h3 class='modalDelete' data-value="{{ notification.pk }}">delete</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <!-- end notification motal -->
 <div id='mainHeaderHolder'>
     <div id='homeLinkHolder'>
         <a href='/'><img src='{% static "images/hop_logo_white.png" %}' id='headerLogo' alt='My brew initial logo' /></a>
@@ -20,23 +68,51 @@
             <input type="submit" value="search" id='stateSearchButton'>
         </form>
     </div>
-    <div id='loginLogout'>
-        {% if request.user.is_authenticated %}
-            {% if request.user.profile_pic %}
-                <img src='{{ request.user.profile_pic.url }}' alt='{{ request.user.username }}s picture' id='proPicHeader'/>
+    <div id='userInfo'>
+        <div id='loginLogout'>
+            {% if request.user.is_authenticated %}
+                <div id='notify' onmouseover="displayNotifications()" onmouseout="hideNotifications()">
+                    <h2 id='notificationTitle'>Notifications</h2>
+                    {% if notifications.1 is True %}
+                        <div id='notifyDot'></div>
+                    {% endif %}
+                    <div id='notifications'>
+                        {% for notification in notifications.0 %}
+                            <div class='notificationHolder' data-value="{{ notification.pk }}">
+                                {% if notification.posted_by.profile_pic %}
+                                <div class='posterPic' style="background-image: url('{{ notification.posted_by.profile_pic.url }}'); background-size: cover;" ></div>
+                                {% endif %}
+                                <div class='notifyDesc'>
+                                    <h2 class='notifyText'>{{ notification.posted_by.username }} mentioned you in a post.</h2>
+                                    <h2 class='postTime'>{{ notification.target_post.created_at }}</h2>
+                                </div>
+                                <div class='ifNew'>
+                                    {% if not notification.viewed %}
+                                        <div class='new' id="{{ notification.pk }}"></div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <h3 id='logout' class='userNav'> | </h3>
+                {% if request.user.profile_pic %}
+                    <a href='/profile/{{request.user.username}}/followingVine/'>
+                        <div id='proPicDiv' style="background-image: url('{{ request.user.profile_pic.url }}'); background-size: cover;"></div>
+                    </a>
+                {% else %}
+                    <a href='/profile/{{request.user.username}}/followingVine/' id='usernameLink'><h2 class="userNav">{{ request.user.username }}</h2></a>
+                {% endif %}
+                <h3 id='logout' class='userNav'> | </h3>
+                <a href='/logout/' id='logout'><h3 id='logout' class='userNav'>Logout </h3></a>
             {% else %}
-                <h2 id='userInitialsHeader'>{{user_initials}}</h2>
+                <a href="/" id='login' class='userNav'>Login</a>
+                <h3 id='logout' class='userNav'> | </h3>
+                <a href="/" id='signup' class='userNav'>Signup</a>
             {% endif %}
-            <h3 id='logout' class='userNav'> | </h3>
-            <a href='/logout/' id='logout'><h3 id='logout' class='userNav'>Logout </h3></a>
-        {% else %}
-            <a href="/login/" id='login' class='userNav'>Login</a>
-            <h3 id='logout' class='userNav'> | </h3>
-            <a href="/signup/" id='signup' class='userNav'>Signup</a>
-        {% endif %}
+        </div>
     </div>
 </div>
-
 {% block content %}
 {% endblock %}
 
@@ -44,11 +120,68 @@
     <img src="{% static 'images/hops_banner.png' %}" id="hopsBanner" alt='picture of hops on a vine' />
     <div id='siteInfo'>
         <h5 class="siteInfo">mybrew81@gmail.com</h5>
-        <h5 class="siteInfo">&#169 MyBrew 2021</h5>
+        <h5 class="siteInfo">&#169 MyBrew 2022</h5>
     </div>
     <div id='logoHolderFooter'>
         <a href='/'><img src='/static/images/My-Brew-Logo-White.png' alt=' my brew logo' id='footerLogo' /></a>
     </div>
 </div>
+{% load static %}
+<script type="text/javascript" src="{% static 'notify_hover.js' %}"></script>
+<script type="text/javascript">
+
+    //clicking a notification will open a model and change the
+    //viewed paremeter of notification to true
+    $('#notify').on('click', '.notificationHolder', function () {
+        //grabs the data-value of the div
+        let notificationId = $(this).data('value')
+        $.ajax({
+            url:`/notificationviewed/${notificationId}/`,
+            success: function (newNotifications) {
+                console.log(newNotifications)
+                let thisDiv = notificationId
+
+                if(newNotifications === 'False') {
+                    $('#notifyDot').css('display', 'none')
+                }
+                //notification has been marked as viewed and the new
+                //notify dot is removed
+                $(`#${thisDiv}`).css('display', 'none')
+
+                //hides notifications list
+                $('#notifications').css('display', 'none')
+
+                //displays the selected modal
+                $(`#notify${notificationId}`).css('display', 'block')
+                $('body').css('overflow', 'hidden')
+                //function to activate the x and close the modal
+                $(`#close${notificationId}`).click(function (){
+
+                $(`#notify${notificationId}`).css('display', 'none')
+                $('body').css('overflow', 'auto')
+                
+        })
+            }
+        })
+        
+    })
+
+    //allows user to delete a notification
+    $('#modalHolder').on('click', '.modalDelete', function () {
+        let notificationId = $(this).data('value')
+        console.log(notificationId)
+        $.ajax({
+            url:`/notificationdelete/${notificationId}/`,
+            success: function () {
+                let thisModal = notificationId
+                $(`#notify${thisModal}`).css('display', 'none')
+                $('#modalHolder').load(' #modalHolder > *')
+                $('#notifications').load(' #notifications > *')
+       
+            }
+        })
+    })
+
+</script>
 </body>
 </html>

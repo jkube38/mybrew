@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 if DEBUG:
     ALLOWED_HOSTS = ['*']
@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'my_brew_app',
     'my_brew_brewery',
+    'my_brew_posts',
+    'my_brew_notifications',
     'django_mysql',
 ]
 
@@ -142,11 +144,11 @@ MEDIA_URL = '/media/'
 
 # before pushing for deployed upgrade uncomment static root and
 # change STATICFILES_DIRS to staticfiles
-STATICFILES_DIRS = [
+staticfiles = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = 'my_brew_app.MyBrewUser'

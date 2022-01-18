@@ -9,21 +9,20 @@
     {% if request.user.is_authenticated %}
 <div id='pageHolder'>
     <div id='userDetails'>
-        <div id="nameLocationHolder">
-            <h2 id='usernamedetailsbox'>{{ request.user.username }}</h2>
-            <h2 id='cityState'>{{ request.user.city }}, {{ request.user.state }}</h2>
-        </div>
         <div id='profilePicHolder'>
             {% if request.user.profile_pic %}
-                <img src='{{ request.user.profile_pic.url }}' alt='{{ request.user.username }}' id='proPic'/>
+                <div id=proPic style="background-image: url('{{ request.user.profile_pic.url }}'); background-size: cover;"></div>
             {% else %}
                 <h2 id='userInitials'>{{user_initials}}</h2>
             {% endif %}
         </div>
+        <div id="nameLocationHolder">
+            <h2 id='usernamedetailsbox'>{{ request.user.username }}</h2>
+            <h2 id='cityState'>{{ request.user.city }}, {{ request.user.state }}</h2>
+        </div>
         <div id='faveBeerHolder'>
             <h2 id='favoriteBeerTitle'>My Go To Beer</h2>
             <h2 id='favoriteBeer'>{{ request.user.favorite_beer}}</h2>
-            <a href='/updateuser/{{request.user.id}}/'><h4 id='updateUser'>Update Profile</h4></a>
         </div>
     </div>
     <div id='breweryHolder'>
@@ -46,22 +45,22 @@
                 </div>
                 <div class="ratings">
                     {% if request.user.is_authenticated %}
-                    {% if brewery.street not in fave_list_streets %}
+                    {% if brewery.id not in fave_list_ids %}
                         <a href="/favorite/{{brewery.name}}/"><h5 id='favorite'>Add to Favorites</h5></a>
                         <h5 class='voteWhenAdded'>Once a brewery is in your favorites you will be able to vote and comment on it.</h5>
                     {% else %}
                         <h6 id='inFavorites'>{{brewery.name}} is in your favorites</h6>
                     {% endif %}
                     {% endif %}
-                    {% if brewery.street in fave_list_streets %}
+                    {% if brewery.id in fave_list_ids %}
                     <div class='ratingHolder'>
                         <h4 id='ratingTitle'>Rate Us</h4>
                         <div class='hops'>
-                            <a href='/rate/1/{{brewery.street}}/'><div class='beerGlass' id='rate1{{ forloop.counter}}' onmouseover="hop1{{ forloop.counter }}Hover()" onmouseout="hop1{{ forloop.counter }}Exit()"></div></a>
-                            <a href='/rate/2/{{brewery.street}}/'><div class='beerGlass' id='rate2{{ forloop.counter}}' onmouseover="hop2{{ forloop.counter }}Hover()" onmouseout="hop2{{ forloop.counter }}Exit()"></div></a>
-                            <a href='/rate/3/{{brewery.street}}/'><div class='beerGlass' id='rate3{{ forloop.counter}}' onmouseover="hop3{{ forloop.counter }}Hover()" onmouseout="hop3{{ forloop.counter }}Exit()"></div></a>
-                            <a href='/rate/4/{{brewery.street}}/'><div class='beerGlass' id='rate4{{ forloop.counter}}' onmouseover="hop4{{ forloop.counter }}Hover()" onmouseout="hop4{{ forloop.counter }}Exit()"></div></a>
-                            <a href='/rate/5/{{brewery.street}}/'><div class='beerGlass' id='rate5{{ forloop.counter}}' onmouseover="hop5{{ forloop.counter }}Hover()" onmouseout="hop5{{ forloop.counter }}Exit()"></div></a>
+                            <a href='/rate/1/{{brewery.id}}/'><div class='beerGlass' id='rate1{{ forloop.counter}}' onmouseover="hop1{{ forloop.counter }}Hover()" onmouseout="hop1{{ forloop.counter }}Exit()"></div></a>
+                            <a href='/rate/2/{{brewery.id}}/'><div class='beerGlass' id='rate2{{ forloop.counter}}' onmouseover="hop2{{ forloop.counter }}Hover()" onmouseout="hop2{{ forloop.counter }}Exit()"></div></a>
+                            <a href='/rate/3/{{brewery.id}}/'><div class='beerGlass' id='rate3{{ forloop.counter}}' onmouseover="hop3{{ forloop.counter }}Hover()" onmouseout="hop3{{ forloop.counter }}Exit()"></div></a>
+                            <a href='/rate/4/{{brewery.id}}/'><div class='beerGlass' id='rate4{{ forloop.counter}}' onmouseover="hop4{{ forloop.counter }}Hover()" onmouseout="hop4{{ forloop.counter }}Exit()"></div></a>
+                            <a href='/rate/5/{{brewery.id}}/'><div class='beerGlass' id='rate5{{ forloop.counter}}' onmouseover="hop5{{ forloop.counter }}Hover()" onmouseout="hop5{{ forloop.counter }}Exit()"></div></a>
                         </div>
                     </div>
                     {% endif %}
@@ -112,4 +111,5 @@
 {% endif %}
 {% load static %}
 <script src="{% static 'rating_icons.js'%}"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> -->
 {% endblock %}
