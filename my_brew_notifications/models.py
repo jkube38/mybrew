@@ -5,6 +5,7 @@ from my_brew_posts.models import UserPost
 
 # Create your models here.
 class UserPostNotification (models.Model):
+    id = models.BigIntegerField(primary_key=True)
     posted_by = models.ForeignKey(MyBrewUser, on_delete=models.CASCADE)
     user_mentioned = models.ForeignKey(
         MyBrewUser,
