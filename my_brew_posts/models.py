@@ -5,7 +5,7 @@ from django.utils import timezone
 
 # Create your models here.
 class UserPost(models.Model):
-    # id = models.BigIntegerField(primary_key=True)
+    id = models.BigIntegerField(primary_key=True)
     created_at = models.DateTimeField(default=timezone.now)
     post = models.TextField()
     created_by = models.ForeignKey(
@@ -25,7 +25,7 @@ class UserPost(models.Model):
 
 
 class PostComment(models.Model):
-    # id = models.BigIntegerField(primary_key=True)
+    id = models.BigIntegerField(primary_key=True)
     commenter = models.ForeignKey(
         MyBrewUser,
         on_delete=models.CASCADE,
