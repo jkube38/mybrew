@@ -5,7 +5,6 @@ from my_brew_brewery.models import MyBrewBrewery
 
 # Create your models here.
 class MyBrewUser(AbstractUser):
-    id = models.BigIntegerField(primary_key=True)
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(max_length=254, unique=True)
     favorite_beer = models.CharField(max_length=150, blank=True)
