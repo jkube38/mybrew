@@ -143,9 +143,9 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 # before pushing for deployed upgrade uncomment static root and
-# change STATICFILES_DIRS to staticfiles
-staticfiles = [
-    os.path.join(BASE_DIR, "static"),
+# in STATICFILES_DIRS change static to staticfiles
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "staticfiles"),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
