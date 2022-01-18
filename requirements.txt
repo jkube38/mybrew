@@ -1,84 +1,19 @@
-asgiref==3.3.4; python_version >= "3.6" \
-    --hash=sha256:92906c611ce6c967347bbfea733f13d6313901d54dcca88195eaeb52b2a8e8ee \
-    --hash=sha256:d1216dfbdfb63826470995d31caed36225dcaf34f182e0fa257a4dd9e86f1b78
-certifi==2020.12.5; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" \
-    --hash=sha256:719a74fb9e33b9bd44cc7f3a8d94bc35e4049deebe19ba7d8e108280cfd59830 \
-    --hash=sha256:1a4995114262bffbc2413b159f2a1a480c969de6e6eb13ee966d470af86af59c
-chardet==4.0.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" \
-    --hash=sha256:f864054d66fd9118f2e67044ac8981a54775ec5b67aed0441892edb553d21da5 \
-    --hash=sha256:0d6f53a15db4120f2b08c94f11e7d93d2c911ee118b6b30a04ec3ee8310179fa
-django==3.2; python_version >= "3.6" \
-    --hash=sha256:0604e84c4fb698a5e53e5857b5aea945b2f19a18f25f10b8748dbdf935788927 \
-    --hash=sha256:21f0f9643722675976004eb683c55d33c05486f94506672df3d6a141546f389d
-flake8==3.9.1; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.5.0") \
-    --hash=sha256:3b9f848952dddccf635be78098ca75010f073bfe14d2c6bda867154bea728d2a \
-    --hash=sha256:1aa8990be1e689d96c745c5682b687ea49f2e05a443aff1f8251092b0014e378
-gunicorn==20.1.0; python_version >= "3.5" \
-    --hash=sha256:9dcc4547dbb1cb284accfb15ab5667a0e5d1881cc443e0677b4882a4067a807e \
-    --hash=sha256:e0a968b5ba15f8a328fdfd7ab1fcb5af4470c28aaf7e55df02a99bc13138e6e8
-idna==2.10; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" \
-    --hash=sha256:b97d804b1e9b523befed77c48dacec60e6dcb0b5391d57af6a65a312a90648c0 \
-    --hash=sha256:b307872f855b18632ce0c21c5e45be78c0ea7ae4c15c828c20788b26921eb3f6
-mccabe==0.6.1; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" \
-    --hash=sha256:ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42 \
-    --hash=sha256:dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f
-psycopg2-binary==2.8.6; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.4.0") \
-    --hash=sha256:11b9c0ebce097180129e422379b824ae21c8f2a6596b159c7659e2e5a00e1aa0 \
-    --hash=sha256:d14b140a4439d816e3b1229a4a525df917d6ea22a0771a2a78332273fd9528a4 \
-    --hash=sha256:1fabed9ea2acc4efe4671b92c669a213db744d2af8a9fc5d69a8e9bc14b7a9db \
-    --hash=sha256:f5ab93a2cb2d8338b1674be43b442a7f544a0971da062a5da774ed40587f18f5 \
-    --hash=sha256:b4afc542c0ac0db720cf516dd20c0846f71c248d2b3d21013aa0d4ef9c71ca25 \
-    --hash=sha256:e74a55f6bad0e7d3968399deb50f61f4db1926acf4a6d83beaaa7df986f48b1c \
-    --hash=sha256:0deac2af1a587ae12836aa07970f5cb91964f05a7c6cdb69d8425ff4c15d4e2c \
-    --hash=sha256:ad20d2eb875aaa1ea6d0f2916949f5c08a19c74d05b16ce6ebf6d24f2c9f75d1 \
-    --hash=sha256:950bc22bb56ee6ff142a2cb9ee980b571dd0912b0334aa3fe0fe3788d860bea2 \
-    --hash=sha256:b8a3715b3c4e604bcc94c90a825cd7f5635417453b253499664f784fc4da0152 \
-    --hash=sha256:d1b4ab59e02d9008efe10ceabd0b31e79519da6fb67f7d8e8977118832d0f449 \
-    --hash=sha256:ac0c682111fbf404525dfc0f18a8b5f11be52657d4f96e9fcb75daf4f3984859 \
-    --hash=sha256:7d92a09b788cbb1aec325af5fcba9fed7203897bbd9269d5691bb1e3bce29550 \
-    --hash=sha256:aaa4213c862f0ef00022751161df35804127b78adf4a2755b9f991a507e425fd \
-    --hash=sha256:c2507d796fca339c8fb03216364cca68d87e037c1f774977c8fc377627d01c71 \
-    --hash=sha256:ee69dad2c7155756ad114c02db06002f4cded41132cc51378e57aad79cc8e4f4 \
-    --hash=sha256:e82aba2188b9ba309fd8e271702bd0d0fc9148ae3150532bbb474f4590039ffb \
-    --hash=sha256:d5227b229005a696cc67676e24c214740efd90b148de5733419ac9aaba3773da \
-    --hash=sha256:a0eb43a07386c3f1f1ebb4dc7aafb13f67188eab896e7397aa1ee95a9c884eb2 \
-    --hash=sha256:e1f57aa70d3f7cc6947fd88636a481638263ba04a742b4a37dd25c373e41491a \
-    --hash=sha256:833709a5c66ca52f1d21d41865a637223b368c0ee76ea54ca5bad6f2526c7679 \
-    --hash=sha256:ba28584e6bca48c59eecbf7efb1576ca214b47f05194646b081717fa628dfddf \
-    --hash=sha256:6a32f3a4cb2f6e1a0b15215f448e8ce2da192fd4ff35084d80d5e39da683e79b \
-    --hash=sha256:0e4dc3d5996760104746e6cfcdb519d9d2cd27c738296525d5867ea695774e67 \
-    --hash=sha256:cec7e622ebc545dbb4564e483dd20e4e404da17ae07e06f3e780b2dacd5cee66 \
-    --hash=sha256:ba381aec3a5dc29634f20692349d73f2d21f17653bda1decf0b52b11d694541f \
-    --hash=sha256:a0c50db33c32594305b0ef9abc0cb7db13de7621d2cadf8392a1d9b3c437ef77 \
-    --hash=sha256:2dac98e85565d5688e8ab7bdea5446674a83a3945a8f416ad0110018d1501b94 \
-    --hash=sha256:bd1be66dde2b82f80afb9459fc618216753f67109b859a361cf7def5c7968729 \
-    --hash=sha256:8cd0fb36c7412996859cb4606a35969dd01f4ea34d9812a141cd920c3b18be77 \
-    --hash=sha256:89705f45ce07b2dfa806ee84439ec67c5d9a0ef20154e0e475e2b2ed392a5b83 \
-    --hash=sha256:42ec1035841b389e8cc3692277a0bd81cdfe0b65d575a2c8862cec7a80e62e52 \
-    --hash=sha256:7312e931b90fe14f925729cde58022f5d034241918a5c4f9797cac62f6b3a9dd \
-    --hash=sha256:6422f2ff0919fd720195f64ffd8f924c1395d30f9a495f31e2392c2efafb5056 \
-    --hash=sha256:15978a1fbd225583dd8cdaf37e67ccc278b5abecb4caf6b2d6b8e2b948e953f6
-pycodestyle==2.7.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" \
-    --hash=sha256:514f76d918fcc0b55c6680472f0a37970994e07bbb80725808c17089be302068 \
-    --hash=sha256:c389c1d06bf7904078ca03399a4816f974a1d590090fecea0c63ec26ebaf1cef
-pyflakes==2.3.1; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" \
-    --hash=sha256:7893783d01b8a89811dd72d7dfd4d84ff098e5eed95cfa8905b22bbffe52efc3 \
-    --hash=sha256:f5bc8ecabc05bb9d291eb5203d6810b49040f6ff446a756326104746cc00c1db
-python-decouple==3.4 \
-    --hash=sha256:2e5adb0263a4f963b58d7407c4760a2465d464ee212d733e2a2c179e54c08d8f \
-    --hash=sha256:a8268466e6389a639a20deab9d880faee186eb1eb6a05e54375bdf158d691981
-pytz==2021.1; python_version >= "3.6" \
-    --hash=sha256:eb10ce3e7736052ed3623d49975ce333bcd712c7bb19a58b9e2089d4057d0798 \
-    --hash=sha256:83a4a90894bf38e243cf052c8b58f381bfe9a7a483f6a9cab140bc7f702ac4da
-requests==2.25.1; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.5.0") \
-    --hash=sha256:c210084e36a42ae6b9219e00e48287def368a26d03a048ddad7bfee44f75871e \
-    --hash=sha256:27973dd4a904a4f13b263a19c866c13b92a39ed1c964655f025f3f8d3d75b804
-sqlparse==0.4.1; python_version >= "3.6" \
-    --hash=sha256:017cde379adbd6a1f15a61873f43e8274179378e95ef3fede90b5aa64d304ed0 \
-    --hash=sha256:0f91fd2e829c44362cbcfab3e9ae12e22badaa8a29ad5ff599f9ec109f0454e8
-urllib3==1.26.4; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version < "4" \
-    --hash=sha256:2f4da4594db7e1e110a944bb1b551fdf4e6c136ad42e4234131391e21eb5b0df \
-    --hash=sha256:e7b021f7241115872f92f43c6508082facffbd1c048e3c6e2bb9c2a157e28937
-whitenoise==5.2.0; python_version >= "3.5" and python_version < "4" \
-    --hash=sha256:05d00198c777028d72d8b0bbd234db605ef6d60e9410125124002518a48e515d \
-    --hash=sha256:05ce0be39ad85740a78750c86a93485c40f08ad8c62a6006de0233765996e5c7
+asgiref @ file:///Users/kube/Library/Caches/pypoetry/artifacts/fe/db/83/0ae447caa7129971ac3189887098d047d0257c23b979d0f76c93496c95/asgiref-3.3.4-py3-none-any.whl
+certifi @ file:///Users/kube/Library/Caches/pypoetry/artifacts/d8/df/24/ed696681f34f8916b0aef99138db9a94e37d54684b9829af34a7fd4e39/certifi-2020.12.5-py2.py3-none-any.whl
+chardet @ file:///Users/kube/Library/Caches/pypoetry/artifacts/11/63/f9/797eda27963177a6b75a340f62aa194d462ea69e6b0dbb77a651fa2b62/chardet-4.0.0-py2.py3-none-any.whl
+Django @ file:///Users/kube/Library/Caches/pypoetry/artifacts/0f/66/af/c29df6d4be04cd385195a3d9e063da66066284df0e046700bd386042cd/Django-3.2-py3-none-any.whl
+django-mysql @ file:///Users/kube/Library/Caches/pypoetry/artifacts/bd/f6/a2/e239f5969b7bccf432e4f45e75d4697c4f9528b1a5339f2e4769c0997a/django_mysql-3.11.1-py3-none-any.whl
+flake8 @ file:///Users/kube/Library/Caches/pypoetry/artifacts/13/5d/70/2fd2b1c5dd33d07b6deecb5a76e111fd12cd1a23d53309cbbb5b0a0c5a/flake8-3.9.1-py2.py3-none-any.whl
+gunicorn==20.1.0
+idna @ file:///Users/kube/Library/Caches/pypoetry/artifacts/ef/7f/a9/19cc0b8760bdf6f696290c06532496f8bb29fbdaad044f852fed00ec82/idna-2.10-py2.py3-none-any.whl
+mccabe @ file:///Users/kube/Library/Caches/pypoetry/artifacts/96/5e/5f/21ae5296697ca7f94de4da6e21d4936d74029c352a35202e4c339a4253/mccabe-0.6.1-py2.py3-none-any.whl
+Pillow @ file:///Users/kube/Library/Caches/pypoetry/artifacts/35/64/6b/72e6b71a0b44c1db7d8e2685bd760d1c5e20ed63a5dcfe938ba8b42441/Pillow-8.2.0-cp39-cp39-macosx_10_10_x86_64.whl
+psycopg2-binary @ file:///Users/kube/Library/Caches/pypoetry/artifacts/67/81/39/6b112e60aae4e637f9f5aec1d569f190bdbbc55b7101f1e92c9ef35f8d/psycopg2_binary-2.8.6-cp39-cp39-macosx_10_9_x86_64.macosx_10_9_intel.macosx_10_10_intel.macosx_10_10_x86_64.whl
+pycodestyle @ file:///Users/kube/Library/Caches/pypoetry/artifacts/4c/30/97/026c283ef67eb248e5b7e6fad1f8ffb99dae50c11fd93eb939fd7c1f46/pycodestyle-2.7.0-py2.py3-none-any.whl
+pyflakes @ file:///Users/kube/Library/Caches/pypoetry/artifacts/eb/c4/2c/47fcc1b3f387b1f7033e85b3ac6ee7772338461a8de8ac3977c6a7dcc1/pyflakes-2.3.1-py2.py3-none-any.whl
+python-decouple @ file:///Users/kube/Library/Caches/pypoetry/artifacts/d2/0b/b5/ae15ff5121558626e78951022bcfa47d4c5a945621354ac4d376395d30/python_decouple-3.4-py3-none-any.whl
+pytz @ file:///Users/kube/Library/Caches/pypoetry/artifacts/b0/a7/8d/54de3ab4d1ff29abbbca1e9ccbaefdc2a1b290138311b84f73bee16de1/pytz-2021.1-py2.py3-none-any.whl
+requests @ file:///Users/kube/Library/Caches/pypoetry/artifacts/22/0a/9d/0df883fbffbb406d0cddbb35e881e4ac6bfb8f0dee8733056b6a054bf7/requests-2.25.1-py2.py3-none-any.whl
+sqlparse @ file:///Users/kube/Library/Caches/pypoetry/artifacts/bc/af/02/8aa71b17fd39b26b858293918c5c6412f83768a0bfd0a4626f660aa5f8/sqlparse-0.4.1-py3-none-any.whl
+urllib3 @ file:///Users/kube/Library/Caches/pypoetry/artifacts/fa/fd/9d/56169af5b3d1505ce8a40dc152136e8733b2df5060a6f86f013a1a9b3d/urllib3-1.26.4-py2.py3-none-any.whl
+whitenoise @ file:///Users/kube/Library/Caches/pypoetry/artifacts/49/34/b8/8c82abbc2b1712f73c0cf521fb37dd8d50868e799d425f701b78a0cd29/whitenoise-5.2.0-py2.py3-none-any.whl
