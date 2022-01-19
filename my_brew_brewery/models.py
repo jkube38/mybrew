@@ -3,7 +3,6 @@ from django.db import models
 
 # your models here
 class MyBrewBrewery(models.Model):
-    id = models.IntegerField(auto_created=True, primary_key=True)
     brewery_name = models.CharField(max_length=180, null=True)
     brewery_logo = models.FileField(
         blank=True, null=True, upload_to='brewery_images/'
