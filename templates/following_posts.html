@@ -35,7 +35,7 @@
                         {% if post.1 %}
                         <div class="likesDropdown" id='drop{{post.0.pk}}'>
                             {% for like in post.1 %}
-                            <a href='/profile/{{like}}/' class="likeLink"><h3 class=likedBy>{{ like }}</h3></a>
+                            <a href='/profile/{{like}}/followingVine/' class="likeLink"><h3 class=likedBy>{{ like }}</h3></a>
                             {% endfor %}
                         </div>
                         {% endif %}
