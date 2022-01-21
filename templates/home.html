@@ -20,55 +20,21 @@
 <body>
     {% if request.user.is_authenticated %}
     <!-- modal for notifcation display -->
-    <div id='modalHolder'>
-        {% for notification in notifications.0 %}
-        <div class='notificationModal' id="notify{{notification.pk}}">
-                <div class='modalContent' id="content{{notification.pk}}">
-                    <div class='modalHeader'>
-                        <h5 class='modalPostCreated'>{{ notification.target_post.created_at }}</h5>
-                        <div class='modalClose' id='close{{notification.pk}}'><h5 class="modalX">&times;</h5></div>
-                    </div>
-                    <div class='modalMainContent'>
-                        <div class='modalProfile'>
-                            {% if notification.posted_by.profile_pic %}
-                                <div class='modalProfilePic' style="background-image: url('{{ notification.posted_by.profile_pic.url }}'); background-size: cover;"></div>
-                            {% endif %}
-                            <h3 class='modalUsername'>{{ notification.posted_by.username }}</h3>
-                            <h3 class='modalUserFrom'>{{ notification.posted_by.city }}, {{ notification.posted_by.state }}</h3>
-                        </div>
-                        <div class='modalPostData'>
-                            <div class='modalNotifyDesc'>
-                                <h3 class='modalUsername'>{{ notification.posted_by.username }} mentioned you in this post</h3>
-                            </div>
-                            <div class='modalPostContent'>
-                                <h4 class='modalPost'>{{ notification.target_post.post }}</h4>
-                                {% if notification.target_post.post_pic %}
-                                    <img class='modalPostImage' src="{{ notification.target_post.post_pic.url }}" alt="image uploaded by the user" />
-                                {% endif %}
-                            </div>
-                            <div class='modalPostLikes'>
-                                <div class="iconLikes">
-                                    <img class='cheers' src="/static/images/beer_mugs.png" alt="cheers with beermugs a like button" />
-                                    <h4 class='modalLikes'>
-                                    {% if notification.target_post.likes is None %}
-                                        0 Cheers so far
-                                    {% else %}
-                                        {{ notification.target_post.likes }} Cheers already
-                                    {% endif %}
-                                    </h4>
-                                </div>
-                                <h3 class='modalDelete' data-value="{{ notification.pk }}">delete</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        <!-- end notification motal -->
+    {% include 'notification_modal.html' %}
+    <!-- end notification motal -->
 <div id='homeUserHeader'>
     <div id='homeLinkHolder'>
         <a href='/'><img src='{% static "images/hop_logo_white.png" %}' id='headerLogo' alt='My brew initial logo' /></a>
+    </div>
+    <div id='usernameSearchFormHolder'>
+        <form  action='' method="post" id='user_search_form' style="display: flex; flex-direction: column; align-items: center;" >
+            {% csrf_token %}
+            {{ user_search_form }}
+            <input type="submit" value="Search User" id='userSearchButton'>
+        </form>
+        <div id='userSearchResults'>
+            
+        </div>
     </div>
     <div id='statesearchformHolder'>
         <form  action='' method="post" id='state_form' style="display: flex; flex-direction: column; align-items: center;" >
@@ -86,17 +52,29 @@
                     {% endif %}
                     <div id='notifications'>
                         {% for notification in notifications.0 %}
-                            <div class='notificationHolder' data-value="{{ notification.pk }}">
-                                {% if notification.posted_by.profile_pic %}
-                                    <div class='posterPic' style="background-image: url('{{ notification.posted_by.profile_pic.url }}'); background-size: cover;" ></div>
+                            {% if notification.target.post %}
+                                <div class='notificationHolder' data-value="{{ notification.pk }}p">
+                            {% else %}
+                                <div class='notificationHolder' data-value="{{ notification.pk }}c">
+                            {% endif %}
+                                {% if notification.author.profile_pic %}
+                                <div class='posterPic' style="background-image: url('{{ notification.author.profile_pic.url }}'); background-size: cover;" ></div>
                                 {% endif %}
                                 <div class='notifyDesc'>
-                                    <h2 class='notifyText'>{{ notification.posted_by.username }} mentioned you in a post.</h2>
-                                    <h2 class='postTime'>{{ notification.target_post.created_at }}</h2>
+                                    {% if notification.target.post %}
+                                        <h2 class='notifyText'>{{ notification.author.username }} mentioned you in a post.</h2>
+                                    {% else %}
+                                        <h2 class='notifyText'>{{ notification.author.username }} mentioned you in a comment.</h2>
+                                    {% endif %}
+                                    <h2 class='postTime'>{{ notification.target.created_at }}</h2>
                                 </div>
                                 <div class='ifNew'>
                                     {% if not notification.viewed %}
-                                        <div class='new' id="{{ notification.pk }}"></div>
+                                        {% if notification.target.post %}
+                                            <div class='new' id="dot{{ notification.pk }}p"></div>
+                                        {% else %}
+                                            <div class='new' id="dot{{ notification.pk }}c"></div>
+                                        {% endif %}
                                     {% endif %}
                                 </div>
                             </div>
@@ -277,11 +255,15 @@
         let notificationId = $(this).data('value')
         $.ajax({
             url:`/notificationviewed/${notificationId}/`,
-            success: function () {
+            success: function (newNotifications) {
                 let thisDiv = notificationId
+
+                if(newNotifications === 'False') {
+                    $('#notifyDot').css('display', 'none')
+                }
                 //notification has been marked as viewed and the new
                 //notify dot is removed
-                $(`#${thisDiv}`).css('display', 'none')
+                $(`#dot${thisDiv}`).css('display', 'none')
 
                 //hides notifications list
                 $('#notifications').css('display', 'none')
@@ -391,6 +373,47 @@
         let inputID = $(this).attr('id')
         console.log(inputID)
         $(`label[for=${inputID}]`).css('display', 'block')
+    })
+
+
+    //performs a search of users by username
+    $('#id_username_search').keyup(function () {
+        let user_input = $('#id_username_search').val()
+        $('#userSearchResults').empty()
+        if (user_input) {
+            $.ajax({
+            url: `/usernamesearch/${user_input}/`,
+            success: function (results) {
+                // console.log(results)
+
+                $.each(results, function () {
+                    console.log(this.fields)
+                    $('#userSearchResults').append(
+                        $(`<div class='userSearchResultHolder' data-value=${this.fields.username}></div>`).append(
+                            $("<div class=resultUserImage></div>").css('background-image', `url(/media/${this.fields.profile_pic})`),
+                            $("<div class=resultInfo></div>").append(
+                            $("<h3 class='resultsText'></h3>").text(this.fields.username),
+                            $("<h3 class='resultsText2'></h3>").text(`${this.fields.first_name}, ${this.fields.last_name} / ${this.fields.city}, ${this.fields.state}`)
+                            ),
+                        )
+                    )
+                })
+
+                $('body').click(function (){
+                    $('#userSearchResults').empty()
+                    $('#id_username_search').val('')
+                })
+            }
+        })
+
+        }
+        
+    })
+
+    $('#userSearchResults').on('click', '.userSearchResultHolder', function () {
+        let username = $(this).data('value')
+        // window.location = `http://127.0.0.1:8000/profile/${username}/followingVine/`
+        window.location = `mybrew.user/profile${username}/followingVine`
     })
     
     </script>

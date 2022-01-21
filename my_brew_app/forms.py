@@ -112,7 +112,7 @@ class LoginForm(forms.Form):
 class StateSearchForm(forms.Form):
     state_search = forms.CharField(
         max_length=180,
-        label='',
+        label='State Search',
         required=True,
         widget=forms.TextInput(attrs={
             'placeholder': 'Search By State'
@@ -219,5 +219,15 @@ class ResetPasswordForm(forms.Form):
         required=True,
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Re-Type Password'
+        })
+    )
+
+
+class UserSearchForm(forms.Form):
+    username_search = forms.CharField(
+        label='Search Users',
+        required=False,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Search Users'
         })
     )

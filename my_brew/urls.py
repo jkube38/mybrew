@@ -19,6 +19,7 @@ from my_brew_app import views
 from my_brew_brewery import views as b_views
 from my_brew_posts import views as p_views
 from my_brew_notifications import views as n_views
+from my_brew_app.helpers import username_search
 from my_brew import settings
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -41,6 +42,11 @@ urlpatterns = [
         name='user_profile_explore_vine'
     ),
     path('stateresults/<str:state>/', views.state_view, name='state'),
+    path(
+        'usernamesearch/<str:user_input>/',
+        username_search,
+        name='user_search'
+    ),
     path('logout/', views.logout_view, name='logout'),
     path('usersignup/', views.signup_view, name='signup'),
     path(
@@ -62,7 +68,7 @@ urlpatterns = [
     ),
     path('postlike/<str:username>/<int:post_id>/', p_views.post_like_view),
     path(
-        'notificationviewed/<int:notification_id>/',
+        'notificationviewed/<str:notification_id>/',
         n_views.notification_viewed_view,
         name='viewed'
     ),
@@ -77,7 +83,7 @@ urlpatterns = [
         name='post_comment'
     ),
     path(
-        'notificationdelete/<int:notification_id>/',
+        'notificationdelete/<str:notification_id>/',
         n_views.notification_delete_view,
         name='delete_notification'
     ),

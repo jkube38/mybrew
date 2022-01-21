@@ -1,0 +1,68 @@
+<div id='modalHolder'>
+    {% for notification in notifications.0 %}
+    {% if notification.target.post %}
+    <div class='notificationModal' id="notify{{notification.pk}}p">
+            <div class='modalContent' id="content{{notification.pk}}p">
+    {% else %}
+    <div class='notificationModal' id="notify{{notification.pk}}c">
+        <div class='modalContent' id="content{{notification.pk}}c">
+    {% endif %}
+                <div class='modalHeader'>
+                    <h5 class='modalPostCreated'>{{ notification.target.created_at }}</h5>
+                    {% if notification.target.post %}
+                        <div class='modalClose' id='close{{notification.pk}}p'><h5 class="modalX">&times;</h5></div>
+                    {% else %}
+                        <div class='modalClose' id='close{{notification.pk}}c'><h5 class="modalX">&times;</h5></div>
+                    {% endif %}
+                </div>
+                <div class='modalMainContent'>
+                    <div class='modalProfile'>
+                        {% if notification.author.profile_pic %}
+                        <div class='modalProfilePic' style="background-image: url('{{ notification.author.profile_pic.url }}'); background-size: cover;"></div>
+                        {% endif %}
+                        <h3 class='modalUsername'>{{ notification.author.username }}</h3>
+                        <h3 class='modalUserFrom'>{{ notification.author.city }}, {{ notification.author.state }}</h3>
+                    </div>
+                    <div class='modalPostData'>
+                        <div class='modalNotifyDesc'>
+                            {% if notification.target.post %}
+                                <h3 class='modalUsername'>{{ notification.author.username }} mentioned you in this post</h3>
+                            {% else %}
+                                <h3 class='modalUsername'>{{ notification.author.username }} mentioned you in this comment</h3>
+                            {% endif %}
+                        </div>
+                        <div class='modalPostContent'>
+                            {% if notification.target.post %}
+                                <h4 class='modalPost'>{{ notification.target.post }}</h4>
+                                {% else %}
+                                <h4 class='modalPost'>{{ notification.target.comment }}</h4>
+                            {% endif %}
+                            {% if notification.target.post_pic %}
+                                <img class='modalPostImage' src="{{ notification.target.post_pic.url }}" alt="image uploaded by the user" />
+                            {% elif notification.target.comment_pic %}
+                                <img class='modalPostImage' src="{{ notification.target.comment_pic.url }}" alt="image uploaded by the user" />
+                            {% endif %}
+                        </div>
+                        <div class='modalPostLikes'>
+                            <div class="iconLikes">
+                                <img class='cheers' src="/static/images/beer_mugs.png" alt="cheers with beermugs a like button" />
+                                <h4 class='modalLikes'>
+                                {% if notification.target_post.likes is None %}
+                                    0 Cheers so far
+                                {% else %}
+                                    {{ notification.target_post.likes }} Cheers already
+                                {% endif %}
+                                </h4>
+                            </div>
+                            {% if notification.target.post %}
+                                <h3 class='modalDelete' data-value="{{ notification.pk }}p">delete</h3>
+                            {% else %}
+                                <h3 class='modalDelete' data-value="{{ notification.pk }}c">delete</h3>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

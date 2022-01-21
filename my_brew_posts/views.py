@@ -3,6 +3,7 @@ from my_brew_posts.forms import UserPostForm, PostCommentForm
 from my_brew_app.models import MyBrewUser
 from my_brew_posts.models import UserPost, PostComment
 from my_brew_notifications.models import UserPostNotification
+from my_brew_notifications.models import UserCommentNotification
 import re
 
 
@@ -32,11 +33,11 @@ def user_post_view(request):
                                 username=at_user)
                             posted_by = MyBrewUser.objects.get(
                                 username=request.user.username)
-                            target_post = UserPost.objects.get(id=new_post.pk)
+                            target_post = UserPost.objects.get(id=new_post.id)
                             UserPostNotification.objects.create(
-                                posted_by=posted_by,
+                                author=posted_by,
                                 user_mentioned=user_mentioned,
-                                target_post=target_post
+                                target=target_post
                             )
                     except (MyBrewUser.DoesNotExist):
                         remove_at = mention_search.replace(
@@ -80,13 +81,12 @@ def post_comment_view(request):
         username=comment_data['comment_author'])
     post_target = UserPost.objects.get(id=comment_data['post_target'])
     post_author = MyBrewUser.objects.get(username=comment_data['post_author'])
-
     if request.is_ajax():
         form = PostCommentForm(request.POST, request.FILES)
         if form.is_valid():
             data = form.cleaned_data
             if data['comment_pic']:
-                PostComment.objects.create(
+                new_comment = PostComment.objects.create(
                     commenter=comment_author,
                     target_post=post_target,
                     comment=data['comment'],
@@ -94,11 +94,36 @@ def post_comment_view(request):
                     comment_pic=data['comment_pic']
                 )
             else:
-                PostComment.objects.create(
+                new_comment = PostComment.objects.create(
                     commenter=comment_author,
                     target_post=post_target,
                     comment=data['comment'],
                     post_creator=post_author
                 )
+
+            # Looks for a mention and creates a notification
+            mention_search = data['comment']
+            mention_re = re.compile(r'(@[^\s,.:\'"!#$%^&*()]+)')
+            comment_search = mention_re.findall(mention_search)
+            if comment_search:
+                for mention in comment_search:
+                    try:
+                        at_user = mention[1:]
+                        if at_user != request.user.username:
+                            user_mentioned = MyBrewUser.objects.get(
+                                username=at_user)
+                            posted_by = MyBrewUser.objects.get(
+                                username=request.user.username)
+                            UserCommentNotification.objects.create(
+                                author=posted_by,
+                                user_mentioned=user_mentioned,
+                                target=new_comment
+                            )
+                    except (MyBrewUser.DoesNotExist):
+                        remove_at = mention_search.replace(
+                            mention, mention[1:])
+                        new_comment.post = remove_at
+                        new_comment.save()
+
         post_id = post_target.id
     return HttpResponse(post_id)

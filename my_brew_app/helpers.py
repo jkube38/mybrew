@@ -1,9 +1,11 @@
 import requests
+from django.http import HttpResponse
 from decouple import config
 import string
 import random
 from my_brew_app.forms import StateSearchForm
-from my_brew_notifications.models import UserPostNotification
+from my_brew_app.models import MyBrewUser
+from django.core import serializers
 
 
 def state_search(request):
@@ -36,3 +38,15 @@ def string_generator():
     url_snippet = ''.join(
         random.choice(letters + numbers) for i in range(length))
     return url_snippet
+
+
+def username_search(request, user_input):
+    searching = MyBrewUser.objects.all()
+
+    results = []
+    for result in searching:
+        if user_input in result.username:
+            results.append(result)
+    j_results = serializers.serialize('json', results)
+    print(results)
+    return HttpResponse(j_results, content_type='text/json-comment-filtered')
