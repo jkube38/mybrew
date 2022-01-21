@@ -29,6 +29,32 @@
     margin: 0 0 0 0;
 }
 
+#user_search_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 0 0 0;
+}
+
+#id_username_search {
+    border-width: 0;
+    background-color: black;
+    border-bottom: 1px solid white;
+    font-family: 'Poiret One', cursive;
+    color: white;
+    font-size: x-large;
+    margin: 0 0 5px 0;
+    text-align: center;
+}
+
+#userSearchButton {
+    background-color: black;
+    color: white;
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    border: none;
+}
+
 #id_state_search {
     border-width: 0;
     background-color: black;
@@ -159,7 +185,7 @@
    position: absolute;
    top: 80px;
    left: 70%;
-   width: 350px;   
+   width: 400px;   
 }
 
 #notificationTitle {
@@ -432,4 +458,57 @@
 .modalPostImage {
     width: 50%;
     margin-left: 25%;
+}
+
+#userSearchResults {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    z-index: 1;
+    width: 350px;
+    backdrop-filter: blur(5px);
+    background-color: hsla(0, 0%, 100%, 0.145);
+}
+
+.userSearchResultHolder {
+    background-color: rgba(255, 255, 255, 0);
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: .5px solid rgb(125, 172, 66);
+}
+
+.userSearchResultHolder:hover {
+    background-color: black;
+    cursor: pointer;
+}
+
+.resultsText {
+    font-family: 'Poiret One', cursive;
+    color: rgb(125, 172, 66);
+    margin: 0 0 2px 0;
+}
+
+.resultsText2 {
+    font-family: 'Poiret One', cursive;
+    color: rgb(125, 172, 66);
+    margin: 0 0 2px 0;
+    font-size: small;
+}
+
+.resultUserImage {
+    background-color: black;
+    height: 35px;
+    width: 35px;
+    background-size: cover;
+    border-radius: 50%;
+    margin: 0 10px 0 10px;
+}
+
+.resultInfo {
+    display: flex;
+    flex-direction: column;
+
 }

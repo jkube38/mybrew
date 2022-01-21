@@ -11,7 +11,7 @@ from my_brew_app.models import MyBrewUser, TemporaryUrl
 from my_brew_brewery.models import MyBrewBrewery
 from my_brew_app.forms import SignUpForm, LoginForm, StateSearchForm
 from my_brew_app.forms import ResetRequest, ResetPasswordForm
-from my_brew_app.forms import UserUpdateForm
+from my_brew_app.forms import UserUpdateForm, UserSearchForm
 from my_brew_posts.forms import UserPostForm, PostCommentForm
 from my_brew_app.helpers import state_search
 from my_brew_app.helpers import string_generator
@@ -25,11 +25,8 @@ import requests
 # Create your views here.
 def signup_view(request):
     '''Provides form for user to register'''
-    print('IN SIGNUP VIEW --------------->>>')
     if request.is_ajax():
-        print('PAST AJAX--------------->>')
         form = SignUpForm(request.POST)
-        print('FORM ERRORS ----------->>> ', form.errors)
         if form.is_valid():
             data = form.cleaned_data
             try:
@@ -148,7 +145,7 @@ def home_view(request):
     login_form = LoginForm()
     state_form = StateSearchForm()
     user_initials = request.user.username[0:2]
-
+    user_search_form = UserSearchForm()
     context.update({
         'user_initials': user_initials,
         'local_brews': local_brews,
@@ -158,7 +155,8 @@ def home_view(request):
         'favorite_list': favorite_list,
         'login_form_errors': login_form_errors,
         'notifications': notifications,
-        'signup_form': signup_form
+        'signup_form': signup_form,
+        'user_search_form': user_search_form
     })
     return render(request, 'home.html', context)
 
@@ -198,6 +196,7 @@ def user_profile_view(request, username):
     initials = user.username[:2]
 
     state_form = StateSearchForm()
+    user_search_form = UserSearchForm()
     post_form = UserPostForm()
     comment_form = PostCommentForm()
     context.update({
@@ -210,7 +209,8 @@ def user_profile_view(request, username):
         'relevant_posts': relevant_posts,
         'following_usernames': following_usernames,
         'notifications': notifications,
-        'comment_form': comment_form
+        'comment_form': comment_form,
+        'user_search_form': user_search_form,
     })
     return render(request, 'user_profile.html', context)
 
@@ -409,7 +409,6 @@ def reset_request_view(request):
                 print('except: ', non_existent)
 
             if non_existent is False:
-                print('why am i in here', non_existent)
                 request_user = user.username
                 random_string = string_generator()
 
@@ -475,7 +474,7 @@ def password_reset_view(request, username, snippet):
                     user.set_password(new_password)
                     user.save()
                     temporary.delete()
-                    return redirect(reverse('login'))
+                    return redirect(reverse('home'))
                 else:
                     match_error = 'Passwords did not match try again!'
 
