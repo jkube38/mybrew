@@ -90,6 +90,27 @@
             </div>
         </div>
         {% endif %}
+        <div id='postEditModalHolder'>
+            <div id='postEditModal'>
+                <div id='editPostFormHeader'>
+                    <h3 id='editCancel'>cancel</h3>
+                </div>
+                <form  action='' method="post" enctype='multipart/form-data' id='editPostForm'>
+                    {% csrf_token %}
+                    {{ edit_post_form }}
+                    <div id='editPostOptionsHolder'>
+                        <label for='id_post_pic_edit' id='editFileLabel'><img src="/static/images/image_upload_icon.png" alt="image upload icon" id="editUploadIcon"></label>
+                        <div id='imageDetailsHolder'>
+                            <h3 id='editImgPostCheck'></h3>
+                            <div id='editRemoveImageHolderPost'>
+                                <h3 id='editRemoveImagePost'>X</h3>
+                            </div>
+                        </div>
+                        <input type="submit" value="UPDATE" id='editPostButton'>
+                    </div>
+                </form>
+            </div>
+        </div>
         {% include 'following_posts.html' %}
     </div>
     <div id='followingHolder'>
@@ -244,6 +265,7 @@
                 let tempHideShow = $(`#downArrowHolder${post_id}`)
                 if (tempHideShow.css('display') === 'none') {
                     tempHideShow.css('display', 'flex')
+                    tempHideShow.css('align-items', 'baseline')
                 }
 
             }
@@ -295,7 +317,7 @@
         }
         else if ($(`#allCommentHolder${commentId}`).css('display') === 'none') {
             $(`#allCommentHolder${commentId}`).css('display', 'flex')
-            $(arrow).css('transform', 'rotate(180deg)')
+            $(arrow).css('transform', 'rotate(135deg)')
             $(commentText).text('hide comments')
         }
     })
@@ -310,6 +332,8 @@
         }
     })
 
+
+    //removes the selected image from selected file for upload
     $('#removeImageHolderPost').on('click', function () {
         $('#id_post_pic').val('')
         $('#removeImageHolderPost').css('display', 'none')
@@ -321,6 +345,108 @@
         let currentUrl = $(location).attr('href').split('/')
         let vine = currentUrl[5]
         $(`#${vine}`).css('text-shadow', '0 0 10px #fff, 0 0 20px #fff, 0 0 30px rgb(125, 172, 66)')
+    })
+
+    //controls the comments menu
+    $('#allPostHolder').on('click', '.postMenu', function () {
+        let postID = $(this).data('value')
+        let menu = $(`#postMenuHolder${postID}`)
+
+        if(menu.css('display') === 'none'){
+            menu.css('display', 'flex')
+        } else if (menu.css('display') === 'flex') {
+            menu.css('display', 'none')
+        }
+
+        $(`#deletePost${postID}`).click(function () {
+            
+            $.ajax({
+                url: `/userpostdelete/${postID}/`,
+                success: function () {
+                    let thisPost = postID
+                    $(`#postContainer${thisPost}`).css('display', 'none')
+                    
+                }
+            })
+        })
+
+        $(`#editPost${postID}`).click(function () {
+            $('#postEditModalHolder').css('display', 'flex')
+
+            $.ajax({
+                url: `/postupdateformfill/${postID}`,
+                success: function (data) {
+                    let post = data
+                    $('#id_post_edit').val(post)
+
+                    $('#id_post_pic_edit').change(function () {
+                        let fileName = $('#id_post_pic_edit').val().split('\\')[2]
+
+                        if ($('#id_post_pic_edit').val() !== ''){
+                            $('#editRemoveImageHolderPost').css('display', 'flex')
+                            $('#editImgPostCheck').text(fileName)
+                        }
+
+                    })
+
+                    $('#editRemoveImageHolderPost').on('click', function () {
+                        $('#id_post_pic_edit').val('')
+                        $('#editRemoveImageHolderPost').css('display', 'none')
+                        $('#editImgPostCheck').text('')
+                    })
+
+                    $('#editPostForm').on('submit', function (e) {
+                        e.preventDefault()
+                        let editForm = new FormData()
+
+                        let formPic = $('#id_post_pic_edit').prop('files')[0]
+                        let formComment = $('#id_post_edit').val()
+
+                        editForm.append('post_edit', formComment)
+                        editForm.append('post_pic_edit', formPic)
+                        editForm.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+
+                        $.ajax({
+                            url: `/userpostupdate/${postID}/`,
+                            type: 'POST',
+                            data: editForm,
+                            processData: false,
+                            contentType: false,
+                            success: function () {
+                                $('#postEditModalHolder').css('display', 'none')
+                                $('#allPostHolder').load(' #allPostHolder > *')
+                                $('#editPostForm').trigger('reset')
+                                $('#imageDetailsHolder').css('display', 'none')
+                            }
+
+                        })
+
+                    })
+                }
+            })
+
+        })
+    })
+
+
+    //cancel and close the post edit modal
+    $('#editCancel').click(function () {
+        $('#postEditModalHolder').css('display', 'none')
+        $('#editPostForm').trigger('reset')
+        $('#imageDetailsHolder').css('display', 'none')
+    })
+
+    //allows user to delete their own comments
+    $('#allPostHolder').on('click', '.commentDelete', function () {
+        let commentID = $(this).data('value').split('/')[1]
+        let commentTargetPost = $(this).data('value').split('/')[2]
+
+        $.ajax({
+            url: `/usercommentdelete/${commentID}/`,
+            success: function () {
+                $(`#allCommentHolder${commentTargetPost}`).load(` #allCommentHolder${commentTargetPost} > * `)
+            }
+        })
     })
 
 </script>

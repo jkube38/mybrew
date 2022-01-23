@@ -115,7 +115,7 @@ class StateSearchForm(forms.Form):
         label='State Search',
         required=True,
         widget=forms.TextInput(attrs={
-            'placeholder': 'Search By State'
+            'placeholder': 'Search Breweries'
         })
     )
 

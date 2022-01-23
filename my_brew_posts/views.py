@@ -1,5 +1,5 @@
 from django.http.response import HttpResponse
-from my_brew_posts.forms import UserPostForm, PostCommentForm
+from my_brew_posts.forms import UserPostForm, PostCommentForm, EditPostForm
 from my_brew_app.models import MyBrewUser
 from my_brew_posts.models import UserPost, PostComment
 from my_brew_notifications.models import UserPostNotification
@@ -127,3 +127,44 @@ def post_comment_view(request):
 
         post_id = post_target.id
     return HttpResponse(post_id)
+
+
+def delete_post_view(request, post_id):
+    if request.is_ajax():
+        post_to_delete = UserPost.objects.get(id=post_id)
+        post_to_delete.delete()
+    return HttpResponse()
+
+
+def update_post_data(request, post_id):
+    if request.is_ajax():
+        updating_post = UserPost.objects.get(id=post_id)
+
+        post = updating_post.post
+
+    return HttpResponse(post)
+
+
+def update_post_view(request, post_id):
+    if request.is_ajax():
+        form = EditPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            data = form.cleaned_data
+            post_to_edit = UserPost.objects.get(id=post_id)
+            if data['post_pic_edit']:
+                post_to_edit.post = data['post_edit']
+                post_to_edit.post_pic = data['post_pic_edit']
+                post_to_edit.save()
+            else:
+                post_to_edit.post = data['post_edit']
+                post_to_edit.save()
+
+    return HttpResponse()
+
+
+def delete_comment_view(request, comment_id):
+
+    target_comment = PostComment.objects.get(id=comment_id)
+    target_comment.delete()
+
+    return HttpResponse()

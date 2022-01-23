@@ -62,6 +62,26 @@ urlpatterns = [
     ),
     path('userpostsubmission/', p_views.user_post_view, name='userpost'),
     path(
+        'userpostdelete/<int:post_id>/',
+        p_views.delete_post_view,
+        name='post_delete'
+    ),
+    path(
+        'usercommentdelete/<int:comment_id>/',
+        p_views.delete_comment_view,
+        name='delete_comment'
+    ),
+    path(
+        'userpostupdate/<int:post_id>/',
+        p_views.update_post_view,
+        name='update_post'
+    ),
+    path(
+        'postupdateformfill/<int:post_id>/',
+        p_views.update_post_data,
+        name='update_post_data'
+    ),
+    path(
         'updateuser/<int:user_id>/',
         views.update_user_view,
         name='update_user'

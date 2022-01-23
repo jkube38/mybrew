@@ -196,8 +196,7 @@
 
     $('#userSearchResults').on('click', '.userSearchResultHolder', function () {
         let username = $(this).data('value')
-        // window.location = `http://127.0.0.1:8000/profile/${username}/followingVine/`
-        window.location = `mybrew.user/profile${username}/followingVine`
+        window.location = `/profile/${username}/followingVine/`
     })
 
 </script>
