@@ -1,13 +1,29 @@
 <div id='allPostHolder'>
     {% for post in relevant_posts %}
+    <div id='postContainer{{ post.0.pk }}' class='postContainer'>
         <div class='postHolder' id="postHolder{{ post.0.pk }}">
             <div class='commentUserDetails'>
-                {% if post.0.created_by.profile_pic %}
-                    <a href='/profile/{{ post.0.created_by.username }}/followingVine/' class="commentAtLink" ><div class='imgHolder'style="background-image: url('{{ post.0.created_by.profile_pic.url }}'); background-size: cover;"></div></a>
-                {% else %}
-                    <div class='postUserInitials'></div>
+                <div class='posterDetails'>
+                    {% if post.0.created_by.profile_pic %}
+                        <a href='/profile/{{ post.0.created_by.username }}/followingVine/' class="commentAtLink" ><div class='imgHolder'style="background-image: url('{{ post.0.created_by.profile_pic.url }}'); background-size: cover;"></div></a>
+                    {% else %}
+                        <div class='postUserInitials'></div>
+                    {% endif %}
+                    <h4 class='poster'><a href='/profile/{{ post.0.created_by.username }}/followingVine/' class="commentAtLink" >@{{ post.0.created_by }}</a></h4>
+                </div>
+                {% if request.user.username == post.0.created_by.username %}
+                <div class='postMenu' data-value="{{post.0.id}}">
+                    <div class='menuDots'></div>
+                    <div class='menuDots'></div>
+                    <div class='menuDots'></div>
+                    <div class='postMenuHolder' id='postMenuHolder{{post.0.id}}'>
+                        <div class='postButtonHolder'>
+                            <h3 class='postMenuButton' id='deletePost{{ post.0.id }}'>delete post</h3>
+                            <h3 class='postMenuButton' id='editPost{{ post.0.id}}'>edit post</h3>
+                        </div>
+                    </div>
+                </div>
                 {% endif %}
-                <h4 class='poster'><a href='/profile/{{ post.0.created_by.username }}/followingVine/' class="commentAtLink" >@{{ post.0.created_by }}</a></h4>
             </div>
             <div class='postTextHolder'>
                 <p class='post'>{{ post.0.post }}</p>
@@ -49,12 +65,12 @@
             {% if post.2 %}
                 <div class="downArrowHolder">
                     <h4 class="displayCommentText" id="displayCommentText{{ post.0.pk }}">hide comments</h4>
-                    <h4 class="downArrow" data-value="{{ post.0.pk }}" id="arrow{{ post.0.pk }}">V</h4>
+                    <div class="downArrow" data-value="{{ post.0.pk }}" id="arrow{{ post.0.pk }}"></div>
                 </div>
             {% else %}
                 <div class="downArrowHolder" id="downArrowHolder{{ post.0.pk}}" style="display: none;">
                     <h4 class="displayCommentText" id="displayCommentText{{ post.0.pk }}">hide comments</h4>
-                    <h4 class="downArrow" data-value="{{ post.0.pk }}" id="arrow{{ post.0.pk }}">V</h4>
+                    <h4 class="downArrow" data-value="{{ post.0.pk }}" id="arrow{{ post.0.pk }}"></h4>
                 </div>
             {% endif %}
         </div>
@@ -68,6 +84,9 @@
                     <div class="commentDetails">
                         <div class="commentHeader">
                             <h4 class='commenterName'><a href='/profile/{{ comment.commenter.username }}/followingVine/' class="commentAtLink" >@{{ comment.commenter.username }}</a> - commented</h4>
+                            {% if request.user.username == comment.commenter.username %}
+                                <h4 class='commentDelete' data-value="deleteComment/{{comment.id}}/{{post.0.id}}">delete</h4>
+                            {% endif %}
                         </div>
                         <div class="commentTextImg">
                             <h4 class="commentText">{{ comment.comment }}</h4>
@@ -83,5 +102,6 @@
             </div>
             {% endfor %}
         </div>
+    </div>
     {% endfor %}
 </div>

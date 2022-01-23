@@ -12,7 +12,7 @@ from my_brew_brewery.models import MyBrewBrewery
 from my_brew_app.forms import SignUpForm, LoginForm, StateSearchForm
 from my_brew_app.forms import ResetRequest, ResetPasswordForm
 from my_brew_app.forms import UserUpdateForm, UserSearchForm
-from my_brew_posts.forms import UserPostForm, PostCommentForm
+from my_brew_posts.forms import UserPostForm, PostCommentForm, EditPostForm
 from my_brew_app.helpers import state_search
 from my_brew_app.helpers import string_generator
 from my_brew_notifications.views import header_notifications_view
@@ -146,6 +146,7 @@ def home_view(request):
     state_form = StateSearchForm()
     user_initials = request.user.username[0:2]
     user_search_form = UserSearchForm()
+    print(favorite_list)
     context.update({
         'user_initials': user_initials,
         'local_brews': local_brews,
@@ -198,6 +199,7 @@ def user_profile_view(request, username):
     state_form = StateSearchForm()
     user_search_form = UserSearchForm()
     post_form = UserPostForm()
+    edit_post_form = EditPostForm()
     comment_form = PostCommentForm()
     context.update({
         'state_form': state_form,
@@ -211,6 +213,7 @@ def user_profile_view(request, username):
         'notifications': notifications,
         'comment_form': comment_form,
         'user_search_form': user_search_form,
+        'edit_post_form': edit_post_form
     })
     return render(request, 'user_profile.html', context)
 
