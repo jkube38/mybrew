@@ -25,12 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 if DEBUG:
     ALLOWED_HOSTS = ['*']
 else:
-    ALLOWED_HOSTS = ['167.99.124.30', '.mybrew.site']
+    ALLOWED_HOSTS = ['167.99.124.30', 'mybrew.site']
 
 
 # Application definition
@@ -145,10 +145,10 @@ MEDIA_URL = '/media/'
 # before pushing for deployed upgrade uncomment static root and
 # in STATICFILES_DIRS change static to staticfiles
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "staticfiles"),
 ]
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = 'my_brew_app.MyBrewUser'
