@@ -53,6 +53,12 @@
                 <a href="/updateuser/{{ request.user.id }}/" id="updateUser">Update Profile</a>
                 {% endif %}
             </div>
+            {% if my_brewery and request.user.username == user.username %}
+                <div id='myBreweryHolder'>
+                    <h3 id='myBreweryTitle'>My Brewery</h3>
+                    <a href='/brewerypage/{{ my_brewery }}/' id='breweryLink'><h3 id='myBrewery'>{{ my_brewery }}</h3></a>
+                </div>
+            {% endif %}
         </div>
     </div>
     <div id='postFeed'>
@@ -450,5 +456,7 @@
     })
 
 </script>
+{% load static %}
+<script src="{% static 'wundertest.js' %}"></script>
 {% endblock %}
 

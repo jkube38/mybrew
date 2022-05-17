@@ -55,6 +55,11 @@
     border: none;
 }
 
+#userSearchButton:hover {
+    /* cursor: pointer; */
+    color: rgb(125, 172, 66);
+}
+
 #id_state_search {
     border-width: 0;
     background-color: black;

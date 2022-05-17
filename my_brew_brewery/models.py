@@ -4,10 +4,10 @@ from django.db import models
 # your models here
 class MyBrewBrewery(models.Model):
     brewery_name = models.CharField(max_length=180, null=True)
-    brewery_logo = models.FileField(
+    brewery_logo = models.ImageField(
         blank=True, null=True, upload_to='brewery_images/'
     )
-    brewery_hero_image = models.FileField(
+    brewery_hero_image = models.ImageField(
         blank=True, null=True, upload_to='brewery_images/'
     )
     brewery_bio = models.TextField(null=True)
@@ -20,6 +20,13 @@ class MyBrewBrewery(models.Model):
     brewery_rating_total = models.IntegerField(default=0)
     brewery_num_votes = models.IntegerField(default=0)
     brewery_rating = models.FloatField(max_length=12, default=0)
+    brewery_moderator = models.ForeignKey(
+        'my_brew_app.MyBrewUser',
+        related_name='brewery_moderator',
+        on_delete=models.CASCADE, null=True,
+        blank=True
+    )
+    brewery_email = models.EmailField(max_length=254, blank=True)
 
     def __str__(self):
         return self.brewery_name

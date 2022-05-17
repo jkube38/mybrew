@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from my_brew_brewery.models import MyBrewBrewery
+from my_brew_brewery.brewery_forms import RegisterBreweryForm
+from my_brew_app.forms import StateSearchForm, UserSearchForm
 
 
 # Create your views here.
@@ -23,3 +25,26 @@ def rating_view(request, rated, id):
         return redirect(reverse('home'))
     else:
         return redirect(f'/stateresults/{ update_brewery.brewery_state }/')
+
+
+def register_brewery_view(request):
+    context = {}
+    user_search_form = UserSearchForm()
+    state_form = StateSearchForm()
+    register_form = RegisterBreweryForm()
+    context.update({
+        'register_form': register_form,
+        'state_form': state_form,
+        'user_search_form': user_search_form
+    })
+    return render(request, 'register_brewery.html', context)
+
+
+def brewery_profile(request, brewery_name):
+    context = {}
+    brewery = MyBrewBrewery.objects.get(brewery_name=brewery_name)
+
+    context.update({
+        'brewery': brewery
+    })
+    return render(request, 'brewery_profile.html', context)

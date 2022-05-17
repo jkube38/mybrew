@@ -9,52 +9,116 @@ body {
     margin: 50px 0 0 0;
 }
 
-#brewRegistry {
-    display: flex;
-    justify-content: center;
-    height: 350px;
-    width: 300px;
-    animation-name: formright;
-    animation-delay: 2s;
-    animation-duration: 2s;
-    animation-fill-mode: forwards;
-    z-index: 1;
-    background-color: #db9d30;
-}
+
 
 #brewRegistryForm {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    width: 35%;
     
-}
-
-#brewRegistryCover {
-    width: 300px;
-    height: 350px;
-    animation-name: coverleft;
-    animation-delay: 2s;
-    animation-duration: 2s;
-    animation-fill-mode: forwards;
-    z-index: 2;
-    background-color: #db9c30;
-}
-
-@keyframes formright {
-    from {position: relative; right: 150px;}
-    to {position: relative; right: 0;}
-}
-
-@keyframes coverleft {
-    from {position: relative; left: 150px;}
-    to {position: relative; left: 0;}
-}
-
-#registryCover {
-    max-height: 100%;
 }
 
 #required {
     margin: 0 0 0 0;
+}
+
+#id_brewery_name {
+    border-width: 0;
+    border-bottom: 2px solid rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    color: white;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    background-color: black;
+}
+
+#id_brewery_intro {
+    resize: none;
+    width: 70%;
+    background-color: rgba(170, 170, 170, 0.2);
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    color: white;
+    border: 0;
+    border-top: 1px solid rgb(125, 172, 66);
+    border-bottom: 1px solid rgb(125, 172, 66);
+}
+
+#id_brewery_address {
+    border-width: 0;
+    border-bottom: 2px solid rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    color: white;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    background-color: black;
+}
+
+#id_brewery_city {
+    border-width: 0;
+    border-bottom: 2px solid rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    color: white;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    background-color: black;
+}
+
+#id_brewery_state {
+    border-width: 0;
+    border-bottom: 2px solid rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    color: white;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    background-color: black;
+}
+
+#id_brewery_zip_code {
+    border-width: 0;
+    border-bottom: 2px solid rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    color: white;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    background-color: black;
+}
+
+#id_brewery_phone {
+    border-width: 0;
+    border-bottom: 2px solid rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    color: white;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    background-color: black;
+}
+
+#id_brewery_website {
+    border-width: 0;
+    border-bottom: 2px solid rgb(125, 172, 66);
+    font-family: 'Poiret One', cursive;
+    color: white;
+    font-size: x-large;
+    margin: 0 0 15px 0;
+    text-align: center;
+    background-color: black;
+}
+
+#id_brewery_logo {
+    color: white;
+    font-family: 'Poiret One', cursive;
+}
+
+#id_brewery_hero_image {
+    color: white;
+    font-family: 'Poiret One', cursive;
 }

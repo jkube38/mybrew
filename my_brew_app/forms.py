@@ -4,6 +4,12 @@ from my_brew_app.models import MyBrewUser
 from my_brew_app.state_choice import STATE_CHOICES
 
 
+brewery_owner_choices = (
+        (False, 'No'),
+        (True, 'Yes'),
+    )
+
+
 class SignUpForm(forms.Form):
 
     first_name = forms.CharField(
@@ -71,6 +77,8 @@ class SignUpForm(forms.Form):
         widget=forms.PasswordInput(attrs={
             'placeholder': 'password'
         }))
+
+    brewery_owner = forms.ChoiceField(choices=brewery_owner_choices)
 
 
 class LoginForm(forms.Form):
