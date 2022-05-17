@@ -986,3 +986,32 @@ input[type='file'] {
     color: rgb(125, 172, 66);
     cursor: pointer;
 }
+
+#myBreweryHolder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#myBreweryTitle {
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    color: white;
+    margin: 16px 0 5px 0;
+}
+
+#myBrewery {
+    font-family: 'Poiret One', cursive;
+    font-size: medium;
+    color: white;
+    margin: 0 0 0 0;
+}
+
+#myBrewery:hover {
+    cursor: pointer;
+    color: rgb(125, 172, 66);
+}
+
+#breweryLink {
+    text-decoration: none;
+}

@@ -37,6 +37,11 @@ urlpatterns = [
         name='user_profile_my_vine'
     ),
     path(
+        'brewerypage/<str:brewery_name>/',
+        b_views.brewery_profile,
+        name='brewery_profile'
+    ),
+    path(
         'profile/<str:username>/exploreVine/',
         views.user_profile_view,
         name='user_profile_explore_vine'
@@ -113,11 +118,11 @@ urlpatterns = [
     path('follow/<str:username>/', views.follow_user_view, name='follow'),
     path('unfollow/<str:username>/', views.unfollow_view, name='unfollow'),
     path('tempusers/', views.temp_all_users, name='temp'),
-    # path(
-    #     'registerbrewery/',
-    #     views.register_brewery,
-    #     name='register_brewery'
-    # ),
+    path(
+        'registerbrewery/',
+        b_views.register_brewery_view,
+        name='register_brewery'
+    ),
     path('admin/', admin.site.urls),
 ]
 

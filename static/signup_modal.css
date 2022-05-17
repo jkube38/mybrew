@@ -236,3 +236,10 @@ label {
     position: relative;
     left: -80px;
 }
+
+#registerBrewery {
+    font-family: 'Poiret One', cursive;
+    font-size: small;
+    color: rgb(125, 172, 66);
+    margin: 5px 0 15px 0;
+}

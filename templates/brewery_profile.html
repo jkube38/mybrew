@@ -1,0 +1,28 @@
+{% extends 'base_header.html' %}
+{% block content %}
+<head>
+    {% load static %}
+    <link rel='stylesheet' href="{% static 'brewery_profile.css' %}">
+    <title>My Brew |{{ brewery.brewery_name }}</title>
+</head>
+<div id='brewery_profile_holder'>
+    <div id='heroHolder'>
+        <img id='heroImage' src="{{brewery.brewery_hero_image.url}}" alt='{{brewery.brewery_name}} hero image'/>
+    </div>
+    <div id='breweryDetailsHolder'>
+        <img id='breweryLogo' src="{{ brewery.brewery_logo.url }}" alt='{{brewery.brewery_name}} logo'/>
+        <div id='breweryDetails'>
+            <h2 id='breweryName'>{{ brewery.brewery_name }}</h2>
+            <h3 id='breweryAddressOne'>{{ brewery.brewery_address }}</h3>
+            <h3 id='breweryAddressTwo'>{{ brewery.brewery_city }}, {{ brewery.brewery_state }} {{ brewery.brewery_zip }}</h3>
+            <h3 id='breweryPhone'>Phone: {{ brewery.brewery_phone }}</h3>
+            <h3 id='breweryEmail'>Email: {{ brewery.brewery_email }}</h3>
+        </div>
+    </div>
+        <div id='bioHolder'>
+            <div id='breweryBio'>
+                <p id='bioText'>{{ brewery.brewery_bio }}</p>
+            </div>
+        </div>
+</div>
+{% endblock %}

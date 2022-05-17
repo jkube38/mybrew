@@ -30,7 +30,7 @@ DEBUG = False
 if DEBUG:
     ALLOWED_HOSTS = ['*']
 else:
-    ALLOWED_HOSTS = ['167.99.124.30', '.mybrew.us']
+    ALLOWED_HOSTS = ['167.99.124.30', 'mybrew.site']
 
 
 # Application definition

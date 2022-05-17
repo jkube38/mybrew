@@ -38,12 +38,16 @@ def signup_view(request):
                     state=data['state'].capitalize(),
                     city=data['city'].capitalize(),
                     favorite_beer=data['favorite_beer'],
+                    brewer_owner=data['brewery_owner']
                 )
 
                 new_user = MyBrewUser.objects.get(username=data['usernameSU'])
                 new_user.set_password(data['passwordSU'])
                 new_user.save()
-                return HttpResponse('success')
+                if new_user.brewery_owner:
+                    return redirect(reverse('register_brewery'))
+                else:
+                    return HttpResponse('success')
 
             except IntegrityError as e:
                 error = str(e.__cause__)
@@ -195,6 +199,10 @@ def user_profile_view(request, username):
         follow.username for follow in request.user.followed_user.all()]
     following_breweries = user.followed_brewery.all()
     initials = user.username[:2]
+    my_brewery = ''
+    if request.user.brewery_owner:
+        my_brewery = MyBrewBrewery.objects.get(
+            brewery_moderator=request.user.id)
 
     state_form = StateSearchForm()
     user_search_form = UserSearchForm()
@@ -213,7 +221,8 @@ def user_profile_view(request, username):
         'notifications': notifications,
         'comment_form': comment_form,
         'user_search_form': user_search_form,
-        'edit_post_form': edit_post_form
+        'edit_post_form': edit_post_form,
+        'my_brewery': my_brewery
     })
     return render(request, 'user_profile.html', context)
 
