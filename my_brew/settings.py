@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.static',
+    'django.contrib.staticfiles',
     'my_brew_app',
     'my_brew_brewery',
     'my_brew_posts',
@@ -143,11 +143,11 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 # before pushing for deployed upgrade uncomment static root and
-# in STATICFILES_DIRS change static to staticfiles and in installed apps
-# change staticfiles to static
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "staticfiles"),
-]
+# in STATICFILES_DIRS change static to staticfiles
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "staticfiles"),
+# ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
