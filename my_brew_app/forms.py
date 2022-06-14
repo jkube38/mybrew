@@ -78,7 +78,9 @@ class SignUpForm(forms.Form):
             'placeholder': 'password'
         }))
 
-    brewery_owner = forms.ChoiceField(choices=brewery_owner_choices)
+    # brewery_owner = forms.ChoiceField(
+    #     choices=brewery_owner_choices
+    #     )
 
 
 class LoginForm(forms.Form):

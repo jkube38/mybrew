@@ -17,15 +17,16 @@
     <div id='homeLinkHolder'>
         <a href='/'><img src='{% static "images/hop_logo_white.png" %}' id='headerLogo' alt='My brew initial logo' /></a>
     </div>
+    {% if request.user.is_authenticated %}
     <div id='usernameSearchFormHolder'>
         <form  action='' method="post" id='user_search_form' style="display: flex; flex-direction: column; align-items: center;" >
             {% csrf_token %}
             {{ user_search_form }}
             <input type="submit" value="Search User" id='userSearchButton'>
         </form>
-        <div id='userSearchResults'>
-            
-        </div>
+    </div>
+    {% endif %}
+    <div id='userSearchResults'>
     </div>
     <div id='statesearchformHolder'>
         <form  action='' method="post" id='state_form' style="display: flex; flex-direction: column; align-items: center;" >

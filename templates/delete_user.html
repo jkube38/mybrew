@@ -1,0 +1,23 @@
+<div id='deleteUserModal'>
+    <div id='deleteWarningHolder'>
+        <div id='deleteTitle'>
+            <h2 id='deleteTitleText'>Account Removal</h2>
+        </div>
+        <div id='deleteBody'>
+            <h3 id='cantBeUndone'>
+                This action cannot be undone and your whole existence on this site will be removed!
+                <br>
+                If you would like to delete your account, hit delete below.
+                <br>
+                We thank you for checking us out, your presence will be missed.
+            </h3>
+            <a href="/deleteuser/" id='deleteLink'><h3 id='delete'>DELETE</h3></a>
+            <h4 id='rejoin'>You will always be able to rejoin us at anytime with a brand new account</h4>
+        </div>
+        <div id='deleteFooter'>
+            <h3 id='cancelDelete'>CANCEL</h3>
+            {% load static %}
+            <img src="{% static 'images/green_white_hop.png' %}" id='hopIcon' alt="green and white hop">
+        </div>
+    </div>
+</div>

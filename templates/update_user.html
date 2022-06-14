@@ -4,8 +4,12 @@
 <head>
     {% load static %}
     <link rel='stylesheet' href="{% static 'update_user.css' %}">
+    <link rel='stylesheet' href="{% static 'delete_user.css' %}">
     <title>My Brew | Update {{ request.user.username }}</title>
 </head>
+<!-- modal for delete user warning -->
+{% include 'delete_user.html' %}
+<!-- end warning modal -->
 <div id='formNText'>
     <form  action='' method="post" enctype='multipart/form-data' id='form'>
         {% csrf_token %}
@@ -16,11 +20,22 @@
         </div>
         <input type="submit" value="Update" id='updateButton'>
     </form>
+    <h3 id='deleteProfile'>DELETE PROFILE</h3>
 </div>
 <script>
     $('#id_profile_pic').change(function () {
         let file = $('#id_profile_pic').val().split('\\')[2]
         $('#filename').text(file)
+    })
+
+    $('#deleteProfile').click(function () {
+        $('#deleteUserModal').css('display', 'block')
+        $('body').css('overflow', 'hidden')
+    })
+
+    $('#cancelDelete').click(function () {
+        $('#deleteUserModal').css('display', 'none')
+        $('body').css('overflow', 'auto')
     })
 </script>
 {% endblock %}

@@ -4,6 +4,7 @@ body {
 
 #formNText {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 25px 0 0 0;
@@ -194,4 +195,16 @@ input[type='file'] {
     font-size: medium;
     margin: 0 0 0 0;
     color: rgb(125, 172, 66);
+}
+
+#deleteProfile {
+    font-family: 'Poiret One', cursive;
+    font-size: medium;
+    margin-top: 15px;
+    color: red;
+    margin-bottom: 15px;
+}
+
+#deleteProfile:hover {
+    cursor: pointer;
 }

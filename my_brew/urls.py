@@ -123,6 +123,7 @@ urlpatterns = [
         b_views.register_brewery_view,
         name='register_brewery'
     ),
+    path('deleteuser/', views.remove_user, name='remove_user'),
     path('admin/', admin.site.urls),
 ]
 
