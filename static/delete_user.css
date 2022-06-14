@@ -1,0 +1,99 @@
+#deleteUserModal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 10%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+#deleteWarningHolder {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    top: 10px;
+    background-color: #fefefe25;
+    backdrop-filter: blur(5px);    
+    margin: auto;
+    width: 50%;
+    height: 40%;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:10px; opacity:1}
+}
+
+#deleteTitle {
+    text-align: center;
+    background-color: rgb(10, 10, 10);
+    border-top: .5px solid rgb(125, 172, 66);
+}
+
+#deleteBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#deleteFooter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: rgb(10, 10, 10);
+    border-bottom: .5px solid rgb(125, 172, 66);
+    height: 20%;
+}
+
+#deleteTitleText {
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    color: rgb(125, 172, 66);
+    text-align: center;
+}
+
+#cantBeUndone {
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    color: rgb(125, 172, 66);
+    text-align: center;
+}
+
+#delete {
+    font-family: 'Poiret One', cursive;
+    font-size: x-large;
+    color: white;
+    font-weight: 700;
+}
+
+#rejoin {
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    color: rgb(125, 172, 66);
+    text-align: center;
+}
+
+#cancelDelete {
+    font-family: 'Poiret One', cursive;
+    font-size: large;
+    color: rgb(125, 172, 66);
+    margin-right: 1%;
+    margin-bottom: 10px;
+}
+
+#cancelDelete:hover {
+    cursor: pointer;
+}
+
+#hopIcon {
+    height: 60%;
+    margin-right: 5%;
+}

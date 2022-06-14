@@ -1,10 +1,11 @@
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import login, logout
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives, send_mail
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
+from django.conf import settings
 from itertools import chain
 from decouple import config
 from my_brew_app.models import MyBrewUser, TemporaryUrl
@@ -27,8 +28,11 @@ def signup_view(request):
     '''Provides form for user to register'''
     if request.is_ajax():
         form = SignUpForm(request.POST)
+        print(form)
         if form.is_valid():
+            print('form is valid')
             data = form.cleaned_data
+            print(data)
             try:
                 MyBrewUser.objects.create(
                     first_name=data['first_name'],
@@ -38,24 +42,43 @@ def signup_view(request):
                     state=data['state'].capitalize(),
                     city=data['city'].capitalize(),
                     favorite_beer=data['favorite_beer'],
-                    brewer_owner=data['brewery_owner']
+                    # brewery_owner=data['brewery_owner']
                 )
 
                 new_user = MyBrewUser.objects.get(username=data['usernameSU'])
                 new_user.set_password(data['passwordSU'])
                 new_user.save()
+
+                # send email to notify me of a new user
+                subject = 'New User Signup'
+                message = f'{ new_user.first_name } with the username ' \
+                          f'{ new_user.username } and email address ' \
+                          f'{ new_user.email } has just registered'
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = ['newsignup@mybrew.site']
+                send_mail(
+                    subject,
+                    message,
+                    email_from,
+                    recipient_list
+                )
+
                 if new_user.brewery_owner:
                     return redirect(reverse('register_brewery'))
                 else:
+                    print('success')
                     return HttpResponse('success')
 
             except IntegrityError as e:
                 error = str(e.__cause__)
                 error_type = error.split('.')[-1]
+                print('Error: ', error, 'Error Type: ', error_type)
                 if error_type == 'email':
                     return HttpResponse(error_type)
                 elif error_type == 'username':
                     return HttpResponse(error_type)
+        else:
+            print(form.errors.as_data())
     return HttpResponse('oops')
 
 
@@ -361,6 +384,12 @@ def update_user_view(request, user_id):
         'state_form': state_form
     })
     return render(request, 'update_user.html', context)
+
+
+def remove_user(request):
+    user_to_delete = MyBrewUser.objects.get(username=request.user)
+    user_to_delete.delete()
+    return redirect('home')
 
 
 def error_404(request, exception):
