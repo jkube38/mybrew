@@ -290,7 +290,10 @@ def favorite_brewery_view(request, brew_name):
 
     request.user.followed_brewery.add(add_to_followed_brewery)
     request.user.save()
-    if add_to_followed_brewery.brewery_city == request.user.city:
+
+    brewery_city = add_to_followed_brewery.brewery_city.lower()
+    user_city = request.user.city.lower()
+    if brewery_city == user_city:
         return redirect(reverse('home'))
     else:
         print(add_to_followed_brewery)
@@ -330,6 +333,7 @@ def state_view(request, state):
     for brewery in db_breweries:
         for state in state_search_results:
             if brewery.brewery_name == state['name']:
+                print(brewery, state)
                 state['id'] = brewery.id
                 state['brewery_rating'] = brewery.brewery_rating
     user_initials = request.user.username[0:2]

@@ -145,16 +145,17 @@ MEDIA_URL = '/media/'
 # before pushing for deployed upgrade uncomment static root and
 # and comment out static files
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static"),
+# ]
 # ^^^comment out for push and uncomment belowvvvvvv
 
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'staticfiles')
-# ]
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'staticfiles')
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
 
 AUTH_USER_MODEL = 'my_brew_app.MyBrewUser'
 
@@ -163,22 +164,10 @@ AUTH_USER_MODEL = 'my_brew_app.MyBrewUser'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Development email
-# EMAIL_HOST = 'localhost'
-# EMAIL_PORT = 1025
-# EMAIL_HOST_USER = ''
-# EMAIL_HOST_PASSWORD = ''
-# EMAIL_USE_TLS = False
-
-
-# myaccount.google.com/lesssecureapps
-# accounts.google.com/DisplayUnlockCaptcha
-# Deployment email
-
+# Email Settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp-relay.gmail.com'
 EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('MY_EMAIL')
 EMAIL_HOST_PASSWORD = config('MY_EMAIL_PASS')
-# EMAIL_USE_SSL = True
