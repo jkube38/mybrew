@@ -22,7 +22,7 @@ from my_brew_notifications import views as n_views
 from my_brew_app.helpers import username_search
 from my_brew import settings
 from django.contrib.staticfiles.urls import static
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+# from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
 urlpatterns = [
@@ -131,5 +131,5 @@ urlpatterns = [
 handler404 = 'my_brew_app.views.error_404'
 handler500 = 'my_brew_app.views.error_500'
 
-urlpatterns += staticfiles_urlpatterns()
+# urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
