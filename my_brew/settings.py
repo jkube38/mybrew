@@ -172,4 +172,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('MY_EMAIL')
 EMAIL_HOST_PASSWORD = config('MY_EMAIL_PASS')
 
-ADMINS = [('JORDAN', config('MY_EMAIL')]
+ADMINS = [('JORDAN', config('MY_EMAIL'))]
