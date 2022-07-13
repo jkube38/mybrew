@@ -24,10 +24,10 @@
             {{ user_search_form }}
             <input type="submit" value="Search User" id='userSearchButton'>
         </form>
+        <div id='userSearchResults'>
+        </div>
     </div>
     {% endif %}
-    <div id='userSearchResults'>
-    </div>
     <div id='statesearchformHolder'>
         <form  action='' method="post" id='state_form' style="display: flex; flex-direction: column; align-items: center;" >
             {% csrf_token %}
@@ -170,7 +170,6 @@
             url: `/usernamesearch/${user_input}/`,
             success: function (results) {
                 // console.log(results)
-
                 $.each(results, function () {
                     console.log(this.fields)
                     $('#userSearchResults').append(

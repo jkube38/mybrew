@@ -1,8 +1,7 @@
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import login, logout
-from django.core.mail import EmailMultiAlternatives, send_mail
-from django.template.loader import render_to_string
+from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.conf import settings
@@ -49,7 +48,7 @@ def signup_view(request):
                 new_user.set_password(data['passwordSU'])
                 new_user.save()
 
-                # send email to notify me of a new user
+# send email to notify me of a new user
                 subject = 'New User Signup'
                 message = f'{ new_user.first_name } with the username ' \
                           f'{ new_user.username } and email address ' \
@@ -338,6 +337,7 @@ def state_view(request, state):
                 state['brewery_rating'] = brewery.brewery_rating
     user_initials = request.user.username[0:2]
     state_form = StateSearchForm()
+    user_search_form = UserSearchForm()
     state = state_search_results[0]['state']
     context.update({
         'state_form': state_form,
@@ -346,7 +346,9 @@ def state_view(request, state):
         # 'state_brews': state_brews,
         'fave_list_ids': fave_list_ids,
         'notifications': notifications,
-        'user_initials': user_initials
+        'user_initials': user_initials,
+        'favorite_list': favorite_list,
+        'user_search_form': user_search_form
     })
     return render(request, 'state_results.html', context)
 
@@ -447,11 +449,9 @@ def reset_request_view(request):
             email = data['email']
 
             try:
-                print('try: ', non_existent)
                 user = MyBrewUser.objects.get(email=email)
             except MyBrewUser.DoesNotExist:
                 non_existent = True
-                print('except: ', non_existent)
 
             if non_existent is False:
                 request_user = user.username
@@ -467,19 +467,17 @@ def reset_request_view(request):
 
 # Email Data
                 subject = 'MyBrew Password Reset'
-                from_email = None
-                to = email
-                text_content = 'Follow the link to reset your password'
-                html_content = render_to_string('email.html', {
-                    'request_user': request_user,
-                    'random_snippet': random_snippet.snippet
-                })
-
-# Email Config
-                msg = EmailMultiAlternatives(
-                    subject, text_content, from_email, [to])
-                msg.attach_alternative(html_content, 'text/html')
-                msg.send()
+                message = f'Follow the link to reset your password \n' \
+                          f'https://www.mybrew.site/passwordreset/' \
+                          f'{request_user}/{random_snippet.snippet}'
+                email_from = settings.EMAIL_HOST_USER
+                recipeint_list = [email]
+                send_mail(
+                    subject,
+                    message,
+                    email_from,
+                    recipeint_list
+                )
 
     state_form = StateSearchForm()
     context.update({
@@ -502,7 +500,6 @@ def password_reset_view(request, username, snippet):
         return redirect(f'/stateresults/{state_breweries[0]["state"]}/')
 
     match_error = None
-
     temporary = TemporaryUrl.objects.get(snippet=snippet)
     if temporary:
         context = {}

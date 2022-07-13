@@ -43,7 +43,7 @@ body {
 }
 
 #welcomeText {
-    font-family: 'Poiret One', cursive;
+    font-family: 'Poiret One';
     font-size: 24px;
     color: black;
     width: 90%;
@@ -56,7 +56,7 @@ body {
 }
 
 #noticeText {
-    font-family: 'Poiret One', cursive;
+    font-family: 'Poiret One';
     font-size: x-large;
     color: rgb(125, 172, 66);
 }
@@ -79,7 +79,7 @@ body {
 }
 
 #searchButton {
-    font-family: 'Poiret One', cursive;
+    font-family: 'Poiret One';
     font-size: x-large;
     border: none;
     background-color: white;
@@ -99,7 +99,7 @@ body {
 #id_state_search {
     border-width: 0;
     border-bottom: 2px solid black;
-    font-family: 'Poiret One', cursive;
+    font-family: 'Poiret One';
     font-size: x-large;
     margin: 0 0 15px 0;
     text-align: center;
@@ -121,7 +121,7 @@ body {
 #id_username {
     border-width: 0;
     border-bottom: 2px solid black;
-    font-family: 'Poiret One', cursive;
+    font-family: 'Poiret One';
     font-size: x-large;
     margin: 0 0 15px 0;
     text-align: center;
@@ -130,14 +130,14 @@ body {
 #id_password {
     border-width: 0;
     border-bottom: 2px solid black;
-    font-family: 'Poiret One', cursive;
+    font-family: 'Poiret One';
     font-size: x-large;
     margin: 0 0 15px 0;
     text-align: center;
 }
 
 #loginButton {
-    font-family: 'Poiret One', cursive;
+    font-family: 'Poiret One';
     font-size: x-large;
     border: none;
     background-color: white;
@@ -149,7 +149,7 @@ body {
 }
 
 #signup {
-    font-family: 'Poiret One', cursive;
+    font-family: 'Poiret One';
     font-size: xx-large;
     margin: 50px 0 0 0;
     color: black;
@@ -163,7 +163,7 @@ body {
 
 #loginError {
     color: red;
-    font-family: 'Poiret One', cursive;
+    font-family: 'Poiret One';
     font-size: large;
 
 }
@@ -206,13 +206,13 @@ body {
 
 .siteInfo {
     color: white;
-    font-family: 'Poiret One', cursive;
+    font-family: 'Poiret One';
     font-size: large;
     margin: 5px 0 0 0;
 }
 
 #forgot {
-    font-family: 'Poiret One', cursive;
+    font-family: 'Poiret One';
     font-size: medium;
     margin: 5px 0 5px 0;
 }
