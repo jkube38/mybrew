@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 if DEBUG:
     ALLOWED_HOSTS = ['*']
@@ -140,9 +140,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'static/'
+
+# vvvvv Deployment Static settings vvvv
+
+# STATIC_ROOT = 'static/'
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'staticfiles')
+# ]
+
+# vvvv Development Static settings vvvv
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'staticfiles')
+    os.path.join(BASE_DIR, 'static')
 ]
 
 MEDIA_URL = '/media/'
@@ -162,3 +171,5 @@ EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('MY_EMAIL')
 EMAIL_HOST_PASSWORD = config('MY_EMAIL_PASS')
+
+ADMINS = [('JORDAN', config('MY_EMAIL')]

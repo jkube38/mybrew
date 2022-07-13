@@ -25,6 +25,17 @@
             <h2 id='favoriteBeerTitle'>My Go To Beer</h2>
             <h2 id='favoriteBeer'>{{ request.user.favorite_beer}}</h2>
         </div>
+        <div id='favoritesHolder'>
+            <div id='favTitleHolder'>
+                <h2 id='favTitle'>My Favorites</h2>
+            </div>
+            <div id='favList'>
+                {% for favorite in favorite_list %}
+                    <h3 class='fave'>{{ favorite.brewery_name }}</h3>
+                    <h4 class='faveState'>{{ favorite.brewery_state }}</h4>
+                {% endfor %}
+            </div>
+        </div>
     </div>
     <div id='breweryHolder'>
         <h2 id='breweriesTitle'>Registered Breweries in {{ state }}</h2>

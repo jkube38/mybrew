@@ -1,8 +1,15 @@
 const get_div = document.getElementById('breweryHolder').children.length - 1
+// hopIcons = document.getElementsByClassName('beerGlass')
+
+// for(let icon = 0; i < hopIcons.length; icon++) {
+//     hopIcons[icon].addEventListener('mouseover', hop1[icon]hover())
+// }
+
 // rating hover will not work if any elements are added or deleted from the breweryHolder div
 // adjust get_div accordingly
 function ratingIcons1() {
     hopFunctions = []
+
     for(let brewery = 1; brewery < get_div + 1; brewery++){
         for(let hop = 1; hop < 6; hop++){
 
