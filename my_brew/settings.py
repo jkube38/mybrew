@@ -25,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 if DEBUG:
-    ALLOWED_HOSTS = ['*', '167.99.124.30', 'mybrew.site', 'www.mybrew.site']
+    ALLOWED_HOSTS = ['*']
 else:
     ALLOWED_HOSTS = ['167.99.124.30', 'mybrew.site', 'www.mybrew.site']
 
