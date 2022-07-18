@@ -315,6 +315,7 @@ def state_view(request, state):
 
 # if the user is signed in, creates a list of their followed brewery id's
     fave_list_ids = []
+    favorite_list = []
     brew_user = request.user
     if brew_user.is_anonymous is False:
         favorite_list = list((brew_user.followed_brewery.all()))
