@@ -225,3 +225,44 @@ body {
     text-decoration: none;
     color: black;
 }
+
+@media (max-width: 600px) {
+    #noticeText {
+        font-family: 'Poiret One';
+        font-size: medium;
+        text-align: center;
+        color: rgb(125, 172, 66);
+    }
+
+    #nonuserHomePage {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        margin: 15px 0 0 0;
+    }
+
+    #welcome {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 0 0 0;
+        width: 90%;
+        background-color: white;
+        border-radius: 5px;
+    }
+
+    #nonUserNav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 25px 0 0 0;
+        padding: 15px 0 15px 0;
+        width: 90%;
+        background-color: white;
+        border-radius: 5px;
+    }
+}
