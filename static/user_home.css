@@ -54,6 +54,10 @@ select:focus {
     text-align: center;
 }
 
+#id_state_search:focus, input:focus {
+    outline: none;
+}
+
 #stateSearchButton {
     background-color: black;
     color: white;
@@ -742,6 +746,10 @@ a:visited {
     font-size: x-large;
     margin: 0 0 5px 0;
     text-align: center;
+}
+
+#id_username_search:focus, input:focus {
+    outline: none;
 }
 
 #userSearchButton {

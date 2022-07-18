@@ -386,9 +386,11 @@ def update_user_view(request, user_id):
         })
 
     state_form = StateSearchForm()
+    user_search_form = UserSearchForm()
     context.update({
         'profile_form': profile_form,
-        'state_form': state_form
+        'state_form': state_form,
+        'user_search_form': user_search_form
     })
     return render(request, 'update_user.html', context)
 
